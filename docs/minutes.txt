@@ -1,0 +1,9 @@
+1. first window, take and save a picture.
+2. sign in windows
+3. register a student
+4. one priviledge? 
+	teacher -> blocked, 
+	dentist -> dentition status.
+5. retractable, between image and form.
+	diagnose a student.
+6. Dentition status section only
