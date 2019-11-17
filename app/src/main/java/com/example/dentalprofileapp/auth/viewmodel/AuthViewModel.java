@@ -5,15 +5,23 @@ import android.view.View;
 import androidx.lifecycle.ViewModel;
 
 public class AuthViewModel extends ViewModel {
-    String email;
-    String password;
-    AuthListener authListener = null;
+    public String email;
+    public String password;
+    public AuthListener authListener = null;
 
     public void onClickLogIn(View view) {
+        authListener.onStarted();
         if (email.isEmpty() && password.isEmpty()) {
             authListener.onFailure("Please input your email or password");
         }
+        authListener.onSuccess();
+    }
 
+    public void onClickRegister(View view) {
+        authListener.onStarted();
+        if (email.isEmpty() && password.isEmpty()) {
+            authListener.onFailure("Please input your email or password");
+        }
         authListener.onSuccess();
     }
 }

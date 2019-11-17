@@ -1,38 +1,30 @@
 package com.example.dentalprofileapp.auth.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
 import com.example.dentalprofileapp.R;
-import com.example.dentalprofileapp.auth.viewmodel.AuthListener;
 import com.example.dentalprofileapp.utils.ToastUtil;
-import com.example.dentalprofileapp.databinding.ActivityLoginBinding;
 
-public class LoginActivity extends AppCompatActivity implements AuthListener {
+public class LoginActivity extends AppCompatActivity {
 
     ToastUtil m_toastUtil = new ToastUtil(this);
-    ActivityLoginBinding activityLoginBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-    }
 
-    @Override
-    public void onStarted() {
-        m_toastUtil.createToastMessage("onStarted");
-    }
+        LoginFragment loginFragment = new LoginFragment();
 
-    @Override
-    public void onSuccess() {
-        m_toastUtil.createToastMessage("onSuccess");
-    }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-    @Override
-    public void onFailure(String message) {
-        m_toastUtil.createToastMessage("message");
+        fragmentTransaction.add(R.id.fragmentLogin, loginFragment);
+        fragmentTransaction.commit();
+        m_toastUtil.createToastMessage("Log-in Fragment Created");
     }
 }
