@@ -1,7 +1,11 @@
 package com.example.dentalprofileapp.auth.view;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -19,10 +23,11 @@ public class LoginFragment extends Fragment implements AuthListener {
     LayoutLoginBinding layoutLoginBinding;
     AuthViewModel authViewModel;
 
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initializeBindings();
+        return inflater.inflate(R.layout.layout_login, container, false);
     }
 
     private void initializeBindings() {

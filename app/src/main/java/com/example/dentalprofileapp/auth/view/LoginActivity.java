@@ -17,13 +17,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        m_toastUtil.createToastMessage("onCreate() called");
 
         LoginFragment loginFragment = new LoginFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.add(R.id.fragmentLogin, loginFragment);
+        fragmentTransaction.add(R.id.fragment_layout_login, loginFragment);
         fragmentTransaction.commit();
         m_toastUtil.createToastMessage("Log-in Fragment Created");
     }
