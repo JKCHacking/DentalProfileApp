@@ -14,6 +14,8 @@ public class AuthViewModel extends ViewModel {
         if (email.isEmpty() && password.isEmpty()) {
             authListener.onFailure("Please input your email or password");
         }
+        System.out.println("email: " + email);
+        System.out.println("password: " + password);
         authListener.onSuccess();
     }
 

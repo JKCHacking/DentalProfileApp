@@ -11,60 +11,74 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ScrollView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
             style="@style/parent">
-
             <RelativeLayout
-                style="@style/parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:weightSum="12"
-                    android:baselineAligned="false">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/login_header_design"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    style="@style/parent">
+
                     <LinearLayout
-                        style="@style/parent"
-                        android:background="@drawable/login_shape_bk"
-                        android:orientation="vertical"
-                        android:layout_weight="3">
-                        <ImageView
-                            style="@style/parent"
-                            android:background="@drawable/ic_login_bk"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:orientation="vertical"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp">
-                    <TextView
-                        style="@style/headerText"
-                        android:layout_gravity="center"
-                        android:text="@string/app_snipp"
-                        android:layout_marginTop="40dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:weightSum="12"
+                        android:baselineAligned="false">
+
+                        <LinearLayout
+                            style="@style/parent"
+                            android:background="@drawable/login_shape_bk"
+                            android:orientation="vertical"
+                            android:layout_weight="3">
+                            <ImageView
+                                style="@style/parent"
+                                android:background="@drawable/ic_login_bk"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+                        <TextView
+                            style="@style/headerText"
+                            android:layout_gravity="center"
+                            android:text="@string/app_snipp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/login_header_design"
+                    android:layout_centerInParent="true">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/fragment_layout_login"/>
                 </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

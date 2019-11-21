@@ -1,5 +1,6 @@
 package com.example.dentalprofileapp.auth.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,23 +20,19 @@ import com.example.dentalprofileapp.utils.ToastUtil;
 
 public class LoginFragment extends Fragment implements AuthListener {
 
-    ToastUtil m_toastUtil = new ToastUtil(getActivity());
+    Context m_Context;
+    ToastUtil m_toastUtil;
     LayoutLoginBinding layoutLoginBinding;
     AuthViewModel authViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initializeBindings();
-        return inflater.inflate(R.layout.layout_login, container, false);
-    }
-
-    private void initializeBindings() {
-        layoutLoginBinding = DataBindingUtil.setContentView(getActivity(), R.layout.layout_login);
-
+        layoutLoginBinding = DataBindingUtil.inflate(inflater, R.layout.layout_login, container, false);
         authViewModel = ViewModelProviders.of(this).get(AuthViewModel.class);
         authViewModel.authListener = this;
         layoutLoginBinding.setViewmodel(authViewModel);
+        return layoutLoginBinding.getRoot();
     }
 
     @Override
@@ -51,5 +48,18 @@ public class LoginFragment extends Fragment implements AuthListener {
     @Override
     public void onFailure(String message) {
         m_toastUtil.createToastMessage("message");
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        m_Context = context;
+        m_toastUtil = new ToastUtil(m_Context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        m_Context = null;
     }
 }
