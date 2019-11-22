@@ -30,11 +30,11 @@
                 android:layout_marginTop="@dimen/loginViewsMargin"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputEmail"
+                android:id="@+id/text_input_email"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin">
                 <EditText
-                    android:id="@+id/editTextEmail"
+                    android:id="@+id/edit_text_email"
                     style="@style/modifiedEditText"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -43,11 +43,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputPassword"
+                android:id="@+id/text_input_password"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin">
                 <EditText
-                    android:id="@+id/editTextPassword"
+                    android:id="@+id/edit_text_password"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
                     android:maxLines="1"
@@ -65,7 +65,7 @@
                 android:layout_marginTop="10dp"/>
 
             <Button
-                android:id="@+id/cirLoginButton"
+                android:id="@+id/cir_login_button"
                 style="@style/loginButton"
                 android:text="Login"
                 android:layout_gravity="center_horizontal"
@@ -74,14 +74,12 @@
 
             <TextView
                 style="@style/parent"
+                android:id="@+id/sign_up_button"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textColor="@color/primaryTextColor"
                 android:text="@string/login_signup_hint"
-                android:onClick="viewRegisterClicked"
                 android:layout_marginTop="@dimen/loginViewsMargin"/>
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

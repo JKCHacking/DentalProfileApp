@@ -29,10 +29,16 @@ public class LoginFragment extends Fragment implements AuthListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layoutLoginBinding = DataBindingUtil.inflate(inflater, R.layout.layout_login, container, false);
-        authViewModel = ViewModelProviders.of(this).get(AuthViewModel.class);
+        return layoutLoginBinding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        authViewModel = ViewModelProviders.of(getActivity()).get(AuthViewModel.class);
         authViewModel.authListener = this;
         layoutLoginBinding.setViewmodel(authViewModel);
-        return layoutLoginBinding.getRoot();
     }
 
     @Override
