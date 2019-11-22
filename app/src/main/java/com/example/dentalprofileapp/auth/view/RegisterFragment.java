@@ -37,6 +37,7 @@ public class RegisterFragment extends Fragment implements AuthListener {
 
         authViewModel = ViewModelProviders.of(getActivity()).get(AuthViewModel.class);
         authViewModel.authListener = this;
+        layoutRegisterBinding.setLifecycleOwner(getActivity());
         layoutRegisterBinding.setViewmodel(authViewModel);
     }
 

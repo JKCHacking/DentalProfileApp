@@ -79,7 +79,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/primaryTextColor"
                 android:text="@string/login_signup_hint"
-                android:layout_marginTop="@dimen/loginViewsMargin"/>
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                android:onClick="@{viewmodel::setLiveDataForRegistration}"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

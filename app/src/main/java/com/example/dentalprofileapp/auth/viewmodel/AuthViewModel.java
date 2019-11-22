@@ -17,8 +17,6 @@ public class AuthViewModel extends ViewModel {
         if ((email == null || email.isEmpty()) && (password == null || password.isEmpty()) ) {
             authListener.onFailure("Please input your email or password");
         }
-        System.out.println("email: " + email);
-        System.out.println("password: " + password);
         authListener.onSuccess();
     }
 
@@ -37,7 +35,13 @@ public class AuthViewModel extends ViewModel {
         return isDisplayLoginFrame;
     }
 
-    public void setIsDisplayLoginFrame(Boolean changeLiveData) {
-        isDisplayLoginFrame.setValue(changeLiveData);
+    public void setLiveDataForRegistration(View view) {
+        isDisplayLoginFrame.setValue(false);
     }
+
+    public void setLiveDataForLogin(View view) {
+        isDisplayLoginFrame.setValue(true);
+    }
+
+
 }
