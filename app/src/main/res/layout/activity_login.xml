@@ -66,15 +66,15 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@android:drawable/ic_menu_close_clear_cancel"
-                        android:visibility="@{() -> viewmodel.getIsDisplayLoginFrame() ? View.GONE : View.VISIBLE}"/>
+                        android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/login_header_design"
                     android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="125dp"
                     android:paddingHorizontal="15dp">
                     <FrameLayout
                         android:layout_width="match_parent"

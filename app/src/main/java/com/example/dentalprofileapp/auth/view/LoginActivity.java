@@ -12,11 +12,12 @@ import android.os.Bundle;
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.viewmodel.AuthViewModel;
 import com.example.dentalprofileapp.databinding.ActivityLoginBinding;
-import com.example.dentalprofileapp.utils.ToastUtil;
+//import com.example.dentalprofileapp.utils.ToastUtil;
+
 
 public class LoginActivity extends AppCompatActivity {
 
-    ToastUtil m_toastUtil = new ToastUtil(this);
+//    ToastUtil m_toastUtil = new ToastUtil(this);
     private AuthViewModel authViewModel;
     public ActivityLoginBinding activityLoginBinding;
 
@@ -48,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_layout_login, loginFragment);
                     fragmentTransaction.commit();
                 }
-
             }
         };
         authViewModel.getIsDisplayLoginFrame().observe(this, isDisplayObserver);
