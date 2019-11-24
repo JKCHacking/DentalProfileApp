@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.profile.repository.Patient;
-import com.example.dentalprofileapp.profile.repository.PatientItem;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListAdapter;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PatientListActivity extends AppCompatActivity {

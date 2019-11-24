@@ -12,9 +12,9 @@ public class Patient {
     private String patientName;
     private String barangay;
 
-    public Patient(int profilePicture, String name, String barangay) {
+    public Patient(int profilePicture, String patientName, String barangay) {
         this.profilePicture = profilePicture;
-        this.patientName = name;
+        this.patientName = patientName;
         this.barangay = barangay;
     }
 
