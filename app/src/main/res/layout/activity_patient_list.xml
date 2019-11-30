@@ -14,4 +14,12 @@
         android:scrollbars="vertical"
         android:background="@android:color/darker_gray"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_patient_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="32dp"/>
+
 </RelativeLayout>

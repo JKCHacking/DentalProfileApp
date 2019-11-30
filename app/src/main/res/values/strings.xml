@@ -6,4 +6,6 @@
     <string name="signup_login_hint">Already have an account? Sign In</string>
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="app_snipp">Dental Profile App</string>
+    <string name="view_local_records">View Local Records</string>
+    <string name="patient_s_full_name">Patient\'s Full Name</string>
 </resources>

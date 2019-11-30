@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         authViewModel = ViewModelProviders.of(this).get(AuthViewModel.class);
+        activityLoginBinding.setViewmodel(authViewModel);
+
         final Observer<Boolean> isDisplayObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {

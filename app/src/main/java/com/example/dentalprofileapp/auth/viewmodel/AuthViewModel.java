@@ -1,10 +1,14 @@
 package com.example.dentalprofileapp.auth.viewmodel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.dentalprofileapp.profile.view.PatientListActivity;
 
 public class AuthViewModel extends ViewModel {
     public String email;
@@ -41,6 +45,13 @@ public class AuthViewModel extends ViewModel {
 
     public void setLiveDataForLogin(View view) {
         isDisplayLoginFrame.setValue(true);
+    }
+
+    public void onClickShowPatientRecords(View view) {
+        System.out.println("OnClickShowPatientRecords");
+        Context context = view.getContext();
+        Intent intent = new Intent(context, PatientListActivity.class);
+        context.startActivity(intent);
     }
 
 

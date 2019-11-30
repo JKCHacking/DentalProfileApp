@@ -21,7 +21,7 @@ public class PatientListViewModel extends AndroidViewModel {
         allPatients = repository.getAllPatients();
     }
 
-    public void inset(Patient patient) {
+    public void insert(Patient patient) {
         repository.insert(patient);
     }
 

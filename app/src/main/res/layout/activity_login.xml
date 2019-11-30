@@ -5,7 +5,6 @@
     tools:context=".auth.view.LoginActivity">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="viewmodel"
             type="com.example.dentalprofileapp.auth.viewmodel.AuthViewModel" />
@@ -81,9 +80,22 @@
                         android:layout_height="match_parent"
                         android:id="@+id/fragment_layout_login"/>
                 </LinearLayout>
-
             </RelativeLayout>
         </ScrollView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/view_local_record_btn"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_local_records"
+                app:cornerRadius="10dp"
+                android:onClick="@{viewmodel::onClickShowPatientRecords}"/>
+        </LinearLayout>
     </RelativeLayout>
-
 </layout>
