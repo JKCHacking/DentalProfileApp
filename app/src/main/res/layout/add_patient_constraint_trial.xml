@@ -11,12 +11,22 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/label_lower_occlusal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <TextView
             android:id="@+id/label_patient_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Patient No:"
+            android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="1234"
+            android:text="TextView"
             app:layout_constraintEnd_toStartOf="@+id/label_date"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/label_patient_no"
@@ -37,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="12/2/2019"
+            android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Date:"
+            android:text="TextView"
             app:layout_constraintEnd_toStartOf="@+id/text_view_date"
             app:layout_constraintTop_toTopOf="@+id/text_view_date" />
 
@@ -62,11 +72,9 @@
             app:layout_constraintTop_toBottomOf="@+id/text_view_patient_no">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_full_name"
-                style="@style/addPatientEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/full_name" />
+                android:hint="hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -81,11 +89,9 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_full_name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_age"
-                style="@style/addPatientEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/age"
+                android:hint="hint"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,17 +111,16 @@
                 android:id="@+id/radio_button_male"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/male" />
+                android:text="RadioButton" />
 
             <RadioButton
                 android:id="@+id/radio_button_female"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/female" />
+                android:text="RadioButton" />
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_occupation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -126,11 +131,9 @@
             app:layout_constraintTop_toTopOf="@+id/radio_group_sex">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_occupation"
-                style="@style/addPatientEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/occupation" />
+                android:hint="hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
@@ -168,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Medical History"
+            android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -200,11 +203,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_allergies"
-                    style="@style/addPatientEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Allergies" />
+                    android:hint="hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -213,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Pregnant?"
+                android:text="TextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_allergies" />
 
@@ -232,13 +233,13 @@
                     android:id="@+id/radio_button_preg_yes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yes" />
+                    android:text="RadioButton" />
 
                 <RadioButton
                     android:id="@+id/radio_button_preg_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No" />
+                    android:text="RadioButton" />
             </RadioGroup>
 
             <TextView
@@ -247,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Comorbidities:"
+                android:text="TextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radio_group_yes_no" />
 
@@ -257,16 +258,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="None"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_comorbidities" />
 
             <CheckBox
-                android:id="@+id/check_box_bleeding_disorder"
+                android:id="@+id/Bleeding "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Bleeding Disorder"
+                android:layout_marginTop="8dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_none" />
 
@@ -274,8 +278,9 @@
                 android:id="@+id/check_box_kidney_disease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Kidney Disease"
+                android:layout_marginEnd="16dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/check_box_none" />
 
@@ -283,8 +288,10 @@
                 android:id="@+id/check_box_liver_disease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Liver Disease"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_kidney_disease" />
 
@@ -293,16 +300,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Cancer"
+                android:layout_marginTop="8dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/check_box_bleeding_disorder" />
+                app:layout_constraintTop_toBottomOf="@+id/Bleeding " />
 
             <CheckBox
                 android:id="@+id/check_box_stroke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Stroke"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_liver_disease" />
 
@@ -311,7 +322,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Diabetes"
+                android:layout_marginTop="8dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_cancer" />
 
@@ -319,8 +332,10 @@
                 android:id="@+id/check_box_thyroid_disease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Thyroid Disease"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_stroke" />
 
@@ -329,7 +344,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Hypertension"
+                android:layout_marginTop="8dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_diabetes" />
 
@@ -337,8 +354,10 @@
                 android:id="@+id/check_box_others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Others:"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="CheckBox"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/check_box_thyroid_disease" />
 
@@ -412,7 +431,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Upper Occlusal"
+            android:text="TextView"
             app:layout_constraintEnd_toEndOf="@+id/image_view_upper_occlusal"
             app:layout_constraintStart_toStartOf="@+id/image_view_upper_occlusal"
             app:layout_constraintTop_toBottomOf="@+id/image_view_upper_occlusal" />
@@ -422,70 +441,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Front Face"
+            android:text="TextView"
             app:layout_constraintEnd_toEndOf="@+id/image_view_front_face"
             app:layout_constraintStart_toStartOf="@+id/image_view_front_face"
             app:layout_constraintTop_toBottomOf="@+id/image_view_front_face" />
 
         <TextView
-            android:id="@+id/label_lower_occlusal"
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Lower Occlusal"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-        <TextView
-            android:id="@+id/label_front"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Front"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-        <TextView
-            android:id="@+id/label_right_buccal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Right Buccal"
-            app:layout_constraintEnd_toEndOf="@+id/image_view_right_buccal"
+            android:text="TextView"
             app:layout_constraintStart_toStartOf="@+id/image_view_right_buccal"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_right_buccal" />
-
-        <TextView
-            android:id="@+id/label_left_buccal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Left Buccal"
-            app:layout_constraintEnd_toEndOf="@+id/image_view_left_buccal"
-            app:layout_constraintStart_toStartOf="@+id/image_view_left_buccal"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_left_buccal" />
-
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="Save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_right_buccal" />
-
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="@android:string/cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_left_buccal" />
+            app:layout_constraintTop_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

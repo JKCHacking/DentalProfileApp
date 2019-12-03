@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile.view.AddPatientActivity"></activity>
+        <activity android:name=".profile.view.AddPatientActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profile.view.PatientListActivity" />
+        </activity>
         <activity android:name=".profile.view.PatientListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
