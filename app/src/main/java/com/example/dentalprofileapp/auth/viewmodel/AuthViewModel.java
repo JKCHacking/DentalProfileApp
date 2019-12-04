@@ -48,7 +48,6 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void onClickShowPatientRecords(View view) {
-        System.out.println("OnClickShowPatientRecords");
         Context context = view.getContext();
         Intent intent = new Intent(context, PatientListActivity.class);
         context.startActivity(intent);

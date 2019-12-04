@@ -41,6 +41,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+        this.notifyDataSetChanged();
     }
 
     public static class ProfileListViewHolder extends RecyclerView.ViewHolder {
