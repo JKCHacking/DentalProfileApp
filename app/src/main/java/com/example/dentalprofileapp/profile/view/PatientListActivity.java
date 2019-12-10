@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
-import com.example.dentalprofileapp.profile.repository.Patient;
+import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListAdapter;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
 
@@ -25,6 +25,7 @@ public class PatientListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("onCreate()");
         super.onCreate(savedInstanceState);
         activityPatientListBinding = DataBindingUtil.setContentView(this, R.layout.activity_patient_list);
         activityPatientListBinding.setLifecycleOwner(this);
@@ -44,7 +45,12 @@ public class PatientListActivity extends AppCompatActivity {
                 adapter.setPatients(patients);
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("onResume");
     }
 
     @Override

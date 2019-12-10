@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.dentalprofileapp.profile.repository.Patient;
+import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.repository.PatientRepository;
 import com.example.dentalprofileapp.profile.view.AddPatientActivity;
 
@@ -44,6 +44,7 @@ public class PatientListViewModel extends AndroidViewModel {
     public LiveData<List<Patient>> getAllPatients() {
         return allPatients;
     }
+
 
     public void onClickAddPatient(View view) {
         Context context = view.getContext();

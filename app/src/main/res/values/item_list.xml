@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="barangay_list">
+        <item>Pasonanca</item>
+        <item>Sta. Maria</item>
+        <item>Divisoria</item>
+    </array>
+    <array name="purok_list">
+        <item>Purok I</item>
+        <item>Purok II</item>
+    </array>
+</resources>

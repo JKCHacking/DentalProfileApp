@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.profile.entities.Patient;
 
 @Database(entities = {Patient.class}, version = 1, exportSchema = false)
 public abstract class PatientDatabase extends RoomDatabase {
@@ -21,7 +22,7 @@ public abstract class PatientDatabase extends RoomDatabase {
     public static synchronized PatientDatabase getInstance(Context context) {
         if(instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    PatientDatabase.class, "patient_database")
+                    PatientDatabase.class, "patient_database_trial_1")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -47,9 +48,42 @@ public abstract class PatientDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground, "Joshnee", "Pasonanca"));
-            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground, "Mikee", "Sta. Maria"));
-            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground, "Kim", "Sta. Maria"));
+            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
+                    1234,
+                    "12/02/2019",
+                    "Joshnee",
+                    "23",
+                    "Male",
+                    "Engineer",
+                    "Sta Maria",
+                    "purok I",
+                    "Chicken Joy",
+                    false));
+
+            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
+                    4567,
+                    "12/02/2019",
+                    "Mikee",
+                    "23",
+                    "Female",
+                    "Medical Technologist",
+                    "Sta Maria",
+                    "purok II",
+                    "Maarte",
+                    false));
+
+            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
+                    1234,
+                    "12/02/2019",
+                    "Kim",
+                    "23",
+                    "Male",
+                    "Engineer",
+                    "Sta Maria",
+                    "purok I",
+                    "Chicken Joy",
+                    false));
+
             return null;
         }
     }

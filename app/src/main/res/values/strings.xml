@@ -18,4 +18,5 @@
     <string name="patient_no">Patient no:</string>
     <string name="date">Date:</string>
     <string name="display_date">mm/dd/yyyy</string>
+    <string name="allergies">Allergies</string>
 </resources>

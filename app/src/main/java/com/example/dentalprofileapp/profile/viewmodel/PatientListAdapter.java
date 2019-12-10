@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dentalprofileapp.R;
-import com.example.dentalprofileapp.profile.repository.Patient;
+import com.example.dentalprofileapp.profile.entities.Patient;
 
 import java.util.ArrayList;
 import java.util.List;

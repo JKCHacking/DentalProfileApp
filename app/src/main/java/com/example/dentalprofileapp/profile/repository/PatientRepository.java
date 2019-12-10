@@ -4,6 +4,9 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.dentalprofileapp.profile.entities.Patient;
 
 import java.util.List;
 
@@ -11,10 +14,13 @@ public class PatientRepository {
     private PatientDao patientDao;
     private LiveData<List<Patient>> allPatient;
 
+    private LiveData<Patient> mPatientWithHighestId;
+
     public PatientRepository(Application application) {
         PatientDatabase database = PatientDatabase.getInstance(application);
         patientDao = database.patientDao();
         allPatient = patientDao.getAllPatients();
+        mPatientWithHighestId = patientDao.getPatientWithHighestId();
     }
 
     public void insert(Patient patient) {
@@ -35,6 +41,10 @@ public class PatientRepository {
 
     public LiveData<List<Patient>> getAllPatients() {
         return allPatient;
+    }
+
+    public LiveData<Patient> getPatientWithHighestId() {
+        return mPatientWithHighestId;
     }
 
     private static class InsertPatientAsyncTask extends AsyncTask<Patient, Void, Void> {
@@ -79,7 +89,7 @@ public class PatientRepository {
         }
     }
 
-    private static class DeleteAllPatientsAsyncTask extends AsyncTask<Patient, Void, Void> {
+    private static class DeleteAllPatientsAsyncTask extends AsyncTask<Void, Void, Void> {
         private PatientDao patientDao;
 
         private DeleteAllPatientsAsyncTask(PatientDao patientDao) {
@@ -87,7 +97,7 @@ public class PatientRepository {
         }
 
         @Override
-        protected Void doInBackground(Patient... patients) {
+        protected Void doInBackground(Void... voids) {
             patientDao.deleteAllPatients();
             return null;
         }
