@@ -45,6 +45,8 @@ public class AddPatientViewModel extends AndroidViewModel {
 
     private LiveData<Patient> patientHighestId;
 
+    private ArrayList<String> comorbiditiesList = new Arraylist<>();
+
     public AddPatientViewModel(@NonNull Application application) {
         super(application);
         repository = new PatientRepository(application);
@@ -175,6 +177,18 @@ public class AddPatientViewModel extends AndroidViewModel {
                 purok,
                 allergies,
                 pregnant);
+    }
+
+    public void onClickCheckBox(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        //if checkbox is checked
+        if (checked) {
+            // get the text from the checkbox and put in the arraylist.
+            comorbiditiesList.put(view.getText());
+        } else { //if checkbox is not checked
+            // remove the text from the arraylist.
+            comorbiditiesList.remove(view.getText());
+        }
     }
 
     @BindingAdapter(value = {"bind:pmtOpt",

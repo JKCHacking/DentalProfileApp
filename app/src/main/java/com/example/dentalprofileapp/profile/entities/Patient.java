@@ -8,8 +8,8 @@ public class Patient {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int profilePicture;
     private int mPatientId;
+    private int profilePicture;
     private String mDate;
     private String mPatientName;
     private String mAge;

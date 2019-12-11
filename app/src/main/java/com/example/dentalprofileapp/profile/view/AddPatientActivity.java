@@ -30,7 +30,6 @@ public class AddPatientActivity extends AppCompatActivity {
         addPatientViewModel.getPatientHighestId().observe(this, new Observer<Patient>() {
             @Override
             public void onChanged(Patient patient) {
-//                addPatientViewModel.setPatientId(Integer.toString(patient.getId() + 1));
                 addPatientViewModel.getPatientId().setValue(Integer.toString(patient.getId() + 1));
             }
         });
