@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddPatientViewModel extends AndroidViewModel {
+    //Component attributes
     private MutableLiveData<String> patientId;
     private String registeredDate;
     private String patientName;
@@ -35,26 +36,36 @@ public class AddPatientViewModel extends AndroidViewModel {
     private String allergies;
     private Boolean pregnant;
 
+    //Observables
     public final ObservableBoolean isMale;
     public final ObservableBoolean isFemale;
     public final ObservableBoolean isPregnant;
 
-    private Patient mPatient;
-
-    private PatientRepository repository;
-
+    //helper variables
     private LiveData<Patient> patientHighestId;
+    private ArrayList<String> comorbidityNameList = new Arraylist<>();
+    private ArrayList<Comorbidity> comorbidityList = new ArrayList<>();
 
-    private ArrayList<String> comorbiditiesList = new Arraylist<>();
+    //entities
+    private Patient mPatient;
+    private Comorbidity mComorbidity;
+
+    //Repository references
+    private PatientRepository patientRepository;
+    private ComorbidityRepository comorbidityRepository;
 
     public AddPatientViewModel(@NonNull Application application) {
         super(application);
-        repository = new PatientRepository(application);
+
+        patientRepository = new PatientRepository(application);
+        comorbidityRepository = new ComorbidityRepository(Application);
+
         isMale = new ObservableBoolean();
         isFemale = new ObservableBoolean();
         isPregnant = new ObservableBoolean();
         patientHighestId = repository.getPatientWithHighestId();
         patientId = new MutableLiveData<>();
+
         //get date today
         registeredDate = new SimpleDateFormat("MM/dd/YYYY", Locale.getDefault()).format(new Date());
     }
@@ -139,12 +150,6 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.pregnant = pregnant;
     }
 
-    public void insert(View view) {
-        System.out.println("Insert method called!");
-        composeEntities();
-        repository.insert(mPatient);
-    }
-
     public LiveData<Patient> getPatientHighestId() {
         return patientHighestId;
     }
@@ -153,10 +158,18 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.patientHighestId = patientHighestId;
     }
 
+    public void insert(View view) {
+        System.out.println("Insert method called!");
+
+        composeEntities();
+
+        patientRepository.insert(mPatient);
+        comorbidityRepository.insert(comorbidityList);
+    }
+
     private void composeEntities() {
         //TODO: Generate PatientId
         int patientIdInt = Integer.parseInt(patientId.getValue());
-
 
         if (isMale.get()) {
             sex = "Male";
@@ -177,6 +190,10 @@ public class AddPatientViewModel extends AndroidViewModel {
                 purok,
                 allergies,
                 pregnant);
+
+        for(String comorbidityName: comorbidityNameList) {
+            comorbidityList.put(new Comorbidity(patientIdInt, comorbidityName));
+        }
     }
 
     public void onClickCheckBox(View view) {
@@ -184,10 +201,10 @@ public class AddPatientViewModel extends AndroidViewModel {
         //if checkbox is checked
         if (checked) {
             // get the text from the checkbox and put in the arraylist.
-            comorbiditiesList.put(view.getText());
+            comorbidityNameList.put(view.getText().toString());
         } else { //if checkbox is not checked
             // remove the text from the arraylist.
-            comorbiditiesList.remove(view.getText());
+            comorbidityNameList.remove(view.getText().toString());
         }
     }
 
