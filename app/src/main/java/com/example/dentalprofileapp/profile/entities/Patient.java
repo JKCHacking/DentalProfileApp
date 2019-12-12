@@ -1,9 +1,11 @@
 package com.example.dentalprofileapp.profile.entities;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "patient_table_trial_1")
+@Entity(tableName = "patient_table_trial_1",
+        indices = {@Index(value = {"id", "mPatientId"},unique = true)})
 public class Patient {
 
     @PrimaryKey(autoGenerate = true)

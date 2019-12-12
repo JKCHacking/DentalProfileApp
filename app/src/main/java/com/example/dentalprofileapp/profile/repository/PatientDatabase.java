@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
 
 @Database(entities = {Patient.class, Comorbidity.class}, version = 1, exportSchema = false)

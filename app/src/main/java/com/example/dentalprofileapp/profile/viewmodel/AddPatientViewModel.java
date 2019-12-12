@@ -5,6 +5,7 @@ import android.icu.text.SimpleDateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -17,9 +18,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
+import com.example.dentalprofileapp.profile.repository.ComorbidityRepository;
 import com.example.dentalprofileapp.profile.repository.PatientRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -43,7 +47,7 @@ public class AddPatientViewModel extends AndroidViewModel {
 
     //helper variables
     private LiveData<Patient> patientHighestId;
-    private ArrayList<String> comorbidityNameList = new Arraylist<>();
+    private ArrayList<String> comorbidityNameList = new ArrayList<>();
     private ArrayList<Comorbidity> comorbidityList = new ArrayList<>();
 
     //entities
@@ -58,12 +62,12 @@ public class AddPatientViewModel extends AndroidViewModel {
         super(application);
 
         patientRepository = new PatientRepository(application);
-        comorbidityRepository = new ComorbidityRepository(Application);
+        comorbidityRepository = new ComorbidityRepository(application);
 
         isMale = new ObservableBoolean();
         isFemale = new ObservableBoolean();
         isPregnant = new ObservableBoolean();
-        patientHighestId = repository.getPatientWithHighestId();
+        patientHighestId = patientRepository.getPatientWithHighestId();
         patientId = new MutableLiveData<>();
 
         //get date today
@@ -192,7 +196,7 @@ public class AddPatientViewModel extends AndroidViewModel {
                 pregnant);
 
         for(String comorbidityName: comorbidityNameList) {
-            comorbidityList.put(new Comorbidity(patientIdInt, comorbidityName));
+            comorbidityList.add(new Comorbidity(patientIdInt, comorbidityName));
         }
     }
 
@@ -201,10 +205,10 @@ public class AddPatientViewModel extends AndroidViewModel {
         //if checkbox is checked
         if (checked) {
             // get the text from the checkbox and put in the arraylist.
-            comorbidityNameList.put(view.getText().toString());
+            comorbidityNameList.add(((CheckBox) view).getText().toString());
         } else { //if checkbox is not checked
             // remove the text from the arraylist.
-            comorbidityNameList.remove(view.getText().toString());
+            comorbidityNameList.remove(((CheckBox) view).getText().toString());
         }
     }
 
