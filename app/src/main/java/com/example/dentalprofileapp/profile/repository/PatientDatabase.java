@@ -24,7 +24,7 @@ public abstract class PatientDatabase extends RoomDatabase {
     public static synchronized PatientDatabase getInstance(Context context) {
         if(instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    PatientDatabase.class, "patient_database_trial_1")
+                    PatientDatabase.class, "patient_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -75,7 +75,7 @@ public abstract class PatientDatabase extends RoomDatabase {
                     false));
 
             patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
-                    1234,
+                    8910,
                     "12/02/2019",
                     "Kim",
                     "23",

@@ -24,13 +24,13 @@ public interface PatientDao {
     @Delete
     void delete(Patient patient);
 
-    @Query("DELETE FROM patient_table_trial_1")
+    @Query("DELETE FROM patient_table")
     void deleteAllPatients();
 
-    @Query("SELECT * FROM patient_table_trial_1 ORDER BY mPatientName DESC")
+    @Query("SELECT * FROM patient_table ORDER BY mPatientName DESC")
     LiveData<List<Patient>> getAllPatients();
 
-    @Query("SELECT * FROM patient_table_trial_1 ORDER BY id DESC LIMIT 0, 1")
+    @Query("SELECT * FROM patient_table ORDER BY id DESC LIMIT 0, 1")
     LiveData<Patient> getPatientWithHighestId();
 
 }

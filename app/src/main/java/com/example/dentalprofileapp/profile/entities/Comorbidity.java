@@ -5,14 +5,13 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "comorbidity_table_trial_1",
+@Entity(tableName = "comorbidity_table",
         foreignKeys = {
                 @ForeignKey(
                         entity = Patient.class,
                         parentColumns = {"mPatientId"},
                         childColumns = {"fkPatientId"}
-                )},
-        indices = {@Index(value = {"id", "fkPatientId"}, unique = true)})
+                )})
 public class Comorbidity {
     @PrimaryKey(autoGenerate = true)
     private int id;
