@@ -13,7 +13,6 @@ import java.util.List;
 public class PatientRepository {
     private PatientDao patientDao;
     private LiveData<List<Patient>> allPatient;
-
     private LiveData<Patient> mPatientWithHighestId;
 
     public PatientRepository(Application application) {

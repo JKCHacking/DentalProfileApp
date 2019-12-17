@@ -12,14 +12,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
+import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 
-@Database(entities = {Patient.class, Comorbidity.class}, version = 1, exportSchema = false)
+@Database(entities = {Patient.class, Comorbidity.class, PatientDentalImages.class}, version = 1, exportSchema = false)
 public abstract class PatientDatabase extends RoomDatabase {
 
     private static PatientDatabase instance;
 
     public abstract PatientDao patientDao();
     public abstract ComorbidityDao comorbidityDao();
+    public abstract PatientDentalImagesDao patientDentalImagesDao();
 
     public static synchronized PatientDatabase getInstance(Context context) {
         if(instance == null) {

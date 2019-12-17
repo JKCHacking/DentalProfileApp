@@ -1,5 +1,9 @@
 package com.example.dentalprofileapp.profile.entities;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 @Entity(tableName = "patient_dental_images_table",
         foreignKeys = {
                 @ForeignKey(

@@ -22,6 +22,7 @@ import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.repository.ComorbidityRepository;
 import com.example.dentalprofileapp.profile.repository.PatientRepository;
+import com.example.dentalprofileapp.utils.SingleLiveEvent;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +50,7 @@ public class AddPatientViewModel extends AndroidViewModel {
     private LiveData<Patient> patientHighestId;
     private ArrayList<String> comorbidityNameList = new ArrayList<>();
     private ArrayList<Comorbidity> comorbidityList = new ArrayList<>();
+    private SingleLiveEvent<Boolean> openGalleryLiveData;
 
     //entities
     private Patient mPatient;
@@ -162,6 +164,14 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.patientHighestId = patientHighestId;
     }
 
+    public SingleLiveEvent<Boolean> getOpenGalleryLiveData() {
+        return openGalleryLiveData;
+    }
+
+    public void setOpenGalleryLiveData(SingleLiveEvent<Boolean> openGalleryLiveData) {
+        this.openGalleryLiveData = openGalleryLiveData;
+    }
+
     public void insert(View view) {
         System.out.println("Insert method called!");
 
@@ -210,6 +220,19 @@ public class AddPatientViewModel extends AndroidViewModel {
             // remove the text from the arraylist.
             comorbidityNameList.remove(((CheckBox) view).getText().toString());
         }
+    }
+
+    public void onClickChooseImage(View view) {
+//        Context context = view.getContext();
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//        String[] mimeTypes = {"image/jpeg", "image/png"};
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+//        context.startActivityFor
+
+        // everytime imageview is pressed we need to modify the SingleLiveEvent data
+        // this will trigger an observe callback in activity and calls the intent for gallery.
+
     }
 
     @BindingAdapter(value = {"bind:pmtOpt",
