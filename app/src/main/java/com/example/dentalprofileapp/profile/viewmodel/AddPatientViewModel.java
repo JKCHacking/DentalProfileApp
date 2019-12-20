@@ -3,15 +3,9 @@ package com.example.dentalprofileapp.profile.viewmodel;
 import android.app.Application;
 import android.icu.text.SimpleDateFormat;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.InverseBindingAdapter;
-import androidx.databinding.InverseBindingListener;
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -20,7 +14,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
+import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 import com.example.dentalprofileapp.profile.repository.ComorbidityRepository;
+import com.example.dentalprofileapp.profile.repository.PatientDentalImagesRepository;
 import com.example.dentalprofileapp.profile.repository.PatientRepository;
 import com.example.dentalprofileapp.utils.SingleLiveEvent;
 
@@ -40,6 +36,12 @@ public class AddPatientViewModel extends AndroidViewModel {
     private String purok;
     private String allergies;
     private Boolean pregnant;
+    private MutableLiveData<String> urlUpperOcclusal;
+    private MutableLiveData<String> urlLeftBuccal;
+    private MutableLiveData<String> urlFront;
+    private MutableLiveData<String> urlRightBuccal;
+    private MutableLiveData<String> urlLowerOcclusal;
+    private MutableLiveData<String> urlFrontFace;
 
     //Observables
     public final ObservableBoolean isMale;
@@ -50,27 +52,38 @@ public class AddPatientViewModel extends AndroidViewModel {
     private LiveData<Patient> patientHighestId;
     private ArrayList<String> comorbidityNameList = new ArrayList<>();
     private ArrayList<Comorbidity> comorbidityList = new ArrayList<>();
-    private SingleLiveEvent<Boolean> openGalleryLiveData;
+    private SingleLiveEvent<Integer> openGalleryLiveData;
 
     //entities
     private Patient mPatient;
-    private Comorbidity mComorbidity;
+    private PatientDentalImages patientDentalImages;
 
     //Repository references
     private PatientRepository patientRepository;
     private ComorbidityRepository comorbidityRepository;
+    private PatientDentalImagesRepository patientDentalImagesRepository;
 
     public AddPatientViewModel(@NonNull Application application) {
         super(application);
 
         patientRepository = new PatientRepository(application);
         comorbidityRepository = new ComorbidityRepository(application);
+        patientDentalImagesRepository = new PatientDentalImagesRepository(application);
 
         isMale = new ObservableBoolean();
         isFemale = new ObservableBoolean();
         isPregnant = new ObservableBoolean();
         patientHighestId = patientRepository.getPatientWithHighestId();
         patientId = new MutableLiveData<>();
+
+        urlUpperOcclusal = new MutableLiveData<>();
+        urlLeftBuccal = new MutableLiveData<>();
+        urlFront = new MutableLiveData<>();
+        urlRightBuccal = new MutableLiveData<>();
+        urlLowerOcclusal = new MutableLiveData<>();
+        urlFrontFace = new MutableLiveData<>();
+
+        openGalleryLiveData = new SingleLiveEvent<>();
 
         //get date today
         registeredDate = new SimpleDateFormat("MM/dd/YYYY", Locale.getDefault()).format(new Date());
@@ -164,12 +177,60 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.patientHighestId = patientHighestId;
     }
 
-    public SingleLiveEvent<Boolean> getOpenGalleryLiveData() {
+    public SingleLiveEvent<Integer> getOpenGalleryLiveData() {
         return openGalleryLiveData;
     }
 
-    public void setOpenGalleryLiveData(SingleLiveEvent<Boolean> openGalleryLiveData) {
+    public void setOpenGalleryLiveData(SingleLiveEvent<Integer> openGalleryLiveData) {
         this.openGalleryLiveData = openGalleryLiveData;
+    }
+
+    public MutableLiveData<String> getUrlUpperOcclusal() {
+        return urlUpperOcclusal;
+    }
+
+    public void setUrlUpperOcclusal(MutableLiveData<String> urlUpperOcclusal) {
+        this.urlUpperOcclusal = urlUpperOcclusal;
+    }
+
+    public MutableLiveData<String> getUrlLeftBuccal() {
+        return urlLeftBuccal;
+    }
+
+    public void setUrlLeftBuccal(MutableLiveData<String> urlLeftBuccal) {
+        this.urlLeftBuccal = urlLeftBuccal;
+    }
+
+    public MutableLiveData<String> getUrlFront() {
+        return urlFront;
+    }
+
+    public void setUrlFront(MutableLiveData<String> urlFront) {
+        this.urlFront = urlFront;
+    }
+
+    public MutableLiveData<String> getUrlRightBuccal() {
+        return urlRightBuccal;
+    }
+
+    public void setUrlRightBuccal(MutableLiveData<String> urlRightBuccal) {
+        this.urlRightBuccal = urlRightBuccal;
+    }
+
+    public MutableLiveData<String> getUrlLowerOcclusal() {
+        return urlLowerOcclusal;
+    }
+
+    public void setUrlLowerOcclusal(MutableLiveData<String> urlLowerOcclusal) {
+        this.urlLowerOcclusal = urlLowerOcclusal;
+    }
+
+    public MutableLiveData<String> getUrlFrontFace() {
+        return urlFrontFace;
+    }
+
+    public void setUrlFrontFace(MutableLiveData<String> urlFrontFace) {
+        this.urlFrontFace = urlFrontFace;
     }
 
     public void insert(View view) {
@@ -179,10 +240,10 @@ public class AddPatientViewModel extends AndroidViewModel {
 
         patientRepository.insert(mPatient);
         comorbidityRepository.insert(comorbidityList);
+        patientDentalImagesRepository.insert(patientDentalImages);
     }
 
     private void composeEntities() {
-        //TODO: Generate PatientId
         int patientIdInt = Integer.parseInt(patientId.getValue());
 
         if (isMale.get()) {
@@ -208,6 +269,16 @@ public class AddPatientViewModel extends AndroidViewModel {
         for(String comorbidityName: comorbidityNameList) {
             comorbidityList.add(new Comorbidity(patientIdInt, comorbidityName));
         }
+
+        patientDentalImages = new PatientDentalImages(
+                patientIdInt,
+                urlUpperOcclusal.getValue(),
+                urlLeftBuccal.getValue(),
+                urlFront.getValue(),
+                urlRightBuccal.getValue(),
+                urlLowerOcclusal.getValue(),
+                urlFrontFace.getValue()
+        );
     }
 
     public void onClickCheckBox(View view) {
@@ -223,43 +294,34 @@ public class AddPatientViewModel extends AndroidViewModel {
     }
 
     public void onClickChooseImage(View view) {
-//        Context context = view.getContext();
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType("image/*");
-//        String[] mimeTypes = {"image/jpeg", "image/png"};
-//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-//        context.startActivityFor
-
         // everytime imageview is pressed we need to modify the SingleLiveEvent data
         // this will trigger an observe callback in activity and calls the intent for gallery.
+        int imageViewId = view.getId();
 
-    }
+        switch(imageViewId) {
+            case R.id.image_view_upper_occlusal:
+                openGalleryLiveData.setValue(1);
+                break;
 
-    @BindingAdapter(value = {"bind:pmtOpt",
-            "bind:pmtOptAttrChanged"}, requireAll = false)
-    public static void setPmtOpt(final AppCompatSpinner spinner,
-                                 final String selectedPmtOpt,
-                                 final InverseBindingListener changeListener) {
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                changeListener.onChange();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                changeListener.onChange();
-            }
-        });
-        if (selectedPmtOpt != null) {
-            int pos = ((ArrayAdapter<String>) spinner.getAdapter()).getPosition(selectedPmtOpt);
-            spinner.setSelection(pos, true);
+            case R.id.image_view_left_buccal:
+                openGalleryLiveData.setValue(2);
+                break;
+
+            case R.id.image_view_front:
+                openGalleryLiveData.setValue(3);
+                break;
+
+            case R.id.image_view_right_buccal:
+                openGalleryLiveData.setValue(4);
+                break;
+
+            case R.id.image_view_lower_occlusal:
+                openGalleryLiveData.setValue(5);
+                break;
+
+            case R.id.image_view_front_face:
+                openGalleryLiveData.setValue(6);
+                break;
         }
-    }
-
-    @InverseBindingAdapter(attribute = "bind:pmtOpt",
-            event = "bind:pmtOptAttrChanged")
-    public static String getPmtOpt(final AppCompatSpinner spinner) {
-        System.out.println("Spinner selected value: " + (String)spinner.getSelectedItem());
-        return (String)spinner.getSelectedItem();
     }
 }

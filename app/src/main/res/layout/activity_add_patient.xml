@@ -389,27 +389,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:onClick="@{viewmodel::onClickChooseImage}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                app:srcCompat="@mipmap/ic_launcher" />
+                bind:srcImage="@{viewmodel.urlUpperOcclusal}" />
 
             <ImageView
                 android:id="@+id/image_view_left_buccal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                android:onClick="@{viewmodel::onClickChooseImage}"
+                app:layout_constraintStart_toStartOf="@+id/image_view_lower_occlusal"
                 app:layout_constraintTop_toBottomOf="@+id/label_lower_occlusal"
-                app:srcCompat="@mipmap/ic_launcher" />
+                bind:srcImage="@{viewmodel.urlLeftBuccal}"/>
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/image_view_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:onClick="@{viewmodel::onClickChooseImage}"
                 app:layout_constraintStart_toStartOf="@+id/image_view_front_face"
                 app:layout_constraintTop_toBottomOf="@+id/label_front_face"
-                app:srcCompat="@mipmap/ic_launcher" />
+                bind:srcImage="@{viewmodel.urlFront}" />
 
             <ImageView
                 android:id="@+id/image_view_right_buccal"
@@ -418,26 +421,29 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/image_view_upper_occlusal"
                 app:layout_constraintTop_toBottomOf="@+id/label_upper_occlusal"
-                app:srcCompat="@mipmap/ic_launcher" />
+                bind:srcImage="@{viewmodel.urlRightBuccal}"
+                android:onClick="@{viewmodel::onClickChooseImage}"/>
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/image_view_lower_occlusal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image_view_upper_occlusal"
-                app:srcCompat="@mipmap/ic_launcher" />
+                bind:srcImage="@{viewmodel.urlLowerOcclusal}"
+                android:onClick="@{viewmodel::onClickChooseImage}"/>
 
             <ImageView
                 android:id="@+id/image_view_front_face"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                android:onClick="@{viewmodel::onClickChooseImage}"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_lower_occlusal"
                 app:layout_constraintHorizontal_bias="0.51"
                 app:layout_constraintStart_toEndOf="@+id/image_view_upper_occlusal"
                 app:layout_constraintTop_toTopOf="@+id/image_view_upper_occlusal"
-                app:srcCompat="@mipmap/ic_launcher" />
+                bind:srcImage="@{viewmodel.urlFrontFace}" />
 
             <TextView
                 android:id="@+id/label_upper_occlusal"
@@ -465,9 +471,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Lower Occlusal"
-                app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintStart_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                app:layout_constraintEnd_toEndOf="@+id/image_view_lower_occlusal"
+                app:layout_constraintStart_toStartOf="@+id/image_view_lower_occlusal"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_lower_occlusal" />
 
             <TextView
                 android:id="@+id/label_front"
@@ -475,9 +481,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Front"
-                app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                app:layout_constraintStart_toStartOf="@+id/imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintEnd_toEndOf="@+id/image_view_front"
+                app:layout_constraintStart_toStartOf="@+id/image_view_front"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_front" />
 
             <TextView
                 android:id="@+id/label_right_buccal"
