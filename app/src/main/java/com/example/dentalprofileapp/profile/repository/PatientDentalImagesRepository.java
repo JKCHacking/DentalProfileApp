@@ -17,6 +17,10 @@ public class PatientDentalImagesRepository {
         new PatientDentalImagesRepository.InsertPatientDentalImagesAsyncTask(patientDentalImagesDao).execute(patientDentalImages);
     }
 
+    public PatientDentalImages getPatientByPatientId(int patientId) {
+        return patientDentalImagesDao.getPatientByPatientId(patientId);
+    }
+
     private static class InsertPatientDentalImagesAsyncTask extends AsyncTask<PatientDentalImages, Void, Void> {
         private PatientDentalImagesDao patientDentalImagesDao;
 
@@ -27,6 +31,23 @@ public class PatientDentalImagesRepository {
         @Override
         protected Void doInBackground(PatientDentalImages... patientDentalImages) {
             patientDentalImagesDao.insert(patientDentalImages[0]);
+            return null;
+        }
+    }
+
+    public void deleteByPatientId(int patientId) {
+        new DeleteByPatientIdAsyncTask(patientDentalImagesDao).execute(patientId);
+    }
+
+    private static class DeleteByPatientIdAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private PatientDentalImagesDao patientDentalImagesDao;
+
+        private DeleteByPatientIdAsyncTask(PatientDentalImagesDao patientDentalImagesDao) {
+            this.patientDentalImagesDao = patientDentalImagesDao;
+        }
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            patientDentalImagesDao.deleteByPatientId(integers[0]);
             return null;
         }
     }

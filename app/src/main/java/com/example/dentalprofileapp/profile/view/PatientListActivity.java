@@ -1,5 +1,6 @@
 package com.example.dentalprofileapp.profile.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.databinding.DataBindingUtil;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -19,7 +21,7 @@ import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
 
 import java.util.List;
 
-public class PatientListActivity extends AppCompatActivity {
+public class PatientListActivity extends AppCompatActivity implements ItemActionInterface {
     private PatientListViewModel patientListViewModel;
     private ActivityPatientListBinding activityPatientListBinding;
 
@@ -35,7 +37,7 @@ public class PatientListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        final PatientListAdapter adapter = new PatientListAdapter();
+        final PatientListAdapter adapter = new PatientListAdapter(this);
         recyclerView.setAdapter(adapter);
         patientListViewModel = ViewModelProviders.of(this).get(PatientListViewModel.class);
         activityPatientListBinding.setViewmodel(patientListViewModel);
@@ -62,5 +64,28 @@ public class PatientListActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onLongClick(String data) {
+        final int patientId = Integer.parseInt(data);
+
+        // display dialog here.
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Record")
+                .setMessage("Are you sure you want to delete this patient?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        patientListViewModel.deleteByPatientId(patientId);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+
+    @Override
+    public void onClick(String data) {
+
     }
 }

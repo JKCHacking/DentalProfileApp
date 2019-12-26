@@ -1,5 +1,6 @@
 package com.example.dentalprofileapp.profile.viewmodel;
 
+import android.app.Activity;
 import android.app.Application;
 import android.icu.text.SimpleDateFormat;
 import android.view.View;
@@ -62,6 +63,8 @@ public class AddPatientViewModel extends AndroidViewModel {
     private PatientRepository patientRepository;
     private ComorbidityRepository comorbidityRepository;
     private PatientDentalImagesRepository patientDentalImagesRepository;
+
+    int patientIdInt;
 
     public AddPatientViewModel(@NonNull Application application) {
         super(application);
@@ -241,10 +244,12 @@ public class AddPatientViewModel extends AndroidViewModel {
         patientRepository.insert(mPatient);
         comorbidityRepository.insert(comorbidityList);
         patientDentalImagesRepository.insert(patientDentalImages);
+
+        ((Activity)(view.getContext())).finish();
     }
 
     private void composeEntities() {
-        int patientIdInt = Integer.parseInt(patientId.getValue());
+        patientIdInt = Integer.parseInt(patientId.getValue());
 
         if (isMale.get()) {
             sex = "Male";
@@ -323,5 +328,12 @@ public class AddPatientViewModel extends AndroidViewModel {
                 openGalleryLiveData.setValue(6);
                 break;
         }
+    }
+
+    public void getAllDataFromRepositoryByPatientId() {
+        int patientId = Integer.parseInt(this.patientId.getValue());
+        Patient patient = patientRepository.getPatientByPatientId(patientId);
+        Comorbidity comorbidity = comorbidityRepository.getPatientByPatientId(patientId);
+        PatientDentalImages patientDentalImages = patientDentalImagesRepository.getPatientByPatientId(patientId);
     }
 }

@@ -6,13 +6,14 @@ import androidx.room.Query;
 
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 
-import java.util.List;
-
 @Dao
 public interface PatientDentalImagesDao {
     @Insert
     void insert(PatientDentalImages patientDentalImages);
 
+    @Query("DELETE FROM patient_dental_images_table WHERE fkPatientId = :patientId")
+    void deleteByPatientId(int patientId);
+
     @Query("SELECT * FROM patient_dental_images_table WHERE fkPatientId = :patientId")
-    public abstract List<PatientDentalImages> getAllDentalImagesByPatientId(int patientId);
+    PatientDentalImages getPatientByPatientId(int patientId);
 }

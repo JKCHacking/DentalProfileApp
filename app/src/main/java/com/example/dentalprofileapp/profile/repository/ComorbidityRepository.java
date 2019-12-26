@@ -34,4 +34,25 @@ public class ComorbidityRepository {
             return null;
         }
     }
+
+    public void deleteByPatientId(int patientId) {
+        new DeleteByPatientIdAsyncTask(comorbidityDao).execute(patientId);
+    }
+
+    private static class DeleteByPatientIdAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private ComorbidityDao comorbidityDao;
+
+        private DeleteByPatientIdAsyncTask(ComorbidityDao comorbidityDao) {
+            this.comorbidityDao = comorbidityDao;
+        }
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            comorbidityDao.deleteByPatientId(integers[0]);
+            return null;
+        }
+    }
+
+    public Comorbidity getPatientByPatientId(int patientId) {
+        return comorbidityDao.getPatientByPatientId(patientId);
+    }
 }

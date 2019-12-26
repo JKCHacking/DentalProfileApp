@@ -24,6 +24,9 @@ public interface PatientDao {
     @Delete
     void delete(Patient patient);
 
+    @Query("DELETE FROM patient_table WHERE mPatientId = :patientId")
+    void deleteByPatientId(int patientId);
+
     @Query("DELETE FROM patient_table")
     void deleteAllPatients();
 
@@ -33,4 +36,6 @@ public interface PatientDao {
     @Query("SELECT * FROM patient_table ORDER BY id DESC LIMIT 0, 1")
     LiveData<Patient> getPatientWithHighestId();
 
+    @Query("SELECT * FROM patient_table WHERE mPatientId = :patientId")
+    Patient getPatientByPatientId(int patientId);
 }

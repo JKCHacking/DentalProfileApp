@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    android:layout_marginBottom="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,6 +37,17 @@
             android:layout_below="@+id/patient_name_tv"
             android:layout_toEndOf="@+id/profile_picture_iv"
             android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/patient_id_tv"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:text="001"/>
 
     </RelativeLayout>
 

@@ -23,6 +23,12 @@ public abstract class ComorbidityDao {
     @Insert
     public abstract void insert(Comorbidity comorbidity);
 
+    @Query("DELETE FROM comorbidity_table WHERE fkPatientId = :patientId")
+    public abstract void deleteByPatientId(int patientId);
+
     @Query("SELECT * FROM comorbidity_table WHERE fkPatientId = :patientId")
-    public abstract List<Comorbidity> getAllComorbidityByPatientId(int patientId);
+    public abstract List<Comorbidity> getComorbidityByPatientId(int patientId);
+
+    @Query("SELECT * FROM comorbidity_table WHERE fkPatientId = :patientId")
+    public abstract Comorbidity getPatientByPatientId(int patientId);
 }
