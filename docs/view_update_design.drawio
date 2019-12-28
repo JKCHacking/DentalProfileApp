@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-12-28T04:28:13.286Z" agent="Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36" etag="ktsAXl7X0GyZMRa6U8CS" version="12.4.7" type="github">
+<mxfile host="www.draw.io" modified="2019-12-28T04:31:16.948Z" agent="Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36" etag="WJq1XeoWIYWUn8H8kd_p" version="12.4.7" type="github">
   <diagram id="doKRkmgu3jrIl8iBUuYz" name="Page-1">
     <mxGraphModel dx="1108" dy="460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -57,6 +57,9 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="520" y="230" as="sourcePoint"/>
             <mxPoint x="440" y="230" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="570" y="210"/>
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="HD-_ceg7MjAmfBPygAD--5" value="AddPatientViewModel&lt;br&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
@@ -89,6 +92,9 @@
               <mxPoint x="805" y="400"/>
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="HD-_ceg7MjAmfBPygAD--33" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+          <mxGeometry x="435" y="210" width="10" height="30" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>
