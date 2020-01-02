@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -86,6 +87,11 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
 
     @Override
     public void onClick(String data) {
+        //call the AddPatientActivity
+        //add an intent extras
 
+        Intent intent = new Intent(this, AddPatientActivity.class);
+        intent.putExtra("patientId", data);
+        this.startActivity(intent);
     }
 }

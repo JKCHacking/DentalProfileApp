@@ -18,11 +18,6 @@ public class Comorbidity {
     private int fkPatientId;
     private String comorbidityName;
 
-    public Comorbidity(int fkPatientId, String comorbidityName) {
-        this.fkPatientId = fkPatientId;
-        this.comorbidityName = comorbidityName;
-    }
-
     public int getId() {
         return id;
     }

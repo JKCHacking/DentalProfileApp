@@ -25,30 +25,6 @@ public class Patient {
     private String mAllergies;
     private Boolean mPregnant;
 
-    public Patient(int profilePicture,
-                   int patientId,
-                   String date,
-                   String patientName,
-                   String age,
-                   String sex,
-                   String occupation,
-                   String barangay,
-                   String purok,
-                   String allergies,
-                   Boolean pregnant) {
-
-        this.profilePicture = profilePicture;
-        this.mPatientId = patientId;
-        this.mDate = date;
-        this.mPatientName = patientName;
-        this.mAge = age;
-        this.mSex = sex;
-        this.mOccupation = occupation;
-        this.mBarangay = barangay;
-        this.mPurok = purok;
-        this.mAllergies = allergies;
-        this.mPregnant = pregnant;
-    }
 
     public int getId() {
         return id;

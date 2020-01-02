@@ -36,16 +36,33 @@ public class AddPatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final Bundle extras = getIntent().getExtras();
         activityAddPatientBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_patient);
         addPatientViewModel = ViewModelProviders.of(this).get(AddPatientViewModel.class);
 
         activityAddPatientBinding.setViewmodel(addPatientViewModel);
         activityAddPatientBinding.setLifecycleOwner(this);
 
+        if(extras != null) {
+            String patientId = extras.getString("patientId");
+            addPatientViewModel.populateDataToViews(patientId);
+        }
+
         addPatientViewModel.getPatientHighestId().observe(this, new Observer<Patient>() {
             @Override
             public void onChanged(Patient patient) {
-                addPatientViewModel.getPatientId().setValue(Integer.toString(patient.getId() + 1));
+                String patientId;
+                if(extras == null) {
+                    if (patient != null) {
+                        patientId = Integer.toString(patient.getPatientId() + 1);
+                    } else {
+                        patientId = "1";
+                    }
+                } else {
+                    patientId = extras.getString("patientId");
+                    addPatientViewModel.setUpdate(true);
+                }
+                addPatientViewModel.getPatientId().setValue(patientId);
             }
         });
 

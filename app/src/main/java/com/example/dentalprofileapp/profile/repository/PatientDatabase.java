@@ -39,7 +39,7 @@ public abstract class PatientDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
+//            new PopulateDbAsyncTask(instance).execute();
         }
     };
 
@@ -52,41 +52,34 @@ public abstract class PatientDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
-                    1234,
-                    "12/02/2019",
-                    "Joshnee",
-                    "23",
-                    "Male",
-                    "Engineer",
-                    "Sta Maria",
-                    "purok I",
-                    "Chicken Joy",
-                    false));
+            Patient patient1 = new Patient();
+            patient1.setProfilePicture(R.drawable.ic_launcher_foreground);
+            patient1.setPatientId(1234);
+            patient1.setDate("12/02/2019");
+            patient1.setPatientName("Joshnee");
+            patient1.setAge("23");
+            patient1.setSex("Male");
+            patient1.setOccupation("Engineer");
+            patient1.setBarangay("Sta Maria");
+            patient1.setPurok("Purok I");
+            patient1.setAllergies("Chicken Joy");
+            patient1.setPregnant(false);
 
-            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
-                    4567,
-                    "12/02/2019",
-                    "Mikee",
-                    "23",
-                    "Female",
-                    "Medical Technologist",
-                    "Sta Maria",
-                    "purok II",
-                    "Maarte",
-                    false));
+            Patient patient2 = new Patient();
+            patient2.setProfilePicture(R.drawable.ic_launcher_foreground);
+            patient2.setPatientId(4567);
+            patient2.setDate("12/02/2019");
+            patient2.setPatientName("Mikee");
+            patient2.setAge("23");
+            patient2.setSex("Female");
+            patient2.setOccupation("Medical Technologist");
+            patient2.setBarangay("Sta Maria");
+            patient2.setPurok("Purok II");
+            patient2.setAllergies("Maarte");
+            patient2.setPregnant(false);
 
-            patientDao.insert(new Patient(R.drawable.ic_launcher_foreground,
-                    8910,
-                    "12/02/2019",
-                    "Kim",
-                    "23",
-                    "Male",
-                    "Engineer",
-                    "Sta Maria",
-                    "purok I",
-                    "Chicken Joy",
-                    false));
+            patientDao.insert(patient1);
+            patientDao.insert(patient2);
 
             return null;
         }

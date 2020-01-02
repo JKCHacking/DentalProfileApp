@@ -60,7 +60,9 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
             @Override
             public void onClick(View view) {
                 System.out.println("single pressed!");
-
+                //itemActionInterface.onClick();
+                // pass the patientId of the selected patient.
+                itemActionInterface.onClick(patientId);
             }
         });
     }

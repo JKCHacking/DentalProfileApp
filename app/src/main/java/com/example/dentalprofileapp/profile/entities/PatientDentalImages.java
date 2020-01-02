@@ -19,24 +19,8 @@ public class PatientDentalImages {
     private String urlFrontFace;
     private String urlLowerOcclusal;
     private String urlFront;
-    private String urlRightOcclusal;
+    private String urlRightBuccal;
     private String urlLeftBuccal;
-
-    public PatientDentalImages(int fkPatientId,
-                               String urlUpperOcclusal,
-                               String urlFrontFace,
-                               String urlLowerOcclusal,
-                               String urlFront,
-                               String urlRightOcclusal,
-                               String urlLeftBuccal) {
-        this.fkPatientId = fkPatientId;
-        this.urlUpperOcclusal = urlUpperOcclusal;
-        this.urlFrontFace = urlFrontFace;
-        this.urlLowerOcclusal = urlLowerOcclusal;
-        this.urlFront = urlFront;
-        this.urlRightOcclusal = urlRightOcclusal;
-        this.urlLeftBuccal = urlLeftBuccal;
-    }
 
     public int getId() {
         return id;
@@ -86,12 +70,12 @@ public class PatientDentalImages {
         this.urlFront = urlFront;
     }
 
-    public String getUrlRightOcclusal() {
-        return urlRightOcclusal;
+    public String getUrlRightBuccal() {
+        return urlRightBuccal;
     }
 
-    public void setUrlRightOcclusal(String urlRightOcclusal) {
-        this.urlRightOcclusal = urlRightOcclusal;
+    public void setUrlRightBuccal(String urlRightBuccal) {
+        this.urlRightBuccal = urlRightBuccal;
     }
 
     public String getUrlLeftBuccal() {

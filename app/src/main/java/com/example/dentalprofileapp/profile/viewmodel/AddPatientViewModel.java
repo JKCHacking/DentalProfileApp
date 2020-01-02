@@ -23,37 +23,56 @@ import com.example.dentalprofileapp.utils.SingleLiveEvent;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 public class AddPatientViewModel extends AndroidViewModel {
     //Component attributes
     private MutableLiveData<String> patientId;
-    private String registeredDate;
-    private String patientName;
-    private String age;
-    private String sex;
-    private String occupation;
-    private String barangay;
-    private String purok;
-    private String allergies;
-    private Boolean pregnant;
+    private MutableLiveData<String> registeredDate;
+    private MutableLiveData<String> patientName;
+    private MutableLiveData<String> age;
+    private MutableLiveData<String> occupation;
+    private MutableLiveData<String> allergies;
+
     private MutableLiveData<String> urlUpperOcclusal;
     private MutableLiveData<String> urlLeftBuccal;
     private MutableLiveData<String> urlFront;
     private MutableLiveData<String> urlRightBuccal;
     private MutableLiveData<String> urlLowerOcclusal;
     private MutableLiveData<String> urlFrontFace;
+    private MutableLiveData<String> barangay;
+    private MutableLiveData<String> purok;
+
+    private String sex;
+    private Boolean pregnant;
 
     //Observables
     public final ObservableBoolean isMale;
     public final ObservableBoolean isFemale;
-    public final ObservableBoolean isPregnant;
+    public final ObservableBoolean isPregnantYes;
+    public final ObservableBoolean isPregnantNo;
+
+    public final ObservableBoolean isNone;
+    public final ObservableBoolean isBleedingDisorder;
+    public final ObservableBoolean isCancer;
+    public final ObservableBoolean isDiabetes;
+    public final ObservableBoolean isHypertension;
+    public final ObservableBoolean isKidneyDisease;
+    public final ObservableBoolean isLiverDisease;
+    public final ObservableBoolean isStroke;
+    public final ObservableBoolean isThyroidDisease;
+    public final ObservableBoolean isOther;
 
     //helper variables
     private LiveData<Patient> patientHighestId;
-    private ArrayList<String> comorbidityNameList = new ArrayList<>();
-    private ArrayList<Comorbidity> comorbidityList = new ArrayList<>();
+    private ArrayList<Comorbidity> comorbidityObjectList = new ArrayList<>();
+    private ArrayList<Comorbidity> uncheckedComorbidityList = new ArrayList<>();
+    private Set<String> comorbidityNameSet = new HashSet<>();
+    private Set<String> uncheckedComorbidityNameSet = new HashSet<>();
     private SingleLiveEvent<Integer> openGalleryLiveData;
+    private Boolean isUpdate;
 
     //entities
     private Patient mPatient;
@@ -64,20 +83,42 @@ public class AddPatientViewModel extends AndroidViewModel {
     private ComorbidityRepository comorbidityRepository;
     private PatientDentalImagesRepository patientDentalImagesRepository;
 
-    int patientIdInt;
+    private int patientIdInt;
 
     public AddPatientViewModel(@NonNull Application application) {
         super(application);
+        System.out.println("AddPatientViewModel constructor is called!");
 
         patientRepository = new PatientRepository(application);
+        patientHighestId = patientRepository.getPatientWithHighestId();
+
         comorbidityRepository = new ComorbidityRepository(application);
         patientDentalImagesRepository = new PatientDentalImagesRepository(application);
 
         isMale = new ObservableBoolean();
         isFemale = new ObservableBoolean();
-        isPregnant = new ObservableBoolean();
-        patientHighestId = patientRepository.getPatientWithHighestId();
+        isPregnantYes = new ObservableBoolean();
+        isPregnantNo = new ObservableBoolean();
+
+        isNone = new ObservableBoolean();
+        isBleedingDisorder = new ObservableBoolean();
+        isCancer= new ObservableBoolean();
+        isDiabetes= new ObservableBoolean();
+        isHypertension= new ObservableBoolean();
+        isKidneyDisease= new ObservableBoolean();
+        isLiverDisease= new ObservableBoolean();
+        isStroke= new ObservableBoolean();
+        isThyroidDisease= new ObservableBoolean();
+        isOther= new ObservableBoolean();
+
         patientId = new MutableLiveData<>();
+        registeredDate = new MutableLiveData<>();
+        patientName = new MutableLiveData<>();
+        age = new MutableLiveData<>();
+        occupation = new MutableLiveData<>();
+        allergies = new MutableLiveData<>();
+        barangay = new MutableLiveData<>();
+        purok = new MutableLiveData<>();
 
         urlUpperOcclusal = new MutableLiveData<>();
         urlLeftBuccal = new MutableLiveData<>();
@@ -89,7 +130,8 @@ public class AddPatientViewModel extends AndroidViewModel {
         openGalleryLiveData = new SingleLiveEvent<>();
 
         //get date today
-        registeredDate = new SimpleDateFormat("MM/dd/YYYY", Locale.getDefault()).format(new Date());
+        registeredDate.setValue(new SimpleDateFormat("MM/dd/YYYY", Locale.getDefault()).format(new Date()));
+        isUpdate = false;
     }
 
     public MutableLiveData<String> getPatientId() {
@@ -100,27 +142,27 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.patientId = patientId;
     }
 
-    public String getRegisteredDate() {
+    public MutableLiveData<String> getRegisteredDate() {
         return registeredDate;
     }
 
-    public void setRegisteredDate(String registeredDate) {
+    public void setRegisteredDate(MutableLiveData<String> registeredDate) {
         this.registeredDate = registeredDate;
     }
 
-    public String getPatientName() {
+    public MutableLiveData<String> getPatientName() {
         return patientName;
     }
 
-    public void setPatientName(String patientName) {
+    public void setPatientName(MutableLiveData<String> patientName) {
         this.patientName = patientName;
     }
 
-    public String getAge() {
+    public MutableLiveData<String> getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(MutableLiveData<String> age) {
         this.age = age;
     }
 
@@ -132,35 +174,35 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.sex = sex;
     }
 
-    public String getOccupation() {
+    public MutableLiveData<String> getOccupation() {
         return occupation;
     }
 
-    public void setOccupation(String occupation) {
+    public void setOccupation(MutableLiveData<String> occupation) {
         this.occupation = occupation;
     }
 
-    public String getBarangay() {
+    public MutableLiveData<String> getBarangay() {
         return barangay;
     }
 
-    public void setBarangay(String barangay) {
+    public void setBarangay(MutableLiveData<String> barangay) {
         this.barangay = barangay;
     }
 
-    public String getPurok() {
+    public MutableLiveData<String> getPurok() {
         return purok;
     }
 
-    public void setPurok(String purok) {
+    public void setPurok(MutableLiveData<String> purok) {
         this.purok = purok;
     }
 
-    public String getAllergies() {
+    public MutableLiveData<String> getAllergies() {
         return allergies;
     }
 
-    public void setAllergies(String allergies) {
+    public void setAllergies(MutableLiveData<String> allergies) {
         this.allergies = allergies;
     }
 
@@ -236,14 +278,37 @@ public class AddPatientViewModel extends AndroidViewModel {
         this.urlFrontFace = urlFrontFace;
     }
 
+    public Boolean getUpdate() {
+        return isUpdate;
+    }
+
+    public void setUpdate(Boolean update) {
+        isUpdate = update;
+    }
+
     public void insert(View view) {
         System.out.println("Insert method called!");
 
         composeEntities();
 
-        patientRepository.insert(mPatient);
-        comorbidityRepository.insert(comorbidityList);
-        patientDentalImagesRepository.insert(patientDentalImages);
+        if (isUpdate) {
+            // do update logic here
+            patientRepository.update(mPatient);
+            patientDentalImagesRepository.update(patientDentalImages);
+            //either add new checked or delete unchecked box. there is no update.
+            comorbidityRepository.insert(comorbidityObjectList);
+
+            if(!uncheckedComorbidityList.isEmpty()) {
+                // delete all the unchecked comorbidities.
+                int deletedComorbidity = comorbidityRepository.deleteByPatientIdComorbidityName(uncheckedComorbidityList);
+                System.out.println(deletedComorbidity);
+                uncheckedComorbidityList.clear();
+            }
+        } else {
+            patientRepository.insert(mPatient);
+            comorbidityRepository.insert(comorbidityObjectList);
+            patientDentalImagesRepository.insert(patientDentalImages);
+        }
 
         ((Activity)(view.getContext())).finish();
     }
@@ -257,44 +322,85 @@ public class AddPatientViewModel extends AndroidViewModel {
             sex = "Female";
         }
 
-        pregnant = isPregnant.get();
+        pregnant = isPregnantYes.get();
 
-        mPatient = new Patient(R.drawable.ic_launcher_foreground,
-                patientIdInt,
-                registeredDate,
-                patientName,
-                age,
-                sex,
-                occupation,
-                barangay,
-                purok,
-                allergies,
-                pregnant);
+        //creating patient entity
+        mPatient = new Patient();
+        mPatient.setPatientId(patientIdInt);
+        mPatient.setProfilePicture(R.drawable.ic_launcher_foreground);
+        mPatient.setDate(registeredDate.getValue());
+        mPatient.setPatientName(patientName.getValue());
+        mPatient.setAge(age.getValue());
+        mPatient.setSex(sex);
+        mPatient.setOccupation(occupation.getValue());
+        mPatient.setBarangay(barangay.getValue());
+        mPatient.setPurok(purok.getValue());
+        mPatient.setAllergies(allergies.getValue());
+        mPatient.setPregnant(pregnant);
 
-        for(String comorbidityName: comorbidityNameList) {
-            comorbidityList.add(new Comorbidity(patientIdInt, comorbidityName));
+        for(String comorbidityName : comorbidityNameSet) {
+            Comorbidity comorbidity = new Comorbidity();
+            comorbidity.setFkPatientId(patientIdInt);
+            comorbidity.setComorbidityName(comorbidityName);
+
+            comorbidityObjectList.add(comorbidity);
         }
 
-        patientDentalImages = new PatientDentalImages(
-                patientIdInt,
-                urlUpperOcclusal.getValue(),
-                urlLeftBuccal.getValue(),
-                urlFront.getValue(),
-                urlRightBuccal.getValue(),
-                urlLowerOcclusal.getValue(),
-                urlFrontFace.getValue()
-        );
+        for(String uncheckedComorbidityName : uncheckedComorbidityNameSet) {
+            Comorbidity comorbidity = new Comorbidity();
+            comorbidity.setFkPatientId(patientIdInt);
+            comorbidity.setComorbidityName(uncheckedComorbidityName);
+
+            uncheckedComorbidityList.add(comorbidity);
+        }
+
+        comorbidityNameSet.clear();
+        uncheckedComorbidityNameSet.clear();
+
+        //create patientDentalImages entity
+        patientDentalImages = new PatientDentalImages();
+        patientDentalImages.setFkPatientId(patientIdInt);
+        patientDentalImages.setUrlUpperOcclusal(urlUpperOcclusal.getValue());
+        patientDentalImages.setUrlFrontFace(urlFrontFace.getValue());
+        patientDentalImages.setUrlLowerOcclusal(urlLowerOcclusal.getValue());
+        patientDentalImages.setUrlFront(urlFront.getValue());
+        patientDentalImages.setUrlRightBuccal(urlRightBuccal.getValue());
+        patientDentalImages.setUrlLeftBuccal(urlLeftBuccal.getValue());
     }
 
     public void onClickCheckBox(View view) {
         boolean checked = ((CheckBox) view).isChecked();
+        String comorbidityName = ((CheckBox) view).getText().toString();
+        int patientIdInt = Integer.parseInt(patientId.getValue());
+
+//        Comorbidity comorbidityTicked = new Comorbidity();
+//        comorbidityTicked.setFkPatientId(patientIdInt);
+//        comorbidityTicked.setComorbidityName(comorbidityName);
+
         //if checkbox is checked
         if (checked) {
             // get the text from the checkbox and put in the arraylist.
-            comorbidityNameList.add(((CheckBox) view).getText().toString());
+//            comorbidityObjectList.add(comorbidityTicked);
+//            for (Comorbidity comorbidity : uncheckedComorbidityList) {
+//                if(comorbidity.getComorbidityName().equals(comorbidityName)) {
+//                    uncheckedComorbidityList.remove(comorbidity);
+//                }
+//            }
+            comorbidityNameSet.add(comorbidityName);
+            uncheckedComorbidityNameSet.remove(comorbidityName);
+
         } else { //if checkbox is not checked
-            // remove the text from the arraylist.
-            comorbidityNameList.remove(((CheckBox) view).getText().toString());
+//            for(Comorbidity comorbidity : comorbidityObjectList) {
+//                if (comorbidity.getComorbidityName().equals(comorbidityName)) {
+//                    // remove the text from the arraylist.
+//                    comorbidityObjectList.remove(comorbidity);
+//                }
+//            }
+//            // create a set to hold the uncheckedComorbidity
+//            uncheckedComorbidityList.add(comorbidityTicked);
+            comorbidityNameSet.remove(comorbidityName);
+            uncheckedComorbidityNameSet.add(comorbidityName);
+
         }
     }
 
@@ -330,10 +436,81 @@ public class AddPatientViewModel extends AndroidViewModel {
         }
     }
 
-    public void getAllDataFromRepositoryByPatientId() {
-        int patientId = Integer.parseInt(this.patientId.getValue());
-        Patient patient = patientRepository.getPatientByPatientId(patientId);
-        Comorbidity comorbidity = comorbidityRepository.getPatientByPatientId(patientId);
-        PatientDentalImages patientDentalImages = patientDentalImagesRepository.getPatientByPatientId(patientId);
+    public void populateDataToViews(String patientId) {
+        int patientIdInt = Integer.parseInt(patientId);
+        Patient patient = patientRepository.getPatientByPatientId(patientIdInt);
+        ArrayList<Comorbidity> comorbidityList = comorbidityRepository.getComorbiditiesByPatientId(patientIdInt);
+        PatientDentalImages patientDentalImages = patientDentalImagesRepository.getPatientDentalImagesByPatientId(patientIdInt);
+
+        //copy the queried comorbidities
+        this.comorbidityObjectList.clear();
+        this.comorbidityObjectList = comorbidityList;
+
+        registeredDate.setValue(patient.getDate());
+        patientName.setValue(patient.getPatientName());
+        age.setValue(patient.getAge());
+        occupation.setValue(patient.getOccupation());
+        allergies.setValue(patient.getAllergies());
+
+        if (patient.getSex().equals("Male")) {
+            isMale.set(true);
+            isFemale.set(false);
+        } else if(patient.getSex().equals("Female")) {
+            isMale.set(false);
+            isFemale.set(true);
+        }
+
+        if (patient.getPregnant()) {
+            isPregnantYes.set(true);
+            isPregnantNo.set(false);
+        } else {
+            isPregnantYes.set(false);
+            isPregnantNo.set(true);
+        }
+
+        barangay.setValue(patient.getBarangay());
+        purok.setValue(patient.getPurok());
+
+        for(Comorbidity comorbidityObject : this.comorbidityObjectList) {
+            switch(comorbidityObject.getComorbidityName()) {
+                case "None":
+                    isNone.set(true);
+                    break;
+                case "Bleeding Disorder":
+                    isBleedingDisorder.set(true);
+                    break;
+                case "Cancer":
+                    isCancer.set(true);
+                    break;
+                case "Diabetes":
+                    isDiabetes.set(true);
+                    break;
+                case "Hypertension":
+                    isHypertension.set(true);
+                    break;
+                case "Kidney Disease":
+                    isKidneyDisease.set(true);
+                    break;
+                case "Liver Disease":
+                    isLiverDisease.set(true);
+                    break;
+                case "Stroke":
+                    isStroke.set(true);
+                    break;
+                case "Thyroid Disease":
+                    isThyroidDisease.set(true);
+                    break;
+                case "Others":
+                    isOther.set(true);
+                    break;
+            }
+        }
+
+        urlUpperOcclusal.setValue(patientDentalImages.getUrlUpperOcclusal());
+        urlLeftBuccal.setValue(patientDentalImages.getUrlLeftBuccal());
+        urlFront.setValue(patientDentalImages.getUrlFront());
+        urlRightBuccal.setValue(patientDentalImages.getUrlRightBuccal());
+        urlLowerOcclusal.setValue(patientDentalImages.getUrlLowerOcclusal());
+        urlFrontFace.setValue(patientDentalImages.getUrlFrontFace());
     }
 }

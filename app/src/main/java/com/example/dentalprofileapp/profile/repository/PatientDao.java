@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -16,10 +17,32 @@ import java.util.List;
 public interface PatientDao {
 
     @Insert
-    void insert(Patient patient);
+    long insert(Patient patient);
 
-    @Update
-    void update(Patient patient);
+    @Query("UPDATE patient_table SET " +
+            "mPatientId = :patientId, " +
+            "profilePicture = :profilePicture, " +
+            "mDate = :date," +
+            "mPatientName = :patientName," +
+            "mAge = :age," +
+            "mSex = :sex," +
+            "mOccupation = :occupation," +
+            "mBarangay = :barangay," +
+            "mPurok = :purok," +
+            "mAllergies = :allergies," +
+            "mPregnant = :pregnant " +
+            "WHERE mPatientId = :patientId")
+    void update(int patientId,
+                int profilePicture,
+                String date,
+                String patientName,
+                String age,
+                String sex,
+                String occupation,
+                String barangay,
+                String purok,
+                String allergies,
+                Boolean pregnant);
 
     @Delete
     void delete(Patient patient);
@@ -33,7 +56,7 @@ public interface PatientDao {
     @Query("SELECT * FROM patient_table ORDER BY mPatientName DESC")
     LiveData<List<Patient>> getAllPatients();
 
-    @Query("SELECT * FROM patient_table ORDER BY id DESC LIMIT 0, 1")
+    @Query("SELECT * FROM patient_table ORDER BY mPatientId DESC LIMIT 0, 1")
     LiveData<Patient> getPatientWithHighestId();
 
     @Query("SELECT * FROM patient_table WHERE mPatientId = :patientId")
