@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.repository.ComorbidityRepository;
@@ -25,6 +26,8 @@ public class PatientListViewModel extends AndroidViewModel {
     private PatientDentalImagesRepository patientDentalImagesRepository;
 
     private LiveData<List<Patient>> allPatients;
+    private MutableLiveData<List<Patient>> allPatientsMutableData;
+    private MutableLiveData<String> sortBy;
 
     public PatientListViewModel(@NonNull Application application) {
         super(application);
@@ -32,8 +35,37 @@ public class PatientListViewModel extends AndroidViewModel {
         patientRepository = new PatientRepository(application);
         comorbidityRepository = new ComorbidityRepository(application);
         patientDentalImagesRepository = new PatientDentalImagesRepository(application);
+        sortBy = new MutableLiveData<>();
+        allPatientsMutableData = new MutableLiveData<>();
 
-        allPatients = patientRepository.getAllPatients();
+        sortBy.setValue("Patient Name");
+        allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderPatientName());
+    }
+
+    public void setAllPatients() {
+        if (sortBy.getValue().equals("Patient Name")) {
+            allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderPatientName());
+        } else if (sortBy.getValue().equals("Patient ID")) {
+            allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderPatientId());
+        } else if (sortBy.getValue().equals("Barangay")) {
+            allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderBarangay());
+        }
+    }
+
+    public MutableLiveData<String> getSortBy() {
+        return sortBy;
+    }
+
+    public MutableLiveData<List<Patient>> getAllPatientsMutableData() {
+        return allPatientsMutableData;
+    }
+
+    public void setAllPatientsMutableData(MutableLiveData<List<Patient>> allPatientsMutableData) {
+        this.allPatientsMutableData = allPatientsMutableData;
+    }
+
+    public void setSortBy(MutableLiveData<String> sortBy) {
+        this.sortBy = sortBy;
     }
 
     public void insert(Patient patient) {
@@ -54,7 +86,7 @@ public class PatientListViewModel extends AndroidViewModel {
         patientRepository.deleteByPatientId(patientId);
 
         //this will update the record in recyclerview
-        allPatients = patientRepository.getAllPatients();
+        setAllPatients();
     }
 
     public void deleteAllPatients() {
@@ -64,8 +96,7 @@ public class PatientListViewModel extends AndroidViewModel {
     public LiveData<List<Patient>> getAllPatients() {
         return allPatients;
     }
-
-
+    
     public void onClickAddPatient(View view) {
         Context context = view.getContext();
         Intent intent = new Intent(context, AddPatientActivity.class);

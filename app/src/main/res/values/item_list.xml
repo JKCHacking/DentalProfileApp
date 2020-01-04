@@ -9,4 +9,10 @@
         <item>Purok I</item>
         <item>Purok II</item>
     </array>
+
+    <array name="sort_by_list">
+        <item>Patient Name</item>
+        <item>Patient ID</item>
+        <item>Barangay</item>
+    </array>
 </resources>

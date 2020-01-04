@@ -53,8 +53,14 @@ public interface PatientDao {
     @Query("DELETE FROM patient_table")
     void deleteAllPatients();
 
-    @Query("SELECT * FROM patient_table ORDER BY mPatientName DESC")
-    LiveData<List<Patient>> getAllPatients();
+    @Query("SELECT * FROM patient_table ORDER BY mPatientName ASC")
+    List<Patient> getAllPatientsOrderPatientName();
+
+    @Query("SELECT * FROM patient_table ORDER BY mBarangay ASC")
+    List<Patient> getAllPatientsOrderBarangay();
+
+    @Query("SELECT * FROM patient_table ORDER BY mPatientId ASC")
+    List<Patient> getAllPatientsOrderPatientId();
 
     @Query("SELECT * FROM patient_table ORDER BY mPatientId DESC LIMIT 0, 1")
     LiveData<Patient> getPatientWithHighestId();

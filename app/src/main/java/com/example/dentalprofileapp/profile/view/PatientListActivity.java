@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
@@ -25,6 +26,7 @@ import java.util.List;
 public class PatientListActivity extends AppCompatActivity implements ItemActionInterface {
     private PatientListViewModel patientListViewModel;
     private ActivityPatientListBinding activityPatientListBinding;
+    private PatientListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,39 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        final PatientListAdapter adapter = new PatientListAdapter(this);
-        recyclerView.setAdapter(adapter);
         patientListViewModel = ViewModelProviders.of(this).get(PatientListViewModel.class);
         activityPatientListBinding.setViewmodel(patientListViewModel);
-        patientListViewModel.getAllPatients().observe(this, new Observer<List<Patient>>() {
+
+        adapter = new PatientListAdapter(this, patientListViewModel.getSortBy().getValue());
+        recyclerView.setAdapter(adapter);
+
+        patientListViewModel.getAllPatientsMutableData().observe(this, new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
                 adapter.setPatients(patients);
+            }
+        });
+
+        patientListViewModel.getSortBy().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                patientListViewModel.setAllPatients();
+                adapter.setSearchBy(s);
+            }
+        });
+
+        SearchView searchView = (SearchView) findViewById(R.id.search_patient_searchview);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                System.out.println("onQueryTextChanged()");
+                adapter.getFilter().filter(s);
+                return false;
             }
         });
     }

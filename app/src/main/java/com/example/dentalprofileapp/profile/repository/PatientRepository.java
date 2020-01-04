@@ -13,12 +13,42 @@ import java.util.concurrent.ExecutionException;
 public class PatientRepository {
     private PatientDao patientDao;
     private LiveData<List<Patient>> allPatient;
+    private List<Patient> allPatientList;
     private LiveData<Patient> mPatientWithHighestId;
 
     public PatientRepository(Application application) {
         PatientDatabase database = PatientDatabase.getInstance(application);
         patientDao = database.patientDao();
-        allPatient = patientDao.getAllPatients();
+    }
+
+    public List<Patient> getAllPatientsOrderPatientName(){
+        try {
+            allPatientList = new GetAllPatientOrderPatientNameAsyncTask(patientDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return allPatientList;
+    }
+
+    public List<Patient> getAllPatientsOrderPatientId(){
+        try {
+            allPatientList = new GetAllPatientOrderPatientIdAsyncTask(patientDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return allPatientList;
+    }
+
+    public List<Patient> getAllPatientsOrderBarangay(){
+        try {
+            allPatientList = new GetAllPatientOrderBarangayAsyncTask(patientDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return allPatientList;
     }
 
     public void insert(Patient patient) {
@@ -167,6 +197,42 @@ public class PatientRepository {
         protected Void doInBackground(Void... voids) {
             patientDao.deleteAllPatients();
             return null;
+        }
+    }
+
+    private static class GetAllPatientOrderPatientNameAsyncTask extends AsyncTask<Void, Void, List<Patient>> {
+        private PatientDao patientDao;
+        private GetAllPatientOrderPatientNameAsyncTask(PatientDao patientDao) {
+            this.patientDao = patientDao;
+        }
+
+        @Override
+        protected List<Patient> doInBackground(Void... voids) {
+            return patientDao.getAllPatientsOrderPatientName();
+        }
+    }
+
+    private static class GetAllPatientOrderPatientIdAsyncTask extends AsyncTask<Void, Void, List<Patient>> {
+        private PatientDao patientDao;
+        private GetAllPatientOrderPatientIdAsyncTask(PatientDao patientDao) {
+            this.patientDao = patientDao;
+        }
+
+        @Override
+        protected List<Patient> doInBackground(Void... voids) {
+            return patientDao.getAllPatientsOrderPatientId();
+        }
+    }
+
+    private static class GetAllPatientOrderBarangayAsyncTask extends AsyncTask<Void, Void, List<Patient>> {
+        private PatientDao patientDao;
+        private GetAllPatientOrderBarangayAsyncTask(PatientDao patientDao) {
+            this.patientDao = patientDao;
+        }
+
+        @Override
+        protected List<Patient> doInBackground(Void... voids) {
+            return patientDao.getAllPatientsOrderBarangay();
         }
     }
 }
