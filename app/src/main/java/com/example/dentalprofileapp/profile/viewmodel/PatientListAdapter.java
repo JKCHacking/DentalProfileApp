@@ -83,10 +83,6 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
     }
 
     public void setPatients(List<Patient> patients) {
-
-        System.out.println("setPatients()");
-        System.out.println(patients);
-
         this.patients = patients;
         patientsFull = new ArrayList<>(patients);
 

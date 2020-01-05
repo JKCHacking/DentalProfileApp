@@ -41,34 +41,47 @@
                 android:id="@+id/sort_by_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="Sort By:"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_patient_searchview" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/sort_by_spinner"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:entries="@array/sort_by_list"
-                app:layout_constraintStart_toEndOf="@+id/sort_by_textview"
-                app:layout_constraintTop_toBottomOf="@+id/search_patient_searchview"
-                bind:sortBy="@={viewmodel.sortBy}"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sort_by_textview"
+                bind:sortBy="@={viewmodel.sortBy}" />
 
-            <Button
-                android:id="@+id/search_button"
+            <TextView
+                android:id="@+id/search_by_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="@android:string/search_go"
+                android:layout_marginEnd="24dp"
+                android:text="Search By:"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_patient_searchview" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/search_by_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:entries="@array/sort_by_list"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_by_textview"
+                bind:searchBy="@={viewmodel.searchBy}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

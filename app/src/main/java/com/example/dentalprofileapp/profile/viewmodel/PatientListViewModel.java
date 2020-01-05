@@ -28,6 +28,7 @@ public class PatientListViewModel extends AndroidViewModel {
     private LiveData<List<Patient>> allPatients;
     private MutableLiveData<List<Patient>> allPatientsMutableData;
     private MutableLiveData<String> sortBy;
+    private MutableLiveData<String> searchBy;
 
     public PatientListViewModel(@NonNull Application application) {
         super(application);
@@ -36,9 +37,11 @@ public class PatientListViewModel extends AndroidViewModel {
         comorbidityRepository = new ComorbidityRepository(application);
         patientDentalImagesRepository = new PatientDentalImagesRepository(application);
         sortBy = new MutableLiveData<>();
+        searchBy = new MutableLiveData<>();
         allPatientsMutableData = new MutableLiveData<>();
 
         sortBy.setValue("Patient Name");
+        searchBy.setValue("Patient Name");
         allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderPatientName());
     }
 
@@ -50,6 +53,14 @@ public class PatientListViewModel extends AndroidViewModel {
         } else if (sortBy.getValue().equals("Barangay")) {
             allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderBarangay());
         }
+    }
+
+    public MutableLiveData<String> getSearchBy() {
+        return searchBy;
+    }
+
+    public void setSearchBy(MutableLiveData<String> searchBy) {
+        this.searchBy = searchBy;
     }
 
     public MutableLiveData<String> getSortBy() {

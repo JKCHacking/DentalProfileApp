@@ -43,7 +43,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         patientListViewModel = ViewModelProviders.of(this).get(PatientListViewModel.class);
         activityPatientListBinding.setViewmodel(patientListViewModel);
 
-        adapter = new PatientListAdapter(this, patientListViewModel.getSortBy().getValue());
+        adapter = new PatientListAdapter(this, patientListViewModel.getSearchBy().getValue());
         recyclerView.setAdapter(adapter);
 
         patientListViewModel.getAllPatientsMutableData().observe(this, new Observer<List<Patient>>() {
@@ -57,6 +57,12 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             @Override
             public void onChanged(String s) {
                 patientListViewModel.setAllPatients();
+            }
+        });
+
+        patientListViewModel.getSearchBy().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
                 adapter.setSearchBy(s);
             }
         });
@@ -80,6 +86,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     @Override
     protected void onResume() {
         super.onResume();
+        patientListViewModel.setAllPatients();
         System.out.println("onResume");
     }
 

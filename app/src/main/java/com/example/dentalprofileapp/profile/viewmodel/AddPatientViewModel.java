@@ -371,33 +371,15 @@ public class AddPatientViewModel extends AndroidViewModel {
     public void onClickCheckBox(View view) {
         boolean checked = ((CheckBox) view).isChecked();
         String comorbidityName = ((CheckBox) view).getText().toString();
-        int patientIdInt = Integer.parseInt(patientId.getValue());
-
-//        Comorbidity comorbidityTicked = new Comorbidity();
-//        comorbidityTicked.setFkPatientId(patientIdInt);
-//        comorbidityTicked.setComorbidityName(comorbidityName);
 
         //if checkbox is checked
         if (checked) {
             // get the text from the checkbox and put in the arraylist.
-//            comorbidityObjectList.add(comorbidityTicked);
-//            for (Comorbidity comorbidity : uncheckedComorbidityList) {
-//                if(comorbidity.getComorbidityName().equals(comorbidityName)) {
-//                    uncheckedComorbidityList.remove(comorbidity);
-//                }
-//            }
             comorbidityNameSet.add(comorbidityName);
             uncheckedComorbidityNameSet.remove(comorbidityName);
 
         } else { //if checkbox is not checked
-//            for(Comorbidity comorbidity : comorbidityObjectList) {
-//                if (comorbidity.getComorbidityName().equals(comorbidityName)) {
-//                    // remove the text from the arraylist.
-//                    comorbidityObjectList.remove(comorbidity);
-//                }
-//            }
 //            // create a set to hold the uncheckedComorbidity
-//            uncheckedComorbidityList.add(comorbidityTicked);
             comorbidityNameSet.remove(comorbidityName);
             uncheckedComorbidityNameSet.add(comorbidityName);
 

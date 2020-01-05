@@ -66,4 +66,32 @@ public class SpinnerBindingAdapter {
         System.out.println("Spinner selected value: " + (String)spinner.getSelectedItem());
         return (String)spinner.getSelectedItem();
     }
+
+    @BindingAdapter(value = {"bind:searchBy",
+            "bind:searchByAttrChanged"}, requireAll = false)
+    public static void setSearchBy(final AppCompatSpinner spinner,
+                                 final String selectedSearchBy,
+                                 final InverseBindingListener changeListener) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                changeListener.onChange();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                changeListener.onChange();
+            }
+        });
+        if (selectedSearchBy != null) {
+            int pos = ((ArrayAdapter<String>) spinner.getAdapter()).getPosition(selectedSearchBy);
+            spinner.setSelection(pos, true);
+        }
+    }
+
+    @InverseBindingAdapter(attribute = "bind:searchBy",
+            event = "bind:searchByAttrChanged")
+    public static String getSearchBy(final AppCompatSpinner spinner) {
+        System.out.println("Spinner selected value: " + (String)spinner.getSelectedItem());
+        return (String)spinner.getSelectedItem();
+    }
 }
