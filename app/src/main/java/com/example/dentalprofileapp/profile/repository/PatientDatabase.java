@@ -10,6 +10,9 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.profile.dao.ComorbidityDao;
+import com.example.dentalprofileapp.profile.dao.PatientDao;
+import com.example.dentalprofileapp.profile.dao.PatientDentalImagesDao;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;

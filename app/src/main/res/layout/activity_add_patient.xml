@@ -145,7 +145,7 @@
                     android:text="@={viewmodel.occupation}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/occupation" />
+                    android:hint="@string/userType" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

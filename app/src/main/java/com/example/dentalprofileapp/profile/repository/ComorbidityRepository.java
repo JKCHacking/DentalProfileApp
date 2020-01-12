@@ -3,14 +3,10 @@ package com.example.dentalprofileapp.profile.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.room.Delete;
-
+import com.example.dentalprofileapp.profile.dao.ComorbidityDao;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
-import com.example.dentalprofileapp.profile.entities.Patient;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 public class ComorbidityRepository {

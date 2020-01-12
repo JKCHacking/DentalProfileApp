@@ -12,7 +12,7 @@
     <string name="age">Age</string>
     <string name="registered_date">Registered Date</string>
     <string name="sex">Sex:</string>
-    <string name="occupation">Occupation</string>
+    <string name="userType">Occupation</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="patient_no">Patient no:</string>

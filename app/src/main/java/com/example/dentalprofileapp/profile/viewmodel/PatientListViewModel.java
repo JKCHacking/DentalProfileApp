@@ -15,6 +15,7 @@ import com.example.dentalprofileapp.profile.repository.ComorbidityRepository;
 import com.example.dentalprofileapp.profile.repository.PatientDentalImagesRepository;
 import com.example.dentalprofileapp.profile.repository.PatientRepository;
 import com.example.dentalprofileapp.profile.view.AddPatientActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -25,14 +26,16 @@ public class PatientListViewModel extends AndroidViewModel {
     private ComorbidityRepository comorbidityRepository;
     private PatientDentalImagesRepository patientDentalImagesRepository;
 
-    private LiveData<List<Patient>> allPatients;
     private MutableLiveData<List<Patient>> allPatientsMutableData;
     private MutableLiveData<String> sortBy;
     private MutableLiveData<String> searchBy;
 
+    private FirebaseAuth firebaseAuth;
+
     public PatientListViewModel(@NonNull Application application) {
         super(application);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         patientRepository = new PatientRepository(application);
         comorbidityRepository = new ComorbidityRepository(application);
         patientDentalImagesRepository = new PatientDentalImagesRepository(application);
@@ -104,10 +107,6 @@ public class PatientListViewModel extends AndroidViewModel {
         patientRepository.deleteAllPatients();
     }
 
-    public LiveData<List<Patient>> getAllPatients() {
-        return allPatients;
-    }
-    
     public void onClickAddPatient(View view) {
         Context context = view.getContext();
         Intent intent = new Intent(context, AddPatientActivity.class);

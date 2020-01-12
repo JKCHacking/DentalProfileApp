@@ -32,6 +32,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("onCreate()");
         super.onCreate(savedInstanceState);
+
         activityPatientListBinding = DataBindingUtil.setContentView(this, R.layout.activity_patient_list);
         activityPatientListBinding.setLifecycleOwner(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

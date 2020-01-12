@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "989508373762",
+    "firebase_url": "https://dentalprofileapp.firebaseio.com",
+    "project_id": "dentalprofileapp",
+    "storage_bucket": "dentalprofileapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989508373762:android:d62461acb0d58f694f861b",
+        "android_client_info": {
+          "package_name": "com.example.dentalprofileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989508373762-revsbuhbfaos37n1uecd6r6hag9pvukg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dentalprofileapp",
+            "certificate_hash": "fc95aa7241f0190c0fcf632ccc5263086a2f0a77"
+          }
+        },
+        {
+          "client_id": "989508373762-knttoktjfsk2vg2m1aj3u8mdf9hk7hh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGP61S0uaAZctUj-oEL8iZL77Xxhf5RFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989508373762-knttoktjfsk2vg2m1aj3u8mdf9hk7hh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

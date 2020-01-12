@@ -1,4 +1,4 @@
-package com.example.dentalprofileapp.profile.repository;
+package com.example.dentalprofileapp.profile.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

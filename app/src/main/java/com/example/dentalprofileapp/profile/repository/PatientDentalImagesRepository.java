@@ -3,6 +3,7 @@ package com.example.dentalprofileapp.profile.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import com.example.dentalprofileapp.profile.dao.PatientDentalImagesDao;
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 
 import java.util.concurrent.ExecutionException;

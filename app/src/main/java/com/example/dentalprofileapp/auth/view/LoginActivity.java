@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.viewmodel.AuthViewModel;
 import com.example.dentalprofileapp.databinding.ActivityLoginBinding;
+import com.google.firebase.auth.FirebaseAuth;
 //import com.example.dentalprofileapp.utils.ToastUtil;
 
 
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         activityLoginBinding.setLifecycleOwner(this);
 

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.dentalprofileapp.profile.dao.PatientDao;
 import com.example.dentalprofileapp.profile.entities.Patient;
 
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.concurrent.ExecutionException;
 
 public class PatientRepository {
     private PatientDao patientDao;
-    private LiveData<List<Patient>> allPatient;
     private List<Patient> allPatientList;
     private LiveData<Patient> mPatientWithHighestId;
 
@@ -74,10 +74,6 @@ public class PatientRepository {
 
     public void deleteAllPatients() {
         new DeleteAllPatientsAsyncTask(patientDao).execute();
-    }
-
-    public LiveData<List<Patient>> getAllPatients() {
-        return allPatient;
     }
 
     public LiveData<Patient> getPatientWithHighestId() {
