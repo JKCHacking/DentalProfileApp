@@ -20,6 +20,7 @@ import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListAdapter;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
+import com.example.dentalprofileapp.utils.ToastUtil;
 
 import java.util.List;
 
@@ -27,11 +28,14 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     private PatientListViewModel patientListViewModel;
     private ActivityPatientListBinding activityPatientListBinding;
     private PatientListAdapter adapter;
+    private ToastUtil toastUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("onCreate()");
         super.onCreate(savedInstanceState);
+
+        toastUtil = new ToastUtil(this);
 
         activityPatientListBinding = DataBindingUtil.setContentView(this, R.layout.activity_patient_list);
         activityPatientListBinding.setLifecycleOwner(this);
@@ -50,7 +54,12 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         patientListViewModel.getAllPatientsMutableData().observe(this, new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
-                adapter.setPatients(patients);
+                if (patients != null) {
+                    adapter.setPatients(patients);
+                } else {
+                    System.out.println("No Patients retrieved");
+                    toastUtil.createToastMessage("No Patients retrieved");
+                }
             }
         });
 

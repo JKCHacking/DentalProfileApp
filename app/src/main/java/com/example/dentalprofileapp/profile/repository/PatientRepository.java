@@ -3,11 +3,29 @@ package com.example.dentalprofileapp.profile.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.auth.repository.AuthRepository;
 import com.example.dentalprofileapp.profile.dao.PatientDao;
 import com.example.dentalprofileapp.profile.entities.Patient;
+import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -15,17 +33,74 @@ public class PatientRepository {
     private PatientDao patientDao;
     private List<Patient> allPatientList;
     private LiveData<Patient> mPatientWithHighestId;
+    private AuthRepository authRepository;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseFirestore firebaseFirestore;
+    private PatientListViewModel patientListViewModel;
+
+    public PatientRepository(Application application, PatientListViewModel patientListViewModel) {
+        PatientDatabase database = PatientDatabase.getInstance(application);
+        patientDao = database.patientDao();
+        authRepository = new AuthRepository();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        this.patientListViewModel = patientListViewModel;
+    }
 
     public PatientRepository(Application application) {
         PatientDatabase database = PatientDatabase.getInstance(application);
         patientDao = database.patientDao();
+        authRepository = new AuthRepository();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     public List<Patient> getAllPatientsOrderPatientName(){
         try {
-            allPatientList = new GetAllPatientOrderPatientNameAsyncTask(patientDao).execute().get();
+            if (authRepository.checkSignedInUser()){
+                //do something to get the user from the firebase database.
+                System.out.println("There is a signed in user!");
+                CollectionReference patientsRef = firebaseFirestore.collection("patients");
+                patientsRef.orderBy("patientName");
+                patientsRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    allPatientList = new ArrayList<>();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        System.out.println(document.getId() + " => " + document.getData());
+                                        System.out.println("Patient Name: " + document.get("patientName"));
+
+                                        Patient patientObject = new Patient();
+                                        patientObject.setId(document.getLong("patientId").intValue());
+                                        patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
+                                        patientObject.setPatientName(document.getString("patientName"));
+                                        patientObject.setBarangay(document.getString("barangay"));
+                                        patientObject.setPatientId(document.getLong("patientId").intValue());
+                                        patientObject.setDate(document.getString("registeredDate"));
+                                        patientObject.setAge(document.getString("age"));
+                                        patientObject.setSex(document.getString("sex"));
+                                        patientObject.setOccupation(document.getString("occupation"));
+                                        patientObject.setPurok(document.getString("purok"));
+                                        patientObject.setAllergies(document.getString("allergies"));
+                                        patientObject.setPregnant(document.getBoolean("pregnant"));
+
+                                        allPatientList.add(patientObject);
+                                    }
+                                    patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
+                                } else {
+                                    System.out.println("Error getting documents." + task.getException());
+                                }
+                            }
+                        });
+            } else {
+                 allPatientList = new GetAllPatientOrderPatientNameAsyncTask(patientDao).execute().get();
+            }
+
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return allPatientList;
@@ -204,6 +279,7 @@ public class PatientRepository {
 
         @Override
         protected List<Patient> doInBackground(Void... voids) {
+
             return patientDao.getAllPatientsOrderPatientName();
         }
     }

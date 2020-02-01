@@ -27,6 +27,19 @@ public class AuthRepository {
     public Task<AuthResult> registerUser(User user) {
         return firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword());
     }
+    public void logoutUser() {
+        firebaseAuth.signOut();
+    }
+
+    public Boolean checkSignedInUser() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        boolean isSignedIn = false;
+
+        if(currentUser != null) {
+            isSignedIn = true;
+        }
+        return isSignedIn;
+    }
 
     public void saveUser(final User user) {
         DatabaseReference ref = database.getReference();

@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "989508373762-d7s1v5pous9uhvahvtplrfs7ithr3go7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dentalprofileapp",
+            "certificate_hash": "339298f125541eb8fd2703c06b5086ebfe0f4520"
+          }
+        },
+        {
+          "client_id": "989508373762-t60obgnp02a7ishjhk5tuougjomjce40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dentalprofileapp",
+            "certificate_hash": "cc61f98023f986b16a8dff2103c9b1869b8d2d2f"
+          }
+        },
+        {
           "client_id": "989508373762-revsbuhbfaos37n1uecd6r6hag9pvukg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

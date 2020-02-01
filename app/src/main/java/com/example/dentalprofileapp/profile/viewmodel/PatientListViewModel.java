@@ -36,7 +36,7 @@ public class PatientListViewModel extends AndroidViewModel {
         super(application);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        patientRepository = new PatientRepository(application);
+        patientRepository = new PatientRepository(application, this);
         comorbidityRepository = new ComorbidityRepository(application);
         patientDentalImagesRepository = new PatientDentalImagesRepository(application);
         sortBy = new MutableLiveData<>();
