@@ -424,75 +424,77 @@ public class AddPatientViewModel extends AndroidViewModel {
         ArrayList<Comorbidity> comorbidityList = comorbidityRepository.getComorbiditiesByPatientId(patientIdInt);
         PatientDentalImages patientDentalImages = patientDentalImagesRepository.getPatientDentalImagesByPatientId(patientIdInt);
 
-        //copy the queried comorbidities
-        this.comorbidityObjectList.clear();
-        this.comorbidityObjectList = comorbidityList;
+        if (patient != null && comorbidityList != null && patientDentalImages != null) {
+            //copy the queried comorbidities
+            this.comorbidityObjectList.clear();
+            this.comorbidityObjectList = comorbidityList;
 
-        registeredDate.setValue(patient.getDate());
-        patientName.setValue(patient.getPatientName());
-        age.setValue(patient.getAge());
-        occupation.setValue(patient.getOccupation());
-        allergies.setValue(patient.getAllergies());
+            registeredDate.setValue(patient.getDate());
+            patientName.setValue(patient.getPatientName());
+            age.setValue(patient.getAge());
+            occupation.setValue(patient.getOccupation());
+            allergies.setValue(patient.getAllergies());
 
-        if (patient.getSex().equals("Male")) {
-            isMale.set(true);
-            isFemale.set(false);
-        } else if(patient.getSex().equals("Female")) {
-            isMale.set(false);
-            isFemale.set(true);
-        }
-
-        if (patient.getPregnant()) {
-            isPregnantYes.set(true);
-            isPregnantNo.set(false);
-        } else {
-            isPregnantYes.set(false);
-            isPregnantNo.set(true);
-        }
-
-        barangay.setValue(patient.getBarangay());
-        purok.setValue(patient.getPurok());
-
-        for(Comorbidity comorbidityObject : this.comorbidityObjectList) {
-            switch(comorbidityObject.getComorbidityName()) {
-                case "None":
-                    isNone.set(true);
-                    break;
-                case "Bleeding Disorder":
-                    isBleedingDisorder.set(true);
-                    break;
-                case "Cancer":
-                    isCancer.set(true);
-                    break;
-                case "Diabetes":
-                    isDiabetes.set(true);
-                    break;
-                case "Hypertension":
-                    isHypertension.set(true);
-                    break;
-                case "Kidney Disease":
-                    isKidneyDisease.set(true);
-                    break;
-                case "Liver Disease":
-                    isLiverDisease.set(true);
-                    break;
-                case "Stroke":
-                    isStroke.set(true);
-                    break;
-                case "Thyroid Disease":
-                    isThyroidDisease.set(true);
-                    break;
-                case "Others":
-                    isOther.set(true);
-                    break;
+            if (patient.getSex().equals("Male")) {
+                isMale.set(true);
+                isFemale.set(false);
+            } else if(patient.getSex().equals("Female")) {
+                isMale.set(false);
+                isFemale.set(true);
             }
-        }
 
-        urlUpperOcclusal.setValue(patientDentalImages.getUrlUpperOcclusal());
-        urlLeftBuccal.setValue(patientDentalImages.getUrlLeftBuccal());
-        urlFront.setValue(patientDentalImages.getUrlFront());
-        urlRightBuccal.setValue(patientDentalImages.getUrlRightBuccal());
-        urlLowerOcclusal.setValue(patientDentalImages.getUrlLowerOcclusal());
-        urlFrontFace.setValue(patientDentalImages.getUrlFrontFace());
+            if (patient.getPregnant()) {
+                isPregnantYes.set(true);
+                isPregnantNo.set(false);
+            } else {
+                isPregnantYes.set(false);
+                isPregnantNo.set(true);
+            }
+
+            barangay.setValue(patient.getBarangay());
+            purok.setValue(patient.getPurok());
+
+            for(Comorbidity comorbidityObject : this.comorbidityObjectList) {
+                switch(comorbidityObject.getComorbidityName()) {
+                    case "None":
+                        isNone.set(true);
+                        break;
+                    case "Bleeding Disorder":
+                        isBleedingDisorder.set(true);
+                        break;
+                    case "Cancer":
+                        isCancer.set(true);
+                        break;
+                    case "Diabetes":
+                        isDiabetes.set(true);
+                        break;
+                    case "Hypertension":
+                        isHypertension.set(true);
+                        break;
+                    case "Kidney Disease":
+                        isKidneyDisease.set(true);
+                        break;
+                    case "Liver Disease":
+                        isLiverDisease.set(true);
+                        break;
+                    case "Stroke":
+                        isStroke.set(true);
+                        break;
+                    case "Thyroid Disease":
+                        isThyroidDisease.set(true);
+                        break;
+                    case "Others":
+                        isOther.set(true);
+                        break;
+                }
+            }
+
+            urlUpperOcclusal.setValue(patientDentalImages.getUrlUpperOcclusal());
+            urlLeftBuccal.setValue(patientDentalImages.getUrlLeftBuccal());
+            urlFront.setValue(patientDentalImages.getUrlFront());
+            urlRightBuccal.setValue(patientDentalImages.getUrlRightBuccal());
+            urlLowerOcclusal.setValue(patientDentalImages.getUrlLowerOcclusal());
+            urlFrontFace.setValue(patientDentalImages.getUrlFrontFace());
+        }
     }
 }

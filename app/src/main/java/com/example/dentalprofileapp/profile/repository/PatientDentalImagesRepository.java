@@ -3,18 +3,35 @@ package com.example.dentalprofileapp.profile.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.example.dentalprofileapp.profile.dao.PatientDentalImagesDao;
-import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
+import androidx.annotation.NonNull;
 
+import com.example.dentalprofileapp.auth.repository.AuthRepository;
+import com.example.dentalprofileapp.profile.dao.PatientDentalImagesDao;
+import com.example.dentalprofileapp.profile.entities.Comorbidity;
+import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class PatientDentalImagesRepository {
 
     private PatientDentalImagesDao patientDentalImagesDao;
+    private AuthRepository authRepository;
+    private FirebaseFirestore firebaseFirestore;
+    private PatientDentalImages patientDentalImagesResult;
 
     public PatientDentalImagesRepository(Application application) {
         PatientDatabase database = PatientDatabase.getInstance(application);
         patientDentalImagesDao = database.patientDentalImagesDao();
+        authRepository = new AuthRepository();
+        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     public void insert(PatientDentalImages patientDentalImages) {
@@ -29,10 +46,61 @@ public class PatientDentalImagesRepository {
         }
     }
 
-    public PatientDentalImages getPatientDentalImagesByPatientId(int patientId){
-        PatientDentalImages patientDentalImagesResult = null;
+    public PatientDentalImages getPatientDentalImagesByPatientId(final int patientId){
+        patientDentalImagesResult = null;
+
         try {
-            patientDentalImagesResult = new GetPatientDentalImagesByPatientIdAsyncTask(patientDentalImagesDao).execute(patientId).get();
+            if (authRepository.checkSignedInUser()){
+                //do something to get the user from the firebase database.
+                System.out.println("There is a signed in user!");
+                CollectionReference patientsRef = firebaseFirestore.collection("patients");
+                patientsRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                        if (document.getLong("patientId").intValue() == patientId ) {
+                                            patientDentalImagesResult = new PatientDentalImages();
+                                            Map<String, String> dentalImages = (Map<String, String>)document.get("dentalImages");
+                                            for (Map.Entry<String, String> dentalImageEntry : dentalImages.entrySet()) {
+                                                switch (dentalImageEntry.getKey()) {
+                                                    case "front":
+                                                        patientDentalImagesResult.setUrlFront(dentalImageEntry.getValue());
+                                                        break;
+                                                    case "frontFace":
+                                                        patientDentalImagesResult.setUrlFrontFace(dentalImageEntry.getValue());
+                                                        break;
+                                                    case "leftBuccal":
+                                                        patientDentalImagesResult.setUrlLeftBuccal(dentalImageEntry.getValue());
+                                                        break;
+                                                    case "lowerOcclusal":
+                                                        patientDentalImagesResult.setUrlLowerOcclusal(dentalImageEntry.getValue());
+                                                        break;
+                                                    case "rightBuccal":
+                                                        patientDentalImagesResult.setUrlRightBuccal(dentalImageEntry.getValue());
+                                                        break;
+                                                    case "upperOcclusal":
+                                                        patientDentalImagesResult.setUrlUpperOcclusal(dentalImageEntry.getValue());
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+
+                                    if (patientDentalImagesResult == null) {
+                                        System.out.println("Cannot find patient with Patient Id " + patientId);
+                                    }
+                                } else {
+                                    System.out.println("Error getting documents." + task.getException());
+                                }
+                            }
+                        });
+            } else {
+                patientDentalImagesResult = new GetPatientDentalImagesByPatientIdAsyncTask(patientDentalImagesDao).execute(patientId).get();
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

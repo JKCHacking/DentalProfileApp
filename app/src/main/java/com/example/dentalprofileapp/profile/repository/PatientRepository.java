@@ -2,6 +2,7 @@ package com.example.dentalprofileapp.profile.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -13,19 +14,13 @@ import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -37,6 +32,7 @@ public class PatientRepository {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseFirestore firebaseFirestore;
     private PatientListViewModel patientListViewModel;
+    private Patient patientResult;
 
     public PatientRepository(Application application, PatientListViewModel patientListViewModel) {
         PatientDatabase database = PatientDatabase.getInstance(application);
@@ -108,7 +104,46 @@ public class PatientRepository {
 
     public List<Patient> getAllPatientsOrderPatientId(){
         try {
-            allPatientList = new GetAllPatientOrderPatientIdAsyncTask(patientDao).execute().get();
+            if (authRepository.checkSignedInUser()){
+                //do something to get the user from the firebase database.
+                System.out.println("There is a signed in user!");
+                CollectionReference patientsRef = firebaseFirestore.collection("patients");
+                patientsRef.orderBy("patientId");
+                patientsRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    allPatientList = new ArrayList<>();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        System.out.println(document.getId() + " => " + document.getData());
+                                        System.out.println("Patient Name: " + document.get("patientName"));
+
+                                        Patient patientObject = new Patient();
+                                        patientObject.setId(document.getLong("patientId").intValue());
+                                        patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
+                                        patientObject.setPatientName(document.getString("patientName"));
+                                        patientObject.setBarangay(document.getString("barangay"));
+                                        patientObject.setPatientId(document.getLong("patientId").intValue());
+                                        patientObject.setDate(document.getString("registeredDate"));
+                                        patientObject.setAge(document.getString("age"));
+                                        patientObject.setSex(document.getString("sex"));
+                                        patientObject.setOccupation(document.getString("occupation"));
+                                        patientObject.setPurok(document.getString("purok"));
+                                        patientObject.setAllergies(document.getString("allergies"));
+                                        patientObject.setPregnant(document.getBoolean("pregnant"));
+
+                                        allPatientList.add(patientObject);
+                                    }
+                                    patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
+                                } else {
+                                    System.out.println("Error getting documents." + task.getException());
+                                }
+                            }
+                        });
+            } else {
+                allPatientList = new GetAllPatientOrderPatientIdAsyncTask(patientDao).execute().get();
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -118,7 +153,46 @@ public class PatientRepository {
 
     public List<Patient> getAllPatientsOrderBarangay(){
         try {
-            allPatientList = new GetAllPatientOrderBarangayAsyncTask(patientDao).execute().get();
+            if (authRepository.checkSignedInUser()){
+                //do something to get the user from the firebase database.
+                System.out.println("There is a signed in user!");
+                CollectionReference patientsRef = firebaseFirestore.collection("patients");
+                patientsRef.orderBy("barangay");
+                patientsRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    allPatientList = new ArrayList<>();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        System.out.println(document.getId() + " => " + document.getData());
+                                        System.out.println("Patient Name: " + document.get("patientName"));
+
+                                        Patient patientObject = new Patient();
+                                        patientObject.setId(document.getLong("patientId").intValue());
+                                        patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
+                                        patientObject.setPatientName(document.getString("patientName"));
+                                        patientObject.setBarangay(document.getString("barangay"));
+                                        patientObject.setPatientId(document.getLong("patientId").intValue());
+                                        patientObject.setDate(document.getString("registeredDate"));
+                                        patientObject.setAge(document.getString("age"));
+                                        patientObject.setSex(document.getString("sex"));
+                                        patientObject.setOccupation(document.getString("occupation"));
+                                        patientObject.setPurok(document.getString("purok"));
+                                        patientObject.setAllergies(document.getString("allergies"));
+                                        patientObject.setPregnant(document.getBoolean("pregnant"));
+
+                                        allPatientList.add(patientObject);
+                                    }
+                                    patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
+                                } else {
+                                    System.out.println("Error getting documents." + task.getException());
+                                }
+                            }
+                        });
+            } else {
+                allPatientList = new GetAllPatientOrderBarangayAsyncTask(patientDao).execute().get();
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -156,12 +230,59 @@ public class PatientRepository {
         return mPatientWithHighestId;
     }
 
-    public Patient getPatientByPatientId(int patientId){
-        Patient patientResult = null;
+    public Patient getPatientByPatientId(final int patientId){
+        patientResult = null;
         try {
-            patientResult = new GetPatientByPatientIdAsyncTask(patientDao).execute(patientId).get();
+            if (authRepository.checkSignedInUser()){
+                //do something to get the user from the firebase database.
+                System.out.println("There is a signed in user!");
+                CollectionReference patientsRef = firebaseFirestore.collection("patients");
+                patientsRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                        if (document.getLong("patientId").intValue() == patientId ) {
+                                            patientResult = new Patient();
+                                            patientResult.setId(document.getLong("patientId").intValue());
+                                            patientResult.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
+                                            patientResult.setPatientName(document.getString("patientName"));
+                                            patientResult.setBarangay(document.getString("barangay"));
+                                            patientResult.setPatientId(document.getLong("patientId").intValue());
+                                            patientResult.setDate(document.getString("registeredDate"));
+                                            patientResult.setAge(document.getString("age"));
+                                            patientResult.setSex(document.getString("sex"));
+                                            patientResult.setOccupation(document.getString("occupation"));
+                                            patientResult.setPurok(document.getString("purok"));
+                                            patientResult.setAllergies(document.getString("allergies"));
+                                            patientResult.setPregnant(document.getBoolean("pregnant"));
+                                            break;
+                                        }
+                                    }
+                                    System.out.println("Patient Result is: " + patientResult);
+                                    System.out.println(patientResult.getPatientName());
+
+                                    if (patientResult == null) {
+                                        System.out.println("Cannot find patient with Patient Id " + patientId);
+                                    }
+                                } else {
+                                    System.out.println("Error getting documents." + task.getException());
+                                }
+                            }
+                        });
+            } else {
+                patientResult = new GetPatientByPatientIdAsyncTask(patientDao).execute(patientId).get();
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+        }
+
+        try {
+            Thread.sleep(5000);
+        } catch(InterruptedException ie) {
+            ie.printStackTrace();
         }
 
         return patientResult;
