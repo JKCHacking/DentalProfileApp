@@ -4,10 +4,12 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
 import com.example.dentalprofileapp.profile.dao.PatientDentalImagesDao;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
+import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +48,8 @@ public class PatientDentalImagesRepository {
         }
     }
 
-    public PatientDentalImages getPatientDentalImagesByPatientId(final int patientId){
+    public PatientDentalImages getPatientDentalImagesByPatientId(final int patientId,
+                                                                 final MutableLiveData<PatientDentalImages> patientDentalImagesLiveData){
         patientDentalImagesResult = null;
 
         try {
@@ -92,6 +95,8 @@ public class PatientDentalImagesRepository {
 
                                     if (patientDentalImagesResult == null) {
                                         System.out.println("Cannot find patient with Patient Id " + patientId);
+                                    } else {
+                                        patientDentalImagesLiveData.setValue(patientDentalImagesResult);
                                     }
                                 } else {
                                     System.out.println("Error getting documents." + task.getException());

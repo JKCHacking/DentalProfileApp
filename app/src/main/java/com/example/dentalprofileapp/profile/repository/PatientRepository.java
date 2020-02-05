@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
@@ -41,6 +42,7 @@ public class PatientRepository {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         this.patientListViewModel = patientListViewModel;
+
     }
 
     public PatientRepository(Application application) {
@@ -51,45 +53,49 @@ public class PatientRepository {
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
+    private void getPatientFromFirestore(String sortBy) {
+        CollectionReference patientsRef = firebaseFirestore.collection("patients");
+        patientsRef.orderBy(sortBy);
+        patientsRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            allPatientList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                System.out.println(document.getId() + " => " + document.getData());
+                                System.out.println("Patient Name: " + document.get("patientName"));
+
+                                Patient patientObject = new Patient();
+                                patientObject.setId(document.getLong("patientId").intValue());
+                                patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
+                                patientObject.setPatientName(document.getString("patientName"));
+                                patientObject.setBarangay(document.getString("barangay"));
+                                patientObject.setPatientId(document.getLong("patientId").intValue());
+                                patientObject.setDate(document.getString("registeredDate"));
+                                patientObject.setAge(document.getString("age"));
+                                patientObject.setSex(document.getString("sex"));
+                                patientObject.setOccupation(document.getString("occupation"));
+                                patientObject.setPurok(document.getString("purok"));
+                                patientObject.setAllergies(document.getString("allergies"));
+                                patientObject.setPregnant(document.getBoolean("pregnant"));
+
+                                allPatientList.add(patientObject);
+                            }
+                            patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
+                        } else {
+                            System.out.println("Error getting documents." + task.getException());
+                        }
+                    }
+                });
+    }
+
     public List<Patient> getAllPatientsOrderPatientName(){
         try {
             if (authRepository.checkSignedInUser()){
                 //do something to get the user from the firebase database.
                 System.out.println("There is a signed in user!");
-                CollectionReference patientsRef = firebaseFirestore.collection("patients");
-                patientsRef.orderBy("patientName");
-                patientsRef.get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    allPatientList = new ArrayList<>();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        System.out.println(document.getId() + " => " + document.getData());
-                                        System.out.println("Patient Name: " + document.get("patientName"));
-
-                                        Patient patientObject = new Patient();
-                                        patientObject.setId(document.getLong("patientId").intValue());
-                                        patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
-                                        patientObject.setPatientName(document.getString("patientName"));
-                                        patientObject.setBarangay(document.getString("barangay"));
-                                        patientObject.setPatientId(document.getLong("patientId").intValue());
-                                        patientObject.setDate(document.getString("registeredDate"));
-                                        patientObject.setAge(document.getString("age"));
-                                        patientObject.setSex(document.getString("sex"));
-                                        patientObject.setOccupation(document.getString("occupation"));
-                                        patientObject.setPurok(document.getString("purok"));
-                                        patientObject.setAllergies(document.getString("allergies"));
-                                        patientObject.setPregnant(document.getBoolean("pregnant"));
-
-                                        allPatientList.add(patientObject);
-                                    }
-                                    patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
-                                } else {
-                                    System.out.println("Error getting documents." + task.getException());
-                                }
-                            }
-                        });
+                getPatientFromFirestore("patientName");
             } else {
                  allPatientList = new GetAllPatientOrderPatientNameAsyncTask(patientDao).execute().get();
             }
@@ -107,40 +113,7 @@ public class PatientRepository {
             if (authRepository.checkSignedInUser()){
                 //do something to get the user from the firebase database.
                 System.out.println("There is a signed in user!");
-                CollectionReference patientsRef = firebaseFirestore.collection("patients");
-                patientsRef.orderBy("patientId");
-                patientsRef.get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    allPatientList = new ArrayList<>();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        System.out.println(document.getId() + " => " + document.getData());
-                                        System.out.println("Patient Name: " + document.get("patientName"));
-
-                                        Patient patientObject = new Patient();
-                                        patientObject.setId(document.getLong("patientId").intValue());
-                                        patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
-                                        patientObject.setPatientName(document.getString("patientName"));
-                                        patientObject.setBarangay(document.getString("barangay"));
-                                        patientObject.setPatientId(document.getLong("patientId").intValue());
-                                        patientObject.setDate(document.getString("registeredDate"));
-                                        patientObject.setAge(document.getString("age"));
-                                        patientObject.setSex(document.getString("sex"));
-                                        patientObject.setOccupation(document.getString("occupation"));
-                                        patientObject.setPurok(document.getString("purok"));
-                                        patientObject.setAllergies(document.getString("allergies"));
-                                        patientObject.setPregnant(document.getBoolean("pregnant"));
-
-                                        allPatientList.add(patientObject);
-                                    }
-                                    patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
-                                } else {
-                                    System.out.println("Error getting documents." + task.getException());
-                                }
-                            }
-                        });
+                getPatientFromFirestore("patientId");
             } else {
                 allPatientList = new GetAllPatientOrderPatientIdAsyncTask(patientDao).execute().get();
             }
@@ -156,40 +129,7 @@ public class PatientRepository {
             if (authRepository.checkSignedInUser()){
                 //do something to get the user from the firebase database.
                 System.out.println("There is a signed in user!");
-                CollectionReference patientsRef = firebaseFirestore.collection("patients");
-                patientsRef.orderBy("barangay");
-                patientsRef.get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    allPatientList = new ArrayList<>();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        System.out.println(document.getId() + " => " + document.getData());
-                                        System.out.println("Patient Name: " + document.get("patientName"));
-
-                                        Patient patientObject = new Patient();
-                                        patientObject.setId(document.getLong("patientId").intValue());
-                                        patientObject.setProfilePicture(R.drawable.ic_launcher_foreground); //TODO Temporary value
-                                        patientObject.setPatientName(document.getString("patientName"));
-                                        patientObject.setBarangay(document.getString("barangay"));
-                                        patientObject.setPatientId(document.getLong("patientId").intValue());
-                                        patientObject.setDate(document.getString("registeredDate"));
-                                        patientObject.setAge(document.getString("age"));
-                                        patientObject.setSex(document.getString("sex"));
-                                        patientObject.setOccupation(document.getString("occupation"));
-                                        patientObject.setPurok(document.getString("purok"));
-                                        patientObject.setAllergies(document.getString("allergies"));
-                                        patientObject.setPregnant(document.getBoolean("pregnant"));
-
-                                        allPatientList.add(patientObject);
-                                    }
-                                    patientListViewModel.getAllPatientsMutableData().postValue(allPatientList);
-                                } else {
-                                    System.out.println("Error getting documents." + task.getException());
-                                }
-                            }
-                        });
+                getPatientFromFirestore("barangay");
             } else {
                 allPatientList = new GetAllPatientOrderBarangayAsyncTask(patientDao).execute().get();
             }
@@ -200,37 +140,13 @@ public class PatientRepository {
         return allPatientList;
     }
 
-    public void insert(Patient patient) {
-        try {
-            long returnedId = new InsertPatientAsyncTask(patientDao).execute(patient).get();
-            System.out.println(returnedId);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void update(Patient patient) {
-        new UpdatePatientAsyncTask(patientDao).execute(patient);
-    }
-
-    public void delete(Patient patient) {
-        new DeletePatientAsyncTask(patientDao).execute(patient);
-    }
-
-    public void deleteByPatientId(int patientId) {
-        new DeleteByPatientIdAsyncTask(patientDao).execute(patientId);
-    }
-
-    public void deleteAllPatients() {
-        new DeleteAllPatientsAsyncTask(patientDao).execute();
-    }
-
     public LiveData<Patient> getPatientWithHighestId() {
         mPatientWithHighestId = patientDao.getPatientWithHighestId();
         return mPatientWithHighestId;
     }
 
-    public Patient getPatientByPatientId(final int patientId){
+    public Patient getPatientByPatientId(final int patientId,
+                                         final MutableLiveData<Patient> patientResultLiveData){
         patientResult = null;
         try {
             if (authRepository.checkSignedInUser()){
@@ -261,12 +177,13 @@ public class PatientRepository {
                                             break;
                                         }
                                     }
-                                    System.out.println("Patient Result is: " + patientResult);
-                                    System.out.println(patientResult.getPatientName());
 
                                     if (patientResult == null) {
                                         System.out.println("Cannot find patient with Patient Id " + patientId);
+                                    } else {
+                                        patientResultLiveData.postValue(patientResult);
                                     }
+
                                 } else {
                                     System.out.println("Error getting documents." + task.getException());
                                 }
@@ -287,6 +204,33 @@ public class PatientRepository {
 
         return patientResult;
     }
+
+    public void insert(Patient patient) {
+        try {
+            long returnedId = new InsertPatientAsyncTask(patientDao).execute(patient).get();
+            System.out.println(returnedId);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Patient patient) {
+        new UpdatePatientAsyncTask(patientDao).execute(patient);
+    }
+
+    public void delete(Patient patient) {
+        new DeletePatientAsyncTask(patientDao).execute(patient);
+    }
+
+    public void deleteByPatientId(int patientId) {
+        new DeleteByPatientIdAsyncTask(patientDao).execute(patientId);
+    }
+
+    public void deleteAllPatients() {
+        new DeleteAllPatientsAsyncTask(patientDao).execute();
+    }
+
+    //====================================ASYNC TASK CLASSES====================================
 
     private static class GetPatientByPatientIdAsyncTask extends AsyncTask<Integer, Void, Patient> {
         private PatientDao patientDao;

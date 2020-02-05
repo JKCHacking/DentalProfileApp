@@ -11,6 +11,7 @@ import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
@@ -73,6 +74,9 @@ public class AddPatientViewModel extends AndroidViewModel {
     private Set<String> uncheckedComorbidityNameSet = new HashSet<>();
     private SingleLiveEvent<Integer> openGalleryLiveData;
     private Boolean isUpdate;
+    private MutableLiveData<Patient> patientResultLiveData;
+    private MutableLiveData<ArrayList<Comorbidity>> comorbidityResultLiveData;
+    private MutableLiveData<PatientDentalImages> patientDentalImagesResultLiveData;
 
     //entities
     private Patient mPatient;
@@ -82,6 +86,9 @@ public class AddPatientViewModel extends AndroidViewModel {
     private PatientRepository patientRepository;
     private ComorbidityRepository comorbidityRepository;
     private PatientDentalImagesRepository patientDentalImagesRepository;
+    private Patient patientRepoResult;
+    private ArrayList<Comorbidity> comorbidityListRepoResult;
+    private PatientDentalImages patientDentalImagesRepoResult;
 
     private int patientIdInt;
 
@@ -90,6 +97,7 @@ public class AddPatientViewModel extends AndroidViewModel {
         System.out.println("AddPatientViewModel constructor is called!");
 
         patientRepository = new PatientRepository(application);
+
         patientHighestId = patientRepository.getPatientWithHighestId();
 
         comorbidityRepository = new ComorbidityRepository(application);
@@ -132,6 +140,10 @@ public class AddPatientViewModel extends AndroidViewModel {
         //get date today
         registeredDate.setValue(new SimpleDateFormat("MM/dd/YYYY", Locale.getDefault()).format(new Date()));
         isUpdate = false;
+
+        patientResultLiveData = new MutableLiveData<>();
+        comorbidityResultLiveData = new MutableLiveData<>();
+        patientDentalImagesResultLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<String> getPatientId() {
@@ -286,6 +298,42 @@ public class AddPatientViewModel extends AndroidViewModel {
         isUpdate = update;
     }
 
+    public MutableLiveData<Patient> getPatientResultLiveData() {
+        return patientResultLiveData;
+    }
+
+    public MutableLiveData<ArrayList<Comorbidity>> getComorbidityResultLiveData() {
+        return comorbidityResultLiveData;
+    }
+
+    public MutableLiveData<PatientDentalImages> getPatientDentalImagesResultLiveData() {
+        return patientDentalImagesResultLiveData;
+    }
+
+    public Patient getPatientRepoResult() {
+        return patientRepoResult;
+    }
+
+    public void setPatientRepoResult(Patient patientRepoResult) {
+        this.patientRepoResult = patientRepoResult;
+    }
+
+    public ArrayList<Comorbidity> getComorbidityListRepoResult() {
+        return comorbidityListRepoResult;
+    }
+
+    public void setComorbidityListRepoResult(ArrayList<Comorbidity> comorbidityListRepoResult) {
+        this.comorbidityListRepoResult = comorbidityListRepoResult;
+    }
+
+    public PatientDentalImages getPatientDentalImagesRepoResult() {
+        return patientDentalImagesRepoResult;
+    }
+
+    public void setPatientDentalImagesRepoResult(PatientDentalImages patientDentalImagesRepoResult) {
+        this.patientDentalImagesRepoResult = patientDentalImagesRepoResult;
+    }
+
     public void insert(View view) {
         System.out.println("Insert method called!");
 
@@ -300,7 +348,8 @@ public class AddPatientViewModel extends AndroidViewModel {
 
             if(!uncheckedComorbidityList.isEmpty()) {
                 // delete all the unchecked comorbidities.
-                int deletedComorbidity = comorbidityRepository.deleteByPatientIdComorbidityName(uncheckedComorbidityList);
+                int deletedComorbidity = comorbidityRepository
+                        .deleteByPatientIdComorbidityName(uncheckedComorbidityList);
                 System.out.println(deletedComorbidity);
                 uncheckedComorbidityList.clear();
             }
@@ -382,7 +431,6 @@ public class AddPatientViewModel extends AndroidViewModel {
 //            // create a set to hold the uncheckedComorbidity
             comorbidityNameSet.remove(comorbidityName);
             uncheckedComorbidityNameSet.add(comorbidityName);
-
         }
     }
 
@@ -417,84 +465,99 @@ public class AddPatientViewModel extends AndroidViewModel {
                 break;
         }
     }
-
-    public void populateDataToViews(String patientId) {
+    public void getPatientDataFromRepo(String patientId) {
         int patientIdInt = Integer.parseInt(patientId);
-        Patient patient = patientRepository.getPatientByPatientId(patientIdInt);
-        ArrayList<Comorbidity> comorbidityList = comorbidityRepository.getComorbiditiesByPatientId(patientIdInt);
-        PatientDentalImages patientDentalImages = patientDentalImagesRepository.getPatientDentalImagesByPatientId(patientIdInt);
+        patientRepoResult = patientRepository.getPatientByPatientId(patientIdInt, patientResultLiveData);
+        comorbidityListRepoResult = comorbidityRepository
+                .getComorbiditiesByPatientId(patientIdInt, comorbidityResultLiveData);
+        patientDentalImagesRepoResult = patientDentalImagesRepository
+                .getPatientDentalImagesByPatientId(patientIdInt, patientDentalImagesResultLiveData);
 
-        if (patient != null && comorbidityList != null && patientDentalImages != null) {
-            //copy the queried comorbidities
-            this.comorbidityObjectList.clear();
-            this.comorbidityObjectList = comorbidityList;
-
-            registeredDate.setValue(patient.getDate());
-            patientName.setValue(patient.getPatientName());
-            age.setValue(patient.getAge());
-            occupation.setValue(patient.getOccupation());
-            allergies.setValue(patient.getAllergies());
-
-            if (patient.getSex().equals("Male")) {
-                isMale.set(true);
-                isFemale.set(false);
-            } else if(patient.getSex().equals("Female")) {
-                isMale.set(false);
-                isFemale.set(true);
-            }
-
-            if (patient.getPregnant()) {
-                isPregnantYes.set(true);
-                isPregnantNo.set(false);
-            } else {
-                isPregnantYes.set(false);
-                isPregnantNo.set(true);
-            }
-
-            barangay.setValue(patient.getBarangay());
-            purok.setValue(patient.getPurok());
-
-            for(Comorbidity comorbidityObject : this.comorbidityObjectList) {
-                switch(comorbidityObject.getComorbidityName()) {
-                    case "None":
-                        isNone.set(true);
-                        break;
-                    case "Bleeding Disorder":
-                        isBleedingDisorder.set(true);
-                        break;
-                    case "Cancer":
-                        isCancer.set(true);
-                        break;
-                    case "Diabetes":
-                        isDiabetes.set(true);
-                        break;
-                    case "Hypertension":
-                        isHypertension.set(true);
-                        break;
-                    case "Kidney Disease":
-                        isKidneyDisease.set(true);
-                        break;
-                    case "Liver Disease":
-                        isLiverDisease.set(true);
-                        break;
-                    case "Stroke":
-                        isStroke.set(true);
-                        break;
-                    case "Thyroid Disease":
-                        isThyroidDisease.set(true);
-                        break;
-                    case "Others":
-                        isOther.set(true);
-                        break;
-                }
-            }
-
-            urlUpperOcclusal.setValue(patientDentalImages.getUrlUpperOcclusal());
-            urlLeftBuccal.setValue(patientDentalImages.getUrlLeftBuccal());
-            urlFront.setValue(patientDentalImages.getUrlFront());
-            urlRightBuccal.setValue(patientDentalImages.getUrlRightBuccal());
-            urlLowerOcclusal.setValue(patientDentalImages.getUrlLowerOcclusal());
-            urlFrontFace.setValue(patientDentalImages.getUrlFrontFace());
+        //this will only be called during offline scenario.
+        if (patientRepoResult != null && comorbidityListRepoResult != null &&
+                patientDentalImagesRepoResult != null) {
+            populateDataToViews();
         }
+    }
+    public void populatePatientDataToViews() {
+        registeredDate.setValue(patientRepoResult.getDate());
+        patientName.setValue(patientRepoResult.getPatientName());
+        age.setValue(patientRepoResult.getAge());
+        occupation.setValue(patientRepoResult.getOccupation());
+        allergies.setValue(patientRepoResult.getAllergies());
+
+        if (patientRepoResult.getSex().equals("Male")) {
+            isMale.set(true);
+            isFemale.set(false);
+        } else if(patientRepoResult.getSex().equals("Female")) {
+            isMale.set(false);
+            isFemale.set(true);
+        }
+
+        if (patientRepoResult.getPregnant()) {
+            isPregnantYes.set(true);
+            isPregnantNo.set(false);
+        } else {
+            isPregnantYes.set(false);
+            isPregnantNo.set(true);
+        }
+
+        barangay.setValue(patientRepoResult.getBarangay());
+        purok.setValue(patientRepoResult.getPurok());
+    }
+
+    public void populateComorbidityDataToViews() {
+        this.comorbidityObjectList.clear();
+        this.comorbidityObjectList = comorbidityListRepoResult;
+
+        for(Comorbidity comorbidityObject : this.comorbidityObjectList) {
+            switch(comorbidityObject.getComorbidityName()) {
+                case "None":
+                    isNone.set(true);
+                    break;
+                case "Bleeding Disorder":
+                    isBleedingDisorder.set(true);
+                    break;
+                case "Cancer":
+                    isCancer.set(true);
+                    break;
+                case "Diabetes":
+                    isDiabetes.set(true);
+                    break;
+                case "Hypertension":
+                    isHypertension.set(true);
+                    break;
+                case "Kidney Disease":
+                    isKidneyDisease.set(true);
+                    break;
+                case "Liver Disease":
+                    isLiverDisease.set(true);
+                    break;
+                case "Stroke":
+                    isStroke.set(true);
+                    break;
+                case "Thyroid Disease":
+                    isThyroidDisease.set(true);
+                    break;
+                case "Others":
+                    isOther.set(true);
+                    break;
+            }
+        }
+    }
+
+    public void populateDentalImagesToViews() {
+        urlUpperOcclusal.setValue(patientDentalImagesRepoResult.getUrlUpperOcclusal());
+        urlLeftBuccal.setValue(patientDentalImagesRepoResult.getUrlLeftBuccal());
+        urlFront.setValue(patientDentalImagesRepoResult.getUrlFront());
+        urlRightBuccal.setValue(patientDentalImagesRepoResult.getUrlRightBuccal());
+        urlLowerOcclusal.setValue(patientDentalImagesRepoResult.getUrlLowerOcclusal());
+        urlFrontFace.setValue(patientDentalImagesRepoResult.getUrlFrontFace());
+    }
+
+    public void populateDataToViews() {
+        populatePatientDataToViews();
+        populateComorbidityDataToViews();
+        populateDentalImagesToViews();
     }
 }

@@ -20,8 +20,12 @@ import android.provider.MediaStore;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.databinding.ActivityAddPatientBinding;
+import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
+import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 import com.example.dentalprofileapp.profile.viewmodel.AddPatientViewModel;
+
+import java.util.ArrayList;
 
 public class AddPatientActivity extends AppCompatActivity {
 
@@ -45,7 +49,7 @@ public class AddPatientActivity extends AppCompatActivity {
 
         if(extras != null) {
             String patientId = extras.getString("patientId");
-            addPatientViewModel.populateDataToViews(patientId);
+            addPatientViewModel.getPatientDataFromRepo(patientId);
         }
 
         addPatientViewModel.getPatientHighestId().observe(this, new Observer<Patient>() {
@@ -63,6 +67,30 @@ public class AddPatientActivity extends AppCompatActivity {
                     addPatientViewModel.setUpdate(true);
                 }
                 addPatientViewModel.getPatientId().setValue(patientId);
+            }
+        });
+
+        addPatientViewModel.getPatientResultLiveData().observe(this, new Observer<Patient>() {
+            @Override
+            public void onChanged(Patient patient) {
+                addPatientViewModel.setPatientRepoResult(patient);
+                addPatientViewModel.populatePatientDataToViews();
+            }
+        });
+
+        addPatientViewModel.getComorbidityResultLiveData().observe(this, new Observer<ArrayList<Comorbidity>>() {
+            @Override
+            public void onChanged(ArrayList<Comorbidity> comorbidities) {
+                addPatientViewModel.setComorbidityListRepoResult(comorbidities);
+                addPatientViewModel.populateComorbidityDataToViews();
+            }
+        });
+
+        addPatientViewModel.getPatientDentalImagesResultLiveData().observe(this, new Observer<PatientDentalImages>() {
+            @Override
+            public void onChanged(PatientDentalImages patientDentalImages) {
+                addPatientViewModel.setPatientDentalImagesRepoResult(patientDentalImages);
+                addPatientViewModel.populateDentalImagesToViews();
             }
         });
 

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
@@ -117,7 +118,8 @@ public class ComorbidityRepository {
         }
     }
 
-    public ArrayList<Comorbidity> getComorbiditiesByPatientId(final int patientId){
+    public ArrayList<Comorbidity> getComorbiditiesByPatientId(final int patientId,
+                                                              final MutableLiveData<ArrayList<Comorbidity>> comorbidityListLiveData){
         comorbiditiesResult = null;
         try {
             if (authRepository.checkSignedInUser()){
@@ -133,20 +135,22 @@ public class ComorbidityRepository {
 
                                         if (document.getLong("patientId").intValue() == patientId ) {
                                             comorbiditiesResult = new ArrayList<>();
-                                            Comorbidity comorbidityObject = new Comorbidity();
 
-                                            for (String comorbidityName : (ArrayList<String>) document.get("comorbidities")) {
+                                            ArrayList<String> comorbiditiesFromDocument = (ArrayList<String>) document.get("comorbidities");
+                                            for (String comorbidityName : comorbiditiesFromDocument) {
+                                                Comorbidity comorbidityObject = new Comorbidity();
                                                 comorbidityObject.setFkPatientId(patientId);
                                                 comorbidityObject.setComorbidityName(comorbidityName);
+                                                comorbiditiesResult.add(comorbidityObject);
                                             }
-
-                                            comorbiditiesResult.add(comorbidityObject);
                                             break;
                                         }
                                     }
 
                                     if (comorbiditiesResult == null) {
                                         System.out.println("Cannot find patient with Patient Id " + patientId);
+                                    } else {
+                                        comorbidityListLiveData.setValue(comorbiditiesResult);
                                     }
                                 } else {
                                     System.out.println("Error getting documents." + task.getException());
