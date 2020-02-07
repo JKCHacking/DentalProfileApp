@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Juan Dela Cruz"
+                    android:text="@{viewmodel.patientName}"
                     app:layout_constraintStart_toEndOf="@+id/patient_name_label"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="1"
+                    android:text="@{viewmodel.patientId}"
                     app:layout_constraintStart_toEndOf="@+id/patient_id_label"
                     app:layout_constraintTop_toBottomOf="@+id/patient_name_label" />
 
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="24"
+                    android:text="@{viewmodel.age}"
                     app:layout_constraintStart_toEndOf="@+id/age_label"
                     app:layout_constraintTop_toBottomOf="@+id/patient_id_label" />
 
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Male"
+                    android:text="@{viewmodel.sex}"
                     app:layout_constraintStart_toEndOf="@+id/sex_label"
                     app:layout_constraintTop_toBottomOf="@+id/age_label" />
 
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Pasonanca"
+                    android:text="@{viewmodel.barangay}"
                     app:layout_constraintStart_toEndOf="@+id/barangay_label"
                     app:layout_constraintTop_toBottomOf="@+id/sex_label" />
 
@@ -162,7 +162,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Purok I"
+                    android:text="@{viewmodel.purok}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/purok_label"
                     app:layout_constraintTop_toBottomOf="@+id/barangay_label" />
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Yes"
+                    android:text="@{viewmodel.pregnant}"
                     app:layout_constraintStart_toEndOf="@+id/pregnant_label"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -227,7 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Chicken Allergy"
+                    android:text="@{viewmodel.allergies}"
                     app:layout_constraintStart_toEndOf="@+id/allergies_label"
                     app:layout_constraintTop_toBottomOf="@+id/pregnant_label" />
 
@@ -250,7 +250,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Cancer, Diabetes"
+                    android:text="@{viewmodel.comorbiditiesAttribute}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/comorbidities_label"
                     app:layout_constraintTop_toBottomOf="@+id/allergies_label" />
@@ -297,7 +297,7 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    bind:srcImage="@{viewmodel.urlUpperOcclusal}" />
 
                 <ImageView
                     android:id="@+id/lower_occlusal_imageview"
@@ -307,7 +307,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/upper_occlusal_label"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    bind:srcImage="@{viewmodel.urlLowerOcclusal}" />
 
                 <TextView
                     android:id="@+id/lower_occlusal_label"
@@ -329,7 +329,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/right_buccal_imageview"
                     app:layout_constraintStart_toEndOf="@+id/upper_occlusal_imageview"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    bind:srcImage="@{viewmodel.urlFront}" />
 
                 <ImageView
                     android:id="@+id/right_buccal_imageview"
@@ -339,7 +339,7 @@
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    bind:srcImage="@{viewmodel.urlRightBuccal}" />
 
                 <TextView
                     android:id="@+id/front_label"
@@ -369,7 +369,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/left_buccal_imageview"
                     app:layout_constraintStart_toEndOf="@+id/lower_occlusal_imageview"
                     app:layout_constraintTop_toBottomOf="@+id/front_label"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    bind:srcImage="@{viewmodel.urlFrontFace}" />
 
                 <ImageView
                     android:id="@+id/left_buccal_imageview"
@@ -379,7 +379,7 @@
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/right_buccal_label"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    bind:srcImage="@{viewmodel.urlLeftBuccal}" />
 
                 <TextView
                     android:id="@+id/front_face_label"
@@ -414,7 +414,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dental_images_layout">
-
 
                 <TextView
                     android:id="@+id/urgency_treatment_label"
