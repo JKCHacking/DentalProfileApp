@@ -1,0 +1,1360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".profile.view.AddPatientActivity">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.dentalprofileapp.profile.viewmodel.DentistCheckUpViewModel"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/personal_information_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Personal Information"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/personal_information_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/personal_information_label">
+
+                <TextView
+                    android:id="@+id/patient_name_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Patient Name:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/patient_name_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Juan Dela Cruz"
+                    app:layout_constraintStart_toEndOf="@+id/patient_name_label"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/patient_id_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Patient ID:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_name_label" />
+
+                <TextView
+                    android:id="@+id/patient_id_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="1"
+                    app:layout_constraintStart_toEndOf="@+id/patient_id_label"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_name_label" />
+
+                <TextView
+                    android:id="@+id/age_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Age:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_id_label" />
+
+                <TextView
+                    android:id="@+id/age_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="24"
+                    app:layout_constraintStart_toEndOf="@+id/age_label"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_id_label" />
+
+                <TextView
+                    android:id="@+id/sex_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Sex:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/age_label" />
+
+                <TextView
+                    android:id="@+id/sex_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Male"
+                    app:layout_constraintStart_toEndOf="@+id/sex_label"
+                    app:layout_constraintTop_toBottomOf="@+id/age_label" />
+
+                <TextView
+                    android:id="@+id/barangay_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Barangay:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sex_label" />
+
+                <TextView
+                    android:id="@+id/barangay_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Pasonanca"
+                    app:layout_constraintStart_toEndOf="@+id/barangay_label"
+                    app:layout_constraintTop_toBottomOf="@+id/sex_label" />
+
+                <TextView
+                    android:id="@+id/purok_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Purok:"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/barangay_label" />
+
+                <TextView
+                    android:id="@+id/purok_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Purok I"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/purok_label"
+                    app:layout_constraintTop_toBottomOf="@+id/barangay_label" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/medical_history_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Medical History"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/personal_information_layout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/medical_history_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/medical_history_label">
+
+                <TextView
+                    android:id="@+id/pregnant_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Pregnant:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/pregnant_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Yes"
+                    app:layout_constraintStart_toEndOf="@+id/pregnant_label"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/allergies_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Allergies:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pregnant_label" />
+
+                <TextView
+                    android:id="@+id/allergies_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Chicken Allergy"
+                    app:layout_constraintStart_toEndOf="@+id/allergies_label"
+                    app:layout_constraintTop_toBottomOf="@+id/pregnant_label" />
+
+                <TextView
+                    android:id="@+id/comorbidities_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Comorbidities:"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/allergies_label" />
+
+                <TextView
+                    android:id="@+id/comorbidities_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Cancer, Diabetes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/comorbidities_label"
+                    app:layout_constraintTop_toBottomOf="@+id/allergies_label" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/dental_images_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Dental Images"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/medical_history_layout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dental_images_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dental_images_label">
+
+                <TextView
+                    android:id="@+id/upper_occlusal_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Upper Occlusal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/upper_occlusal_imageview"/>
+
+                <ImageView
+                    android:id="@+id/upper_occlusal_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/lower_occlusal_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/upper_occlusal_label"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/lower_occlusal_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Lower Occlusal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lower_occlusal_imageview" />
+
+                <ImageView
+                    android:id="@+id/front_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/right_buccal_imageview"
+                    app:layout_constraintStart_toEndOf="@+id/upper_occlusal_imageview"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/right_buccal_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/front_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Front"
+                    app:layout_constraintEnd_toStartOf="@+id/right_buccal_label"
+                    app:layout_constraintStart_toEndOf="@+id/upper_occlusal_label"
+                    app:layout_constraintTop_toBottomOf="@+id/front_imageview" />
+
+                <TextView
+                    android:id="@+id/right_buccal_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="Right Buccal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/right_buccal_imageview" />
+
+                <ImageView
+                    android:id="@+id/front_face_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/left_buccal_imageview"
+                    app:layout_constraintStart_toEndOf="@+id/lower_occlusal_imageview"
+                    app:layout_constraintTop_toBottomOf="@+id/front_label"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/left_buccal_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/right_buccal_label"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/front_face_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Front Face"
+                    app:layout_constraintEnd_toStartOf="@+id/left_buccal_label"
+                    app:layout_constraintStart_toEndOf="@+id/lower_occlusal_label"
+                    app:layout_constraintTop_toBottomOf="@+id/front_face_imageview" />
+
+                <TextView
+                    android:id="@+id/left_buccal_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="Left Buccal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/left_buccal_imageview" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dentist_checkup_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dental_images_layout">
+
+
+                <TextView
+                    android:id="@+id/urgency_treatment_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Urgency Of Treatment"
+                    app:layout_constraintStart_toStartOf="@id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@id/dentition_status_layout"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/urgency_treatment_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_edittext"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@id/urgency_treatment_label">
+
+                    <RadioGroup
+                        android:id="@+id/urgency_treatment_radiogroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@id/urgency_treatment_layout"
+                        app:layout_constraintTop_toTopOf="@id/urgency_treatment_layout">
+
+                        <RadioButton
+                            android:id="@+id/radio_button_no_treatment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 = No treatment needed" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_preventive_treatment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1 = Preventive or routine treatment needed" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_prompt_treatment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2 = Prompt treatment needed (e.g. Scaling)" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_immediate_treatment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="3 = Immediate treatment needed (e.g. Pain or Infection)" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_referred_medical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="4 = Referred for medical/dental treatment" />
+
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/plaque_score_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Plaque Score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dentition_status_layout"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/plaque_score_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_edittext"
+                    app:layout_constraintEnd_toStartOf="@id/guideline3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plaque_score_label">
+
+                    <RadioGroup
+                        android:id="@+id/plaque_score_radiogroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@id/plaque_score_layout"
+                        app:layout_constraintTop_toTopOf="@id/plaque_score_layout">
+
+                        <RadioButton
+                            android:id="@+id/radio_button_none"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 = None" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_little"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1 = Little" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_moderate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2 = Moderate" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_heavy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="3 = Heavy" />
+
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/dentition_status_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Dentition Status"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/dentition_status_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_edittext"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dentition_status_label">
+
+                    <TextView
+                        android:id="@id/dentition_status_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="S/s = Sound, D/d = Decayed, F/f = Filled, M/m = Missing, Un/un = Unerupted"
+                        />
+
+                    <HorizontalScrollView
+                        android:id="@+id/dentition_status_scrollview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:scrollbars="horizontal">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/dentition_status_constraint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+                            <Spinner
+                                android:id="@+id/spinner_38"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_37"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_28"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_37"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_36"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_27"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_36"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_35_75"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_26"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_35_75"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_34_74"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_25_65"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_34_74"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_33_73"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_24_64"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_33_73"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_32_72"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_23_63"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_32_72"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_31_71"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_22_62"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_31_71"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_41_81"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_21_61"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_41_81"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_42_82"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_11_51"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_42_82"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_43_83"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_12_52"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_43_83"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_44_84"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_13_53"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_44_84"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_45_85"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_14_54"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_45_85"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_46"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_15_55"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_46"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_47"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_16"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_47"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@id/spinner_48"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_17"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_48"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_18"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_28"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_27"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_27"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_27"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_26"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_26"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_26"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_25_65"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_25_65"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_25_65"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_24_64"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_24_64"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_24_64"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_23_63"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_23_63"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_23_63"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_22_62"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_22_62"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_22_62"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_21_61"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_21_61"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_21_61"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_11_51"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_11_51"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_11_51"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_12_52"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_12_52"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_12_52"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_13_53"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_13_53"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_13_53"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_14_54"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_14_54"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_14_54"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_15_55"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_15_55"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_15_55"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_16"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_16"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_17"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_17"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_17"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toEndOf="@+id/spinner_18"
+                                app:layout_constraintTop_toTopOf="@+id/spinner_18"
+                                style="@style/spinner_style"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:entries="@array/dentition_status_list"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/label_18"
+                                style="@style/spinner_style"/>
+
+                            <TextView
+                                android:id="@+id/label_65"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="65"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_25_65"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_25_65"
+                                app:layout_constraintStart_toStartOf="@id/spinner_25_65" />
+
+                            <TextView
+                                android:id="@+id/label_64"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="64"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_24_64"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_24_64"
+                                app:layout_constraintStart_toStartOf="@id/spinner_24_64" />
+
+                            <TextView
+                                android:id="@+id/label_63"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="63"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_23_63"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_23_63"
+                                app:layout_constraintStart_toStartOf="@id/spinner_23_63" />
+
+                            <TextView
+                                android:id="@+id/label_62"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="62"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_22_62"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_22_62"
+                                app:layout_constraintStart_toStartOf="@id/spinner_22_62" />
+
+                            <TextView
+                                android:id="@+id/label_61"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="61"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_21_61"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_21_61"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_21_61" />
+
+                            <TextView
+                                android:id="@+id/label_51"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="51"
+                                app:layout_constraintBottom_toTopOf="@+id/spinner_11_51"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_11_51"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_11_51" />
+
+                            <TextView
+                                android:id="@+id/label_52"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="52"
+                                app:layout_constraintBottom_toTopOf="@+id/spinner_12_52"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_12_52"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_12_52" />
+
+                            <TextView
+                                android:id="@+id/label_53"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="53"
+                                app:layout_constraintBottom_toTopOf="@+id/spinner_13_53"
+                                app:layout_constraintStart_toStartOf="@+id/label_13" />
+
+                            <TextView
+                                android:id="@+id/label_54"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="54"
+                                app:layout_constraintBottom_toTopOf="@+id/spinner_14_54"
+                                app:layout_constraintStart_toStartOf="@+id/label_14" />
+
+                            <TextView
+                                android:id="@+id/label_55"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="55"
+                                app:layout_constraintBottom_toTopOf="@+id/spinner_15_55"
+                                app:layout_constraintStart_toStartOf="@+id/label_15" />
+
+                            <TextView
+                                android:id="@+id/label_28"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="28"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_28"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_28"
+                                app:layout_constraintStart_toStartOf="@id/spinner_28" />
+
+                            <TextView
+                                android:id="@+id/label_27"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="27"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_27"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_27"
+                                app:layout_constraintStart_toStartOf="@id/spinner_27" />
+
+                            <TextView
+                                android:id="@+id/label_26"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="26"
+                                app:layout_constraintBottom_toTopOf="@id/spinner_26"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_26"
+                                app:layout_constraintStart_toStartOf="@id/spinner_26" />
+
+                            <TextView
+                                android:id="@+id/label_25"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="25"
+                                app:layout_constraintBottom_toTopOf="@id/label_65"
+                                app:layout_constraintEnd_toEndOf="@id/label_65"
+                                app:layout_constraintStart_toStartOf="@id/label_65" />
+
+                            <TextView
+                                android:id="@+id/label_24"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="24"
+                                app:layout_constraintBottom_toTopOf="@id/label_64"
+                                app:layout_constraintEnd_toEndOf="@id/label_64"
+                                app:layout_constraintStart_toStartOf="@id/label_64" />
+
+                            <TextView
+                                android:id="@+id/label_23"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="23"
+                                app:layout_constraintBottom_toTopOf="@id/label_63"
+                                app:layout_constraintEnd_toEndOf="@id/label_63"
+                                app:layout_constraintStart_toStartOf="@id/label_63" />
+
+                            <TextView
+                                android:id="@+id/label_22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="22"
+                                app:layout_constraintBottom_toTopOf="@id/label_62"
+                                app:layout_constraintEnd_toEndOf="@id/label_62"
+                                app:layout_constraintStart_toStartOf="@id/label_62" />
+
+                            <TextView
+                                android:id="@+id/label_21"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="21"
+                                app:layout_constraintBottom_toTopOf="@id/label_61"
+                                app:layout_constraintEnd_toEndOf="@id/label_61"
+                                app:layout_constraintStart_toStartOf="@id/label_61" />
+
+                            <TextView
+                                android:id="@+id/label_11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="11"
+                                app:layout_constraintBottom_toTopOf="@+id/label_51"
+                                app:layout_constraintEnd_toEndOf="@+id/label_51"
+                                app:layout_constraintStart_toStartOf="@+id/label_51" />
+
+                            <TextView
+                                android:id="@+id/label_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                app:layout_constraintBottom_toTopOf="@+id/label_52"
+                                app:layout_constraintEnd_toEndOf="@+id/label_52" />
+
+                            <TextView
+                                android:id="@+id/label_13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="13"
+                                app:layout_constraintBottom_toTopOf="@+id/label_53"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_13_53"
+                                app:layout_constraintHorizontal_bias="0.507"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_13_53" />
+
+                            <TextView
+                                android:id="@+id/label_14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="14"
+                                app:layout_constraintBottom_toTopOf="@+id/label_54"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_14_54"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_14_54" />
+
+                            <TextView
+                                android:id="@+id/label_15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="15"
+                                app:layout_constraintBottom_toTopOf="@+id/label_55"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_15_55"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_15_55" />
+
+                            <TextView
+                                android:id="@+id/label_16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="32dp"
+                                android:text="16"
+                                app:layout_constraintEnd_toStartOf="@+id/spinner_15_55"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_16"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/label_17"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="32dp"
+                                android:text="17"
+                                app:layout_constraintEnd_toStartOf="@+id/spinner_16"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_17"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/label_18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="32dp"
+                                android:text="18"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_18"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_18"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/label_48"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="48"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_48"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_48"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_48" />
+
+                            <TextView
+                                android:id="@+id/label_47"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="47"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_47"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_47"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_47" />
+
+                            <TextView
+                                android:id="@+id/label_46"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="46"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_46"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_46"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_46" />
+
+                            <TextView
+                                android:id="@+id/label_85"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="85"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_45_85"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_45_85"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_45_85" />
+
+                            <TextView
+                                android:id="@+id/label_45"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="45"
+                                app:layout_constraintEnd_toEndOf="@+id/label_85"
+                                app:layout_constraintStart_toStartOf="@+id/label_85"
+                                app:layout_constraintTop_toBottomOf="@id/label_85" />
+
+                            <TextView
+                                android:id="@+id/label_84"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="84"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_44_84"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_44_84"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_44_84" />
+
+                            <TextView
+                                android:id="@+id/label_44"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="44"
+                                app:layout_constraintEnd_toEndOf="@+id/label_84"
+                                app:layout_constraintStart_toStartOf="@+id/label_84"
+                                app:layout_constraintTop_toBottomOf="@id/label_84" />
+
+                            <TextView
+                                android:id="@+id/label_83"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="83"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_43_83"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_43_83"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_43_83" />
+
+                            <TextView
+                                android:id="@+id/label_43"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="43"
+                                app:layout_constraintEnd_toEndOf="@+id/label_83"
+                                app:layout_constraintStart_toStartOf="@+id/label_83"
+                                app:layout_constraintTop_toBottomOf="@id/label_83" />
+
+                            <TextView
+                                android:id="@+id/label_82"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="82"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_42_82"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_42_82"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_42_82" />
+
+                            <TextView
+                                android:id="@+id/label_42"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="42"
+                                app:layout_constraintEnd_toEndOf="@+id/label_82"
+                                app:layout_constraintStart_toStartOf="@+id/label_82"
+                                app:layout_constraintTop_toBottomOf="@id/label_82" />
+
+                            <TextView
+                                android:id="@+id/label_81"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="81"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_41_81"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_41_81"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_41_81" />
+
+                            <TextView
+                                android:id="@+id/label_41"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="41"
+                                app:layout_constraintEnd_toEndOf="@+id/label_81"
+                                app:layout_constraintStart_toStartOf="@+id/label_81"
+                                app:layout_constraintTop_toBottomOf="@id/label_81" />
+
+                            <TextView
+                                android:id="@+id/label_71"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="71"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_31_71"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_31_71"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_31_71" />
+
+                            <TextView
+                                android:id="@+id/label_31"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="31"
+                                app:layout_constraintEnd_toEndOf="@+id/label_71"
+                                app:layout_constraintStart_toStartOf="@+id/label_71"
+                                app:layout_constraintTop_toBottomOf="@id/label_71" />
+
+                            <TextView
+                                android:id="@+id/label_72"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="72"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_32_72"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_32_72"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_32_72" />
+
+                            <TextView
+                                android:id="@+id/label_32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="32"
+                                app:layout_constraintEnd_toEndOf="@+id/label_72"
+                                app:layout_constraintStart_toStartOf="@+id/label_72"
+                                app:layout_constraintTop_toBottomOf="@id/label_72" />
+
+                            <TextView
+                                android:id="@+id/label_73"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="73"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_33_73"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_33_73"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_33_73" />
+
+                            <TextView
+                                android:id="@+id/label_33"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="33"
+                                app:layout_constraintEnd_toEndOf="@+id/label_73"
+                                app:layout_constraintStart_toStartOf="@+id/label_73"
+                                app:layout_constraintTop_toBottomOf="@id/label_73" />
+
+                            <TextView
+                                android:id="@+id/label_74"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="74"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_34_74"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_34_74"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_34_74" />
+
+                            <TextView
+                                android:id="@+id/label_34"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="34"
+                                app:layout_constraintEnd_toEndOf="@+id/label_74"
+                                app:layout_constraintStart_toStartOf="@+id/label_74"
+                                app:layout_constraintTop_toBottomOf="@id/label_74" />
+
+                            <TextView
+                                android:id="@+id/label_75"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="75"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_35_75"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_35_75"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_35_75" />
+
+                            <TextView
+                                android:id="@+id/label_35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="35"
+                                app:layout_constraintEnd_toEndOf="@+id/label_75"
+                                app:layout_constraintStart_toStartOf="@+id/label_75"
+                                app:layout_constraintTop_toBottomOf="@id/label_75" />
+
+                            <TextView
+                                android:id="@+id/label_36"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="36"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_36"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_36"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_36" />
+
+                            <TextView
+                                android:id="@+id/label_37"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="37"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_37"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_37"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_37" />
+
+                            <TextView
+                                android:id="@+id/label_38"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="38"
+                                app:layout_constraintEnd_toEndOf="@+id/spinner_38"
+                                app:layout_constraintStart_toStartOf="@+id/spinner_38"
+                                app:layout_constraintTop_toBottomOf="@id/spinner_38" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </HorizontalScrollView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

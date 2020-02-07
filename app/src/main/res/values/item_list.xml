@@ -22,4 +22,17 @@
         <item>Dentist</item>
         <item>Teacher</item>
     </array>
+
+    <array name="dentition_status_list">
+        <item>S</item>
+        <item>D</item>
+        <item>F</item>
+        <item>M</item>
+        <item>Un</item>
+        <item>s</item>
+        <item>d</item>
+        <item>f</item>
+        <item>m</item>
+        <item>un</item>
+    </array>
 </resources>

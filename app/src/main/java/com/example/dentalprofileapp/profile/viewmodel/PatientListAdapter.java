@@ -2,6 +2,7 @@ package com.example.dentalprofileapp.profile.viewmodel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -73,6 +74,14 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
                 //itemActionInterface.onClick();
                 // pass the patientId of the selected patient.
                 itemActionInterface.onClick(patientId);
+            }
+        });
+
+        holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                itemActionInterface.onTouch(patientId);
+                return false;
             }
         });
     }

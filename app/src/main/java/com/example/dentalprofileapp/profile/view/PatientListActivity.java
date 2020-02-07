@@ -6,11 +6,13 @@ import androidx.core.app.NavUtils;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.SearchView;
@@ -20,15 +22,19 @@ import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListAdapter;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
+import com.example.dentalprofileapp.profile.viewmodel.SwipeController;
+import com.example.dentalprofileapp.profile.viewmodel.SwipeControllerActions;
 import com.example.dentalprofileapp.utils.ToastUtil;
 
 import java.util.List;
 
-public class PatientListActivity extends AppCompatActivity implements ItemActionInterface {
+public class PatientListActivity extends AppCompatActivity implements ItemActionInterface, SwipeControllerActions {
     private PatientListViewModel patientListViewModel;
     private ActivityPatientListBinding activityPatientListBinding;
     private PatientListAdapter adapter;
     private ToastUtil toastUtil;
+    private String patientId;
+    private SwipeController swipeController = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +47,24 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         activityPatientListBinding.setLifecycleOwner(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        patientListViewModel = ViewModelProviders.of(this).get(PatientListViewModel.class);
+        activityPatientListBinding.setViewmodel(patientListViewModel);
+
         RecyclerView recyclerView = findViewById(R.id.profile_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        patientListViewModel = ViewModelProviders.of(this).get(PatientListViewModel.class);
-        activityPatientListBinding.setViewmodel(patientListViewModel);
+        swipeController = new SwipeController(this);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
 
         adapter = new PatientListAdapter(this, patientListViewModel.getSearchBy().getValue());
         recyclerView.setAdapter(adapter);
@@ -136,6 +154,20 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
 
         Intent intent = new Intent(this, AddPatientActivity.class);
         intent.putExtra("patientId", data);
+        this.startActivity(intent);
+    }
+
+    @Override
+    public void onTouch(String data) {
+        System.out.println("OnTouch() PatientId: " + data);
+        patientId = data;
+    }
+
+    @Override
+    public void onRightClicked(int position) {
+        System.out.println("Checking up patientId " + patientId);
+        Intent intent = new Intent(this, DentistCheckUpActivity.class);
+        intent.putExtra("patientId", patientId);
         this.startActivity(intent);
     }
 }
