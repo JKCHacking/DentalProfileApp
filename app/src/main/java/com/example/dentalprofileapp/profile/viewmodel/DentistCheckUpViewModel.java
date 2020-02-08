@@ -47,6 +47,9 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<Comorbidity>> comorbidityMutableLiveData;
     private MutableLiveData<PatientDentalImages> patientDentalImagesMutableLiveData;
 
+    public MutableLiveData<String> urlExpandedImage;
+    public MutableLiveData<Boolean> isExpandedImageVisible;
+
     public DentistCheckUpViewModel(@NonNull Application application) {
         super(application);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -76,6 +79,9 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
         patientMutableLiveData = new MutableLiveData<>();
         comorbidityMutableLiveData = new MutableLiveData<>();
         patientDentalImagesMutableLiveData = new MutableLiveData<>();
+
+        urlExpandedImage = new MutableLiveData<>();
+        isExpandedImageVisible = new MutableLiveData<>();
     }
 
     public MutableLiveData<Patient> getPatientMutableLiveData() {
@@ -129,5 +135,9 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
         urlRightBuccal.setValue(patientDentalImages.getUrlRightBuccal());
         urlFront.setValue(patientDentalImages.getUrlFront());
         urlFrontFace.setValue(patientDentalImages.getUrlFrontFace());
+    }
+
+    public void expandImage(MutableLiveData<String> urlImage) {
+        urlExpandedImage.setValue(urlImage.getValue());
     }
 }

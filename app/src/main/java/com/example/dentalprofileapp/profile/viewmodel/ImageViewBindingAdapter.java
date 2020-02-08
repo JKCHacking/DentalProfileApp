@@ -25,6 +25,31 @@ public class ImageViewBindingAdapter {
         }
     }
 
+    @BindingAdapter("bind:srcImage2")
+    public static void setSrcImage2(ImageView imageView, String imageUrl) {
+        if (imageUrl == null || imageUrl.equals("")) {
+            imageView.setImageResource(R.drawable.ic_launcher_foreground);
+        } else {
+            Picasso picasso = Picasso.get();
+            picasso.setIndicatorsEnabled(true);
+            picasso.load(imageUrl)
+                    .placeholder(R.drawable.ic_image_black_24dp)
+                    .error(R.drawable.ic_broken_image_black_24dp)
+                    .resize(750,750)
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            System.out.println("Image loaded successfully");
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            System.out.println("Image failed to load, error: " + e.getMessage());
+                        }
+                    });
+        }
+    }
+
     private static void loadImageUrl(ImageView imageView, String imageUrl) {
         Picasso picasso = Picasso.get();
         picasso.setIndicatorsEnabled(true);
@@ -65,20 +90,3 @@ public class ImageViewBindingAdapter {
                 });
     }
 }
-
-//class CropSquareTransformation implements Transformation {
-//
-//    @Override
-//    public Bitmap transform(Bitmap source) {
-//        int size = Math.min(source.getWidth(), source.getHeight());
-//        int x = (source.getWidth() - size) / 2;
-//        int y = (source.getHeight() - size) / 2;
-//        Bitmap result = Bitmap.createBitmap(source, x, y, size, size);
-//        if (result != source) {
-//            source.recycle();
-//        }
-//        return result;
-//    }
-//
-//    @Override public String key() { return "square()"; }
-//}

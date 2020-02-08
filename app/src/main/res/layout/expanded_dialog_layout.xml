@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.dentalprofileapp.profile.viewmodel.DentistCheckUpViewModel"/>
+    </data>
+    <LinearLayout
+        android:id="@+id/expanded_image_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/expanded_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:srcImage2="@{viewmodel.urlExpandedImage}"/>
+
+    </LinearLayout>
+</layout>

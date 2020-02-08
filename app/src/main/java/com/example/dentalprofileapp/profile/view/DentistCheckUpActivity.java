@@ -5,9 +5,19 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.animation.Animator;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.databinding.ActivityDentistCheckUpBinding;
+import com.example.dentalprofileapp.databinding.ExpandedDialogLayoutBinding;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
@@ -19,6 +29,7 @@ public class DentistCheckUpActivity extends AppCompatActivity {
 
     private DentistCheckUpViewModel dentistCheckUpViewModel;
     private ActivityDentistCheckUpBinding dentistCheckUpBinding;
+    private ExpandedDialogLayoutBinding expandedDialogLayoutBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,5 +68,24 @@ public class DentistCheckUpActivity extends AppCompatActivity {
                 dentistCheckUpViewModel.populateDentalImagesToView(patientDentalImages);
             }
         });
+
+        dentistCheckUpViewModel.urlExpandedImage.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                System.out.println("Url Image: " + s);
+                displayDialog(getApplicationContext());
+            }
+        });
     }
+
+    public void displayDialog(Context context) {
+        expandedDialogLayoutBinding = ExpandedDialogLayoutBinding.inflate(LayoutInflater.from(context));
+        expandedDialogLayoutBinding.setViewmodel(dentistCheckUpViewModel);
+
+        Dialog zoomImageDialog = new Dialog(this);
+        zoomImageDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        zoomImageDialog.setContentView(expandedDialogLayoutBinding.getRoot());
+        zoomImageDialog.show();
+    }
+
 }
