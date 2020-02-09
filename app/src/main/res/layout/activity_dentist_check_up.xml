@@ -310,7 +310,8 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/upper_occlusal_label"
-                    bind:srcImage="@{viewmodel.urlLowerOcclusal}" />
+                    bind:srcImage="@{viewmodel.urlLowerOcclusal}"
+                    android:onClick="@{() -> viewmodel.expandImage(viewmodel.urlLowerOcclusal)}"/>
 
                 <TextView
                     android:id="@+id/lower_occlusal_label"
@@ -332,7 +333,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/right_buccal_imageview"
                     app:layout_constraintStart_toEndOf="@+id/upper_occlusal_imageview"
                     app:layout_constraintTop_toTopOf="parent"
-                    bind:srcImage="@{viewmodel.urlFront}" />
+                    bind:srcImage="@{viewmodel.urlFront}"
+                    android:onClick="@{() -> viewmodel.expandImage(viewmodel.urlFront)}"/>
 
                 <ImageView
                     android:id="@+id/right_buccal_imageview"
@@ -342,7 +344,8 @@
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    bind:srcImage="@{viewmodel.urlRightBuccal}" />
+                    bind:srcImage="@{viewmodel.urlRightBuccal}"
+                    android:onClick="@{() -> viewmodel.expandImage(viewmodel.urlRightBuccal)}"/>
 
                 <TextView
                     android:id="@+id/front_label"
@@ -372,7 +375,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/left_buccal_imageview"
                     app:layout_constraintStart_toEndOf="@+id/lower_occlusal_imageview"
                     app:layout_constraintTop_toBottomOf="@+id/front_label"
-                    bind:srcImage="@{viewmodel.urlFrontFace}" />
+                    bind:srcImage="@{viewmodel.urlFrontFace}"
+                    android:onClick="@{() -> viewmodel.expandImage(viewmodel.urlFrontFace)}"/>
 
                 <ImageView
                     android:id="@+id/left_buccal_imageview"
@@ -382,7 +386,8 @@
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/right_buccal_label"
-                    bind:srcImage="@{viewmodel.urlLeftBuccal}" />
+                    bind:srcImage="@{viewmodel.urlLeftBuccal}"
+                    android:onClick="@{() -> viewmodel.expandImage(viewmodel.urlLeftBuccal)}"/>
 
                 <TextView
                     android:id="@+id/front_face_label"
