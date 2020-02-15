@@ -6,11 +6,9 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
 import com.example.dentalprofileapp.profile.dao.ComorbidityDao;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
-import com.example.dentalprofileapp.profile.entities.Patient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;

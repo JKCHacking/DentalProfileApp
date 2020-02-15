@@ -457,30 +457,35 @@
                             android:id="@+id/radio_button_no_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.urgency0}"
                             android:text="0 = No treatment needed" />
 
                         <RadioButton
                             android:id="@+id/radio_button_preventive_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.urgency1}"
                             android:text="1 = Preventive or routine treatment needed" />
 
                         <RadioButton
                             android:id="@+id/radio_button_prompt_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.urgency2}"
                             android:text="2 = Prompt treatment needed (e.g. Scaling)" />
 
                         <RadioButton
                             android:id="@+id/radio_button_immediate_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.urgency3}"
                             android:text="3 = Immediate treatment needed (e.g. Pain or Infection)" />
 
                         <RadioButton
                             android:id="@+id/radio_button_referred_medical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.urgency4}"
                             android:text="4 = Referred for medical/dental treatment" />
 
                     </RadioGroup>
@@ -521,24 +526,28 @@
                             android:id="@+id/radio_button_none"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.plaqueScore0}"
                             android:text="0 = None" />
 
                         <RadioButton
                             android:id="@+id/radio_button_little"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.plaqueScore1}"
                             android:text="1 = Little" />
 
                         <RadioButton
                             android:id="@+id/radio_button_moderate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.plaqueScore2}"
                             android:text="2 = Moderate" />
 
                         <RadioButton
                             android:id="@+id/radio_button_heavy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@={viewmodel.plaqueScore3}"
                             android:text="3 = Heavy" />
 
                     </RadioGroup>
@@ -597,142 +606,157 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp">
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_38"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_37"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_28"
+                                bind:pmtOpt="@={viewmodel.tooth38}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_37"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_36"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_27"
+                                bind:pmtOpt="@={viewmodel.tooth37}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_36"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_35_75"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_26"
+                                bind:pmtOpt="@={viewmodel.tooth36}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_35_75"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_34_74"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_25_65"
+                                bind:pmtOpt="@={viewmodel.tooth3575}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_34_74"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_33_73"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_24_64"
+                                bind:pmtOpt="@={viewmodel.tooth3474}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_33_73"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_32_72"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_23_63"
+                                bind:pmtOpt="@={viewmodel.tooth3373}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_32_72"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_31_71"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_22_62"
+                                bind:pmtOpt="@={viewmodel.tooth3272}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_31_71"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_41_81"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_21_61"
+                                bind:pmtOpt="@={viewmodel.tooth3171}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_41_81"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_42_82"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_11_51"
+                                bind:pmtOpt="@={viewmodel.tooth4181}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_42_82"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_43_83"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_12_52"
+                                bind:pmtOpt="@={viewmodel.tooth4282}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_43_83"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_44_84"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_13_53"
+                                bind:pmtOpt="@={viewmodel.tooth4383}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_44_84"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_45_85"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_14_54"
+                                bind:pmtOpt="@={viewmodel.tooth4484}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_45_85"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_46"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_15_55"
+                                bind:pmtOpt="@={viewmodel.tooth4585}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_46"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_47"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_16"
+                                bind:pmtOpt="@={viewmodel.tooth46}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_47"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@id/spinner_48"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_17"
+                                bind:pmtOpt="@={viewmodel.tooth47}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_48"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -740,144 +764,160 @@
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/spinner_18"
+                                bind:pmtOpt="@={viewmodel.tooth48}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_28"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_27"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_27"
+                                bind:pmtOpt="@={viewmodel.tooth28}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_27"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_26"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_26"
+                                bind:pmtOpt="@={viewmodel.tooth27}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_26"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_25_65"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_25_65"
+                                bind:pmtOpt="@={viewmodel.tooth26}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_25_65"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_24_64"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_24_64"
+                                bind:pmtOpt="@={viewmodel.tooth2565}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_24_64"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_23_63"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_23_63"
+                                bind:pmtOpt="@={viewmodel.tooth2464}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_23_63"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_22_62"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_22_62"
+                                bind:pmtOpt="@={viewmodel.tooth2363}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_22_62"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_21_61"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_21_61"
+                                bind:pmtOpt="@={viewmodel.tooth2262}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_21_61"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_11_51"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_11_51"
+                                bind:pmtOpt="@={viewmodel.tooth2161}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_11_51"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_12_52"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_12_52"
+                                bind:pmtOpt="@={viewmodel.tooth1151}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_12_52"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_13_53"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_13_53"
+                                bind:pmtOpt="@={viewmodel.tooth1252}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_13_53"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_14_54"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_14_54"
+                                bind:pmtOpt="@={viewmodel.tooth1353}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_14_54"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_15_55"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_15_55"
+                                bind:pmtOpt="@={viewmodel.tooth1454}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_15_55"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_16"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_16"
+                                bind:pmtOpt="@={viewmodel.tooth1555}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_16"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_17"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_17"
+                                bind:pmtOpt="@={viewmodel.tooth16}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_17"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toEndOf="@+id/spinner_18"
                                 app:layout_constraintTop_toTopOf="@+id/spinner_18"
+                                bind:pmtOpt="@={viewmodel.tooth17}"
                                 style="@style/spinner_style"/>
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinner_18"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -885,6 +925,7 @@
                                 android:entries="@array/dentition_status_list"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/label_18"
+                                bind:pmtOpt="@={viewmodel.tooth18}"
                                 style="@style/spinner_style"/>
 
                             <TextView
@@ -1361,6 +1402,14 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/dentist_findings_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:onClick="@{() -> viewmodel.getUser()}"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

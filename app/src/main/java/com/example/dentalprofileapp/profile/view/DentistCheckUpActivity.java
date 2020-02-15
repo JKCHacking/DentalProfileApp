@@ -16,9 +16,11 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.databinding.ActivityDentistCheckUpBinding;
 import com.example.dentalprofileapp.databinding.ExpandedDialogLayoutBinding;
 import com.example.dentalprofileapp.profile.entities.Comorbidity;
+import com.example.dentalprofileapp.profile.entities.DentistFinding;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 import com.example.dentalprofileapp.profile.viewmodel.DentistCheckUpViewModel;
@@ -74,6 +76,20 @@ public class DentistCheckUpActivity extends AppCompatActivity {
             public void onChanged(String s) {
                 System.out.println("Url Image: " + s);
                 displayDialog(getApplicationContext());
+            }
+        });
+
+        dentistCheckUpViewModel.userLiveData.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                dentistCheckUpViewModel.composeDentistFinding(user);
+            }
+        });
+
+        dentistCheckUpViewModel.dentistFindingLiveData.observe(this, new Observer<DentistFinding>() {
+            @Override
+            public void onChanged(DentistFinding dentistFinding) {
+                dentistCheckUpViewModel.saveDentistFindingsData(dentistFinding);
             }
         });
     }

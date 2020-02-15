@@ -1,24 +1,29 @@
 package com.example.dentalprofileapp.auth.repository;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.dentalprofileapp.auth.entity.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AuthRepository {
     final FirebaseDatabase database;
     final FirebaseAuth firebaseAuth;
+    final FirebaseFirestore firebaseFirestore;
 
     public AuthRepository() {
         database = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     public Task<AuthResult> loginUser(User user) {
@@ -42,24 +47,49 @@ public class AuthRepository {
     }
 
     public void saveUser(final User user) {
-        DatabaseReference ref = database.getReference();
-        final DatabaseReference usersRef = ref.child("users");
-
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         final String userId = currentUser.getUid();
         user.setUserId(userId);
-
-        usersRef.addValueEventListener(new ValueEventListener() {
+        firebaseFirestore.collection("users").document(userId)
+        .set(user)
+        .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println("Data on database has changed.");
-                usersRef.child(userId).setValue(user);
+            public void onSuccess(Void aVoid) {
+                System.out.println("Successfully registered!");
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Writing Data has been cancelled.");
+            public void onFailure(@NonNull Exception e) {
+                System.out.println("Something went wrong!");
             }
         });
+    }
+
+    public void getUser(String userId, final MutableLiveData<User> userMutableLiveData) {
+        firebaseFirestore.collection("users").document(userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            User user = new User();
+                            user.setUserId(document.getString("userId"));
+                            user.setEmail(document.getString("email"));
+                            user.setMobileNumber(document.getString("mobileNumber"));
+                            user.setName(document.getString("name"));
+                            user.setPassword(document.getString("password"));
+                            user.setUserType(document.getString("userType"));
+
+                            userMutableLiveData.setValue(user);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Failed to getUserId");
+                    }
+                });
     }
 }
