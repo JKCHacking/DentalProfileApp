@@ -542,6 +542,8 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
         }
         else if (plaqueScore3.get()) {
             plaqueScore = "3";
+        } else {
+            plaqueScore = "0";
         }
     }
 
@@ -560,6 +562,8 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
         }
         else if(urgency4.get()) {
             urgencyOfTreatment = "4";
+        } else {
+            urgencyOfTreatment = "0";
         }
     }
 
