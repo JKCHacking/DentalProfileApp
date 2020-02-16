@@ -29,6 +29,8 @@ public class PatientListViewModel extends AndroidViewModel {
     private MutableLiveData<String> sortBy;
     private MutableLiveData<String> searchBy;
 
+    public MutableLiveData<Boolean> hideOnlineMenus;
+
     private FirebaseAuth firebaseAuth;
 
     public PatientListViewModel(@NonNull Application application) {
@@ -41,6 +43,10 @@ public class PatientListViewModel extends AndroidViewModel {
         sortBy = new MutableLiveData<>();
         searchBy = new MutableLiveData<>();
         allPatientsMutableData = new MutableLiveData<>();
+        hideOnlineMenus = new MutableLiveData<>();
+
+        // if signed in user = true, hideOnlineMenus = false vice versa.
+        hideOnlineMenus.setValue(!patientRepository.checkSignedInUser());
 
         sortBy.setValue("Patient Name");
         searchBy.setValue("Patient Name");
@@ -104,6 +110,10 @@ public class PatientListViewModel extends AndroidViewModel {
 
     public void deleteAllPatients() {
         patientRepository.deleteAllPatients();
+    }
+
+    public void signOutUser(){
+        patientRepository.signOutUser();
     }
 
     public void onClickAddPatient(View view) {

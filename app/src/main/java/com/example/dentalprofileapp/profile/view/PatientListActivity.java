@@ -14,6 +14,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
@@ -36,6 +38,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     private String patientId;
     private String patientName;
     private SwipeController swipeController = null;
+    private boolean hideMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +113,28 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
                 return false;
             }
         });
+
+        patientListViewModel.hideOnlineMenus.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                hideMenu = aBoolean;
+                getSupportActionBar().setDisplayHomeAsUpEnabled(aBoolean);
+                invalidateOptionsMenu();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.patient_list_menu, menu);
+
+        if(hideMenu) {
+            menu.getItem(0).setVisible(false);
+            return false;
+        }else {
+            return true;
+        }
     }
 
     @Override
@@ -124,6 +149,11 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         switch (item.getItemId()) {
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.sign_out_button:
+                toastUtil.createToastMessage("Signing User out");
+                patientListViewModel.signOutUser();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

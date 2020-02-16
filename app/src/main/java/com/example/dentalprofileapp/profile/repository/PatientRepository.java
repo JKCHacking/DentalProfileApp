@@ -53,6 +53,14 @@ public class PatientRepository {
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
+    public Boolean checkSignedInUser() {
+        return authRepository.checkSignedInUser();
+    }
+
+    public void signOutUser(){
+        authRepository.logoutUser();
+    }
+
     private void getPatientFromFirestore(String sortBy) {
         CollectionReference patientsRef = firebaseFirestore.collection("patients");
         patientsRef.orderBy(sortBy);
