@@ -39,7 +39,7 @@ public class SwipeController extends Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        return makeMovementFlags(0, LEFT);
+        return makeMovementFlags(0, LEFT | RIGHT); // this controls the direction of swipe
     }
 
     @Override
@@ -115,14 +115,12 @@ public class SwipeController extends Callback {
                     swipeBack = false;
 
                     if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-//                        if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
-//                            buttonsActions.onLeftClicked(viewHolder.getAdapterPosition());
-//                        }
-//                        else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
-//                            buttonsActions.onRightClicked(viewHolder.getAdapterPosition());
-//                        }
-
-                        buttonsActions.onRightClicked(viewHolder.getAdapterPosition());
+                        if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
+                            buttonsActions.onLeftClicked(viewHolder.getAdapterPosition());
+                        }
+                        else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
+                            buttonsActions.onRightClicked(viewHolder.getAdapterPosition());
+                        }
                     }
                     buttonShowedState = ButtonsState.GONE;
                     currentItemViewHolder = null;
@@ -165,24 +163,19 @@ public class SwipeController extends Callback {
         View itemView = viewHolder.itemView;
         Paint p = new Paint();
 
-//        RectF leftButton = new RectF(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom());
-//        p.setColor(Color.BLUE);
-//        c.drawRoundRect(leftButton, corners, corners, p);
-//        drawText("EDIT", c, leftButton, p);
+        RectF leftButton = new RectF(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom());
+        p.setColor(Color.BLUE);
+        c.drawRoundRect(leftButton, corners, corners, p);
+        drawText("VIEW", c, leftButton, p);
 
         RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
         p.setColor(Color.RED);
         c.drawRoundRect(rightButton, corners, corners, p);
         drawText("CHECKUP", c, rightButton, p);
 
-//        RectF rightButton2 = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
-//        p.setColor(Color.BLUE);
-//        c.drawRoundRect(rightButton2, corners, corners, p);
-//        drawText("CHECKUP2", c, rightButton2, p);
-
         buttonInstance = null;
         if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
-//            buttonInstance = leftButton;
+            buttonInstance = leftButton;
         }
         else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
             buttonInstance = rightButton;

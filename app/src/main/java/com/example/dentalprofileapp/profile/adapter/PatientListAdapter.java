@@ -1,4 +1,4 @@
-package com.example.dentalprofileapp.profile.viewmodel;
+package com.example.dentalprofileapp.profile.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -52,6 +52,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
     public void onBindViewHolder(@NonNull ProfileListViewHolder holder, int position) {
         Patient currentPatient = patients.get(position);
         final String patientId = Integer.toString(currentPatient.getPatientId());
+        final String patientName = currentPatient.getPatientName();
 
         holder.imageViewProfilePicture.setBackgroundResource(currentPatient.getProfilePicture());
         holder.textViewPatientName.setText(currentPatient.getPatientName());
@@ -80,7 +81,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         holder.itemView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                itemActionInterface.onTouch(patientId);
+                itemActionInterface.onTouch(patientId, patientName);
                 return false;
             }
         });
@@ -97,8 +98,6 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 
         this.notifyDataSetChanged();
     }
-
-
 
     public static class ProfileListViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProfilePicture;

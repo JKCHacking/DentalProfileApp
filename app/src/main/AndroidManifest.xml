@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile.view.DentistCheckUpActivity"></activity>
+        <activity android:name=".profile.view.DentistResultActivity"></activity>
+        <activity android:name=".profile.view.DentistFindingActivity" />
+        <activity android:name=".profile.view.DentistCheckUpActivity" />
         <activity android:name=".profile.view.AddPatientActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

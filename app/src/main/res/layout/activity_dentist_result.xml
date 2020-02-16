@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".profile.view.DentistResultActivity">
+    
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.dentalprofileapp.profile.viewmodel.DentistResultViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dentition_status_layout2"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dentition_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dentition Status"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tooth_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth18}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/dentition_status_label"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tooth_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth17}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_18"
+                app:layout_constraintTop_toTopOf="@+id/tooth_18"/>
+
+            <TextView
+                android:id="@+id/tooth_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth16}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_17"
+                app:layout_constraintTop_toTopOf="@+id/tooth_17"/>
+
+            <TextView
+                android:id="@+id/tooth_1555"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth1555}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_16"
+                app:layout_constraintTop_toTopOf="@+id/tooth_16"/>
+
+            <TextView
+                android:id="@+id/tooth_1454"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth1454}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_1555"
+                app:layout_constraintTop_toTopOf="@+id/tooth_1555"/>
+
+            <TextView
+                android:id="@+id/tooth_1353"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth1353}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_1454"
+                app:layout_constraintTop_toTopOf="@+id/tooth_1454"/>
+
+            <TextView
+                android:id="@+id/tooth_1252"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth1252}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_1353"
+                app:layout_constraintTop_toTopOf="@+id/tooth_1353"/>
+
+            <TextView
+                android:id="@+id/tooth_1151"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth1151}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_1252"
+                app:layout_constraintTop_toTopOf="@+id/tooth_1252"/>
+
+            <TextView
+                android:id="@+id/tooth_2161"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth2161}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_1151"
+                app:layout_constraintTop_toTopOf="@+id/tooth_1151"/>
+
+            <TextView
+                android:id="@+id/tooth_2262"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth2262}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_2161"
+                app:layout_constraintTop_toTopOf="@+id/tooth_2161"/>
+
+            <TextView
+                android:id="@+id/tooth_2363"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth2363}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_2262"
+                app:layout_constraintTop_toTopOf="@+id/tooth_2262"/>
+
+            <TextView
+                android:id="@+id/tooth_2464"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth2464}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_2363"
+                app:layout_constraintTop_toTopOf="@+id/tooth_2363"/>
+
+            <TextView
+                android:id="@+id/tooth_2565"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth2565}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_2464"
+                app:layout_constraintTop_toTopOf="@+id/tooth_2464"/>
+
+            <TextView
+                android:id="@+id/tooth_26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth26}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_2565"
+                app:layout_constraintTop_toTopOf="@+id/tooth_2565"/>
+
+            <TextView
+                android:id="@+id/tooth_27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth27}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_26"
+                app:layout_constraintTop_toTopOf="@+id/tooth_26"/>
+
+            <TextView
+                android:id="@+id/tooth_28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth28}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_27"
+                app:layout_constraintTop_toTopOf="@+id/tooth_27"/>
+
+            <TextView
+                android:id="@+id/tooth_48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth48}"
+                android:layout_marginLeft="32dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_18"/>
+
+            <TextView
+                android:id="@+id/tooth_47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth47}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_48"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_17"/>
+            <TextView
+                android:id="@+id/tooth_46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth46}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_47"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_16"/>
+
+            <TextView
+                android:id="@+id/tooth_4585"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth4585}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_46"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_1555"/>
+
+            <TextView
+                android:id="@+id/tooth_4484"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth4484}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_4585"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_1454"/>
+
+            <TextView
+                android:id="@+id/tooth_4383"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth4383}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_4484"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_1353"/>
+
+            <TextView
+                android:id="@+id/tooth_4282"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth4282}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_4383"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_1252"/>
+
+            <TextView
+                android:id="@+id/tooth_4181"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth4181}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_4282"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_1151"/>
+
+            <TextView
+                android:id="@+id/tooth_3171"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth3171}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_4181"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_2161"/>
+
+            <TextView
+                android:id="@+id/tooth_3272"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth3272}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_3171"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_2262"/>
+
+            <TextView
+                android:id="@+id/tooth_3373"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth3373}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_3272"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_2363"/>
+
+            <TextView
+                android:id="@+id/tooth_3474"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth3474}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_3373"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_2464"/>
+
+            <TextView
+                android:id="@+id/tooth_3575"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth3575}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_3474"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_2565"/>
+
+            <TextView
+                android:id="@+id/tooth_36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth36}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_3575"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_26"/>
+
+            <TextView
+                android:id="@+id/tooth_37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth37}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_36"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_27"/>
+
+            <TextView
+                android:id="@+id/tooth_38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.tooth38}"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintStart_toEndOf="@+id/tooth_37"
+                app:layout_constraintTop_toBottomOf="@+id/tooth_28"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/plaque_score_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/dentition_status_layout2"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/plaque_score_label2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Plaque Score:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/plaque_score_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@={viewmodel.plaqueScore}"
+                app:layout_constraintTop_toTopOf="@id/plaque_score_label2"
+                app:layout_constraintStart_toEndOf="@+id/plaque_score_label2"/>
+
+            <TextView
+                android:id="@+id/urgency_treatment_label2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:text="Urgency Of Treatment:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plaque_score_label2"/>
+
+            <TextView
+                android:id="@+id/urgency_treatment_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@={viewmodel.urgencyOfTreatment}"
+                app:layout_constraintTop_toTopOf="@+id/urgency_treatment_label2"
+                app:layout_constraintStart_toEndOf="@+id/urgency_treatment_label2"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

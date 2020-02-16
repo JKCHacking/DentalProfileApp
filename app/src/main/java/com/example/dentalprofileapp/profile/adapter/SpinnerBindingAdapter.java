@@ -1,4 +1,4 @@
-package com.example.dentalprofileapp.profile.viewmodel;
+package com.example.dentalprofileapp.profile.adapter;
 
 import android.view.View;
 import android.widget.AdapterView;

@@ -20,7 +20,7 @@ import android.widget.SearchView;
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
 import com.example.dentalprofileapp.profile.entities.Patient;
-import com.example.dentalprofileapp.profile.viewmodel.PatientListAdapter;
+import com.example.dentalprofileapp.profile.adapter.PatientListAdapter;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
 import com.example.dentalprofileapp.profile.viewmodel.SwipeController;
 import com.example.dentalprofileapp.profile.viewmodel.SwipeControllerActions;
@@ -34,6 +34,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     private PatientListAdapter adapter;
     private ToastUtil toastUtil;
     private String patientId;
+    private String patientName;
     private SwipeController swipeController = null;
 
     @Override
@@ -158,9 +159,10 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     }
 
     @Override
-    public void onTouch(String data) {
-        System.out.println("OnTouch() PatientId: " + data);
-        patientId = data;
+    public void onTouch(String dataPatientId, String dataPatientName) {
+        System.out.println("OnTouch() PatientId: " + dataPatientId);
+        patientId = dataPatientId;
+        patientName = dataPatientName;
     }
 
     @Override
@@ -168,6 +170,14 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         System.out.println("Checking up patientId " + patientId);
         Intent intent = new Intent(this, DentistCheckUpActivity.class);
         intent.putExtra("patientId", patientId);
+        this.startActivity(intent);
+    }
+
+    @Override
+    public void onLeftClicked(int position) {
+        Intent intent = new Intent(this, DentistFindingActivity.class);
+        intent.putExtra("patientId", patientId);
+        intent.putExtra("patientName", patientName);
         this.startActivity(intent);
     }
 }
