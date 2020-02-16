@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.adapter.PatientListAdapter;
@@ -39,6 +40,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     private String patientName;
     private SwipeController swipeController = null;
     private boolean hideMenu;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +56,9 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         patientListViewModel = ViewModelProviders.of(this).get(PatientListViewModel.class);
         activityPatientListBinding.setViewmodel(patientListViewModel);
 
-        RecyclerView recyclerView = findViewById(R.id.profile_list_recyclerview);
+        recyclerView = findViewById(R.id.profile_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
-        swipeController = new SwipeController(this);
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
 
         adapter = new PatientListAdapter(this, patientListViewModel.getSearchBy().getValue());
         recyclerView.setAdapter(adapter);
@@ -119,7 +109,19 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             public void onChanged(Boolean aBoolean) {
                 hideMenu = aBoolean;
                 getSupportActionBar().setDisplayHomeAsUpEnabled(aBoolean);
+                //if online swipe controller is active
+                if(!aBoolean) {
+                    patientListViewModel.getUser();
+                }
                 invalidateOptionsMenu();
+            }
+        });
+
+        patientListViewModel.userMutableData.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                String userType = user.getUserType();
+                setUpSwipeController(userType);
             }
         });
     }
@@ -209,5 +211,17 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         intent.putExtra("patientId", patientId);
         intent.putExtra("patientName", patientName);
         this.startActivity(intent);
+    }
+
+    private void setUpSwipeController(String userType){
+        swipeController = new SwipeController(this, userType);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
     }
 }

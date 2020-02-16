@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
 import com.example.dentalprofileapp.profile.dao.PatientDao;
 import com.example.dentalprofileapp.profile.entities.Patient;
@@ -236,6 +237,10 @@ public class PatientRepository {
 
     public void deleteAllPatients() {
         new DeleteAllPatientsAsyncTask(patientDao).execute();
+    }
+
+    public void getUser(String userId, MutableLiveData<User> userMutableLiveData){
+        authRepository.getUser(userId, userMutableLiveData);
     }
 
     //====================================ASYNC TASK CLASSES====================================

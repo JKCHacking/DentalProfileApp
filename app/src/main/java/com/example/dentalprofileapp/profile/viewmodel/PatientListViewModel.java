@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.profile.entities.Patient;
 import com.example.dentalprofileapp.profile.repository.ComorbidityRepository;
 import com.example.dentalprofileapp.profile.repository.PatientDentalImagesRepository;
@@ -32,6 +33,8 @@ public class PatientListViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> hideOnlineMenus;
 
     private FirebaseAuth firebaseAuth;
+
+    public MutableLiveData<User> userMutableData = new MutableLiveData<>();
 
     public PatientListViewModel(@NonNull Application application) {
         super(application);
@@ -120,5 +123,10 @@ public class PatientListViewModel extends AndroidViewModel {
         Context context = view.getContext();
         Intent intent = new Intent(context, AddPatientActivity.class);
         context.startActivity(intent);
+    }
+
+    public void getUser() {
+        String userId = firebaseAuth.getCurrentUser().getUid();
+        patientRepository.getUser(userId, userMutableData);
     }
 }

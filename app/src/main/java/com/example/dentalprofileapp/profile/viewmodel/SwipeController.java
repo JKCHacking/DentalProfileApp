@@ -33,13 +33,20 @@ public class SwipeController extends Callback {
 
     private static final float buttonWidth = 300;
 
-    public SwipeController(SwipeControllerActions buttonsActions) {
+    private String userType;
+
+    public SwipeController(SwipeControllerActions buttonsActions, String userType) {
         this.buttonsActions = buttonsActions;
+        this.userType = userType;
     }
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        return makeMovementFlags(0, LEFT | RIGHT); // this controls the direction of swipe
+        if(userType.equals("Dentist")) { //if dentist
+            return makeMovementFlags(0, LEFT | RIGHT); // this controls the direction of swipe
+        } else { // if teacher
+            return makeMovementFlags(0, RIGHT); // this controls the direction of swipe
+        }
     }
 
     @Override
