@@ -46,17 +46,17 @@ public class LoginFragment extends Fragment implements AuthListener {
 
     @Override
     public void onStarted() {
-        m_toastUtil.createToastMessage("onStarted");
+        System.out.println("onStarted");
     }
 
     @Override
     public void onSuccess() {
-        m_toastUtil.createToastMessage("onSuccess");
+        System.out.println("onSuccess");
     }
 
     @Override
     public void onFailure(String message) {
-        m_toastUtil.createToastMessage("message");
+        System.out.println(message);
     }
 
     @Override

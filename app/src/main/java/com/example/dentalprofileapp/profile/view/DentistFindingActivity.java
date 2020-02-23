@@ -57,8 +57,7 @@ public class DentistFindingActivity extends AppCompatActivity implements ItemAct
             public void onChanged(List<DentistFinding> dentistFindings) {
                 if(dentistFindings != null) {
                     adapter.setDentistFindingsList(dentistFindings);
-                } else {
-                    toastUtil.createToastMessage("No Dentist Findings retrieved");
+                    toastUtil.createToastMessage("Dentist Findings retrieved");
                 }
             }
         });
