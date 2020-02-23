@@ -30,6 +30,7 @@ public class AuthViewModel extends AndroidViewModel{
     public AuthListener authListener = null;
     private MutableLiveData<Boolean> isDisplayLoginFrame;
     private ToastUtil toastUtil;
+    public MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
 
     private AuthRepository authRepository;
 
@@ -101,9 +102,7 @@ public class AuthViewModel extends AndroidViewModel{
                 if(task.isSuccessful()) {
                     toastUtil.createToastMessage("Login Successful");
                     // call PatientListActivity
-                    Intent intent = new Intent(context, PatientListActivity.class);
-                    context.startActivity(intent);
-
+                    userMutableLiveData.setValue(user);
                 } else {
                     toastUtil.createToastMessage("Username or password is incorrect");
                 }
@@ -165,5 +164,9 @@ public class AuthViewModel extends AndroidViewModel{
         Context context = view.getContext();
         Intent intent = new Intent(context, PatientListActivity.class);
         context.startActivity(intent);
+    }
+
+    public Boolean checkSignedInUser() {
+        return authRepository.checkSignedInUser();
     }
 }

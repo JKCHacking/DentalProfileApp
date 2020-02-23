@@ -7,11 +7,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.dentalprofileapp.R;
+import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.auth.viewmodel.AuthViewModel;
 import com.example.dentalprofileapp.databinding.ActivityLoginBinding;
+import com.example.dentalprofileapp.profile.view.PatientListActivity;
 import com.google.firebase.auth.FirebaseAuth;
 //import com.example.dentalprofileapp.utils.ToastUtil;
 
@@ -56,5 +59,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         authViewModel.getIsDisplayLoginFrame().observe(this, isDisplayObserver);
+
+        authViewModel.userMutableLiveData.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                callPatientList();
+            }
+        });
+    }
+
+    private void callPatientList() {
+        Intent intent = new Intent(this, PatientListActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(authViewModel.checkSignedInUser()) {
+            callPatientList();
+        }
     }
 }

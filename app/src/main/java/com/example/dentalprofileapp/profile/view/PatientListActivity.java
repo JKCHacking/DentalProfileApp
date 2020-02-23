@@ -23,6 +23,7 @@ import android.widget.SearchView;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.entity.User;
+import com.example.dentalprofileapp.auth.view.LoginActivity;
 import com.example.dentalprofileapp.databinding.ActivityPatientListBinding;
 import com.example.dentalprofileapp.databinding.UploadListDialogBinding;
 import com.example.dentalprofileapp.profile.adapter.UploadListAdapter;
@@ -177,6 +178,8 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             case R.id.sign_out_button:
                 toastUtil.createToastMessage("Signing User out");
                 patientListViewModel.signOutUser();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 finish();
                 return true;
             case R.id.upload_button:
