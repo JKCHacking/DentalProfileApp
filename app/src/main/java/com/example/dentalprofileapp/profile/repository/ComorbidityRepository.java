@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ComorbidityRepository {
@@ -163,6 +164,38 @@ public class ComorbidityRepository {
         }
 
         return comorbiditiesResult;
+    }
+
+    public List<Comorbidity> getAllComorbidities() {
+        List<Comorbidity> comorbidityList = null;
+        try {
+            comorbidityList = new GetAllComorbities(comorbidityDao).execute().get();
+        }catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return comorbidityList;
+    }
+
+    public ArrayList<Comorbidity> getLocalComorbiditiesByPatientId(int patientId) {
+        try {
+            return new GetPatientByPatientIdAsyncTask(comorbidityDao).execute(patientId).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static class GetAllComorbities extends AsyncTask<Void, Void, List<Comorbidity>> {
+        private ComorbidityDao comorbidityDao;
+
+        private GetAllComorbities(ComorbidityDao comorbidityDao) {
+            this.comorbidityDao = comorbidityDao;
+        }
+
+        @Override
+        protected List<Comorbidity> doInBackground(Void... voids) {
+            return comorbidityDao.getAllComorbidities();
+        }
     }
 
     private static class GetPatientByPatientIdAsyncTask extends AsyncTask<Integer, Void, ArrayList<Comorbidity>> {

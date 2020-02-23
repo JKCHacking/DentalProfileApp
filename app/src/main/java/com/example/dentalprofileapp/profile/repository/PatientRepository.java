@@ -13,8 +13,11 @@ import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
 import com.example.dentalprofileapp.profile.dao.PatientDao;
 import com.example.dentalprofileapp.profile.entities.Patient;
+import com.example.dentalprofileapp.profile.entities.PatientOnlineModel;
 import com.example.dentalprofileapp.profile.viewmodel.PatientListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
@@ -43,7 +46,6 @@ public class PatientRepository {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         this.patientListViewModel = patientListViewModel;
-
     }
 
     public PatientRepository(Application application) {
@@ -60,6 +62,24 @@ public class PatientRepository {
 
     public void signOutUser(){
         authRepository.logoutUser();
+    }
+
+    public void uploadPatientOnlineModel(PatientOnlineModel patientOnlineModel, final MutableLiveData<List<Patient>> allPatientsMutableData) {
+        firebaseFirestore.collection("patients").document(patientOnlineModel.getPatientName())
+                .set(patientOnlineModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("DocumentSnapshot successfully written!");
+                        allPatientsMutableData.postValue(getAllPatientsOrderPatientName());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("DocumentSnapshot failed!");
+                    }
+                });
     }
 
     private void getPatientFromFirestore(String sortBy) {
@@ -243,7 +263,38 @@ public class PatientRepository {
         authRepository.getUser(userId, userMutableLiveData);
     }
 
+    public List<Patient> getAllLocalPatients() {
+        List<Patient> patientListResult = null;
+        try{
+            patientListResult = new GetAllPatient(patientDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return patientListResult;
+    }
+
+    public Patient getLocalPatientByPatientId(int patientId) {
+        try {
+            return new GetPatientByPatientIdAsyncTask(patientDao).execute(patientId).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //====================================ASYNC TASK CLASSES====================================
+    private static class GetAllPatient extends AsyncTask<Void, Void, List<Patient>> {
+        private PatientDao patientDao;
+
+        private GetAllPatient(PatientDao patientDao) {
+            this.patientDao = patientDao;
+        }
+
+        @Override
+        protected List<Patient> doInBackground(Void... voids) {
+            return patientDao.getAllPatientsOrderPatientName();
+        }
+    }
 
     private static class GetPatientByPatientIdAsyncTask extends AsyncTask<Integer, Void, Patient> {
         private PatientDao patientDao;

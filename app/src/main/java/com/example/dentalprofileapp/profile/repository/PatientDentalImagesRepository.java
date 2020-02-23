@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -113,10 +114,42 @@ public class PatientDentalImagesRepository {
         return patientDentalImagesResult;
     }
 
+    public PatientDentalImages getLocalPatientDentalImagesByPatientId(final int patientId) {
+        try {
+            return new GetPatientDentalImagesByPatientIdAsyncTask(patientDentalImagesDao).execute(patientId).get();
+        }catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void update(PatientDentalImages patientDentalImages) {
         new UpdateAsyncTask(patientDentalImagesDao).execute(patientDentalImages);
     }
 
+    public List<PatientDentalImages> getAllPatientDentalImages() {
+        List<PatientDentalImages> dentalImagesList;
+        try {
+            dentalImagesList = new GetAllDentalImagesAsyncTask(patientDentalImagesDao).execute().get();
+        }catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            dentalImagesList = null;
+        }
+        return dentalImagesList;
+    }
+
+    private static class GetAllDentalImagesAsyncTask extends AsyncTask<Void, Void, List<PatientDentalImages>> {
+        private PatientDentalImagesDao patientDentalImagesDao;
+
+        public  GetAllDentalImagesAsyncTask(PatientDentalImagesDao patientDentalImagesDao) {
+            this.patientDentalImagesDao = patientDentalImagesDao;
+        }
+
+        @Override
+        protected List<PatientDentalImages> doInBackground(Void... voids) {
+            return patientDentalImagesDao.getAllPatientDentalImages();
+        }
+    }
     private static class UpdateAsyncTask extends AsyncTask<PatientDentalImages, Void, Void> {
         private PatientDentalImagesDao patientDentalImagesDao;
 

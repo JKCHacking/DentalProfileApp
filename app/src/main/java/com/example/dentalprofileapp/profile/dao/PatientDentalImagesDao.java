@@ -7,6 +7,8 @@ import androidx.room.Query;
 
 import com.example.dentalprofileapp.profile.entities.PatientDentalImages;
 
+import java.util.List;
+
 @Dao
 public interface PatientDentalImagesDao {
     @Insert
@@ -33,4 +35,7 @@ public interface PatientDentalImagesDao {
 
     @Query("SELECT * FROM patient_dental_images_table WHERE fkPatientId = :patientId")
     PatientDentalImages getPatientDentalImagesByPatientId(int patientId);
+
+    @Query("SELECT * FROM patient_dental_images_table")
+    List<PatientDentalImages> getAllPatientDentalImages();
 }

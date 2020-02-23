@@ -50,4 +50,7 @@ public abstract class ComorbidityDao {
             "comorbidityName = :comorbidityName " +
             "WHERE fkPatientId = :patientId")
     public abstract void update(int patientId, String comorbidityName);
+
+    @Query("SELECT * FROM comorbidity_table")
+    public abstract List<Comorbidity> getAllComorbidities();
 }

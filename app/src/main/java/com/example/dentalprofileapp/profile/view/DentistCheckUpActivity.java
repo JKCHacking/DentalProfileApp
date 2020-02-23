@@ -5,15 +5,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.animation.Animator;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 
 import com.example.dentalprofileapp.R;
 import com.example.dentalprofileapp.auth.entity.User;
