@@ -142,10 +142,10 @@ public class PatientListViewModel extends AndroidViewModel {
         for(String patientId : checkedUploadPatientList) {
             int patientIdInt = Integer.parseInt(patientId);
             Patient patient = patientRepository.getLocalPatientByPatientId(patientIdInt);
-            String patientName = patient.getPatientName();
             PatientDentalImages dentalImages = patientDentalImagesRepository
                     .getLocalPatientDentalImagesByPatientId(patientIdInt);
 
+            String patientName = patient.getPatientName().replaceAll(" ", "_");
             uploadImages(dentalImages.getUrlFront(), patientName + "/front.jpeg");
             uploadImages(dentalImages.getUrlFrontFace(), patientName + "/front_face.jpeg");
             uploadImages(dentalImages.getUrlLeftBuccal(), patientName + "/left_buccal.jpeg");
@@ -223,7 +223,7 @@ public class PatientListViewModel extends AndroidViewModel {
             patientOnlineModel.setComorbidities(comorbidityNames);
 
             for(String url : urlList) {
-                if(url.contains(patient.getPatientName())) {
+                if(url.contains(patient.getPatientName().replaceAll(" ", "_"))) {
                     if(url.contains("face")) {
                         dentalImages.put("frontFace", url);
                     } else if(url.contains("right")) {
@@ -242,6 +242,7 @@ public class PatientListViewModel extends AndroidViewModel {
             patientOnlineModel.setDentalImages(dentalImages);
             patientRepository.uploadPatientOnlineModel(patientOnlineModel, allPatientsMutableData);
         }
+        checkedUploadPatientList.clear();
     }
     public void setCheckedUploadPatientList(String checkedPatientID) {
         checkedUploadPatientList.add(checkedPatientID);
