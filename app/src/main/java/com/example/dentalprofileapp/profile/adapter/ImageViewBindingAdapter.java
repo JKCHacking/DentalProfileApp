@@ -3,6 +3,7 @@ package com.example.dentalprofileapp.profile.adapter;
 import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 import com.example.dentalprofileapp.R;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -89,4 +90,31 @@ public class ImageViewBindingAdapter {
                     }
                 });
     }
+
+    @BindingAdapter("bind:srcPhotoView")
+    public static void srcPhotoView(PhotoView photoView, String imageUrl) {
+
+        if (imageUrl == null || imageUrl.equals("")) {
+            photoView.setImageResource(R.drawable.ic_launcher_foreground);
+        } else {
+            Picasso picasso = Picasso.get();
+            picasso.setIndicatorsEnabled(true);
+            picasso.load(imageUrl)
+                    .placeholder(R.drawable.ic_image_black_24dp)
+                    .error(R.drawable.ic_broken_image_black_24dp)
+                    .resize(750,750)
+                    .into(photoView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            System.out.println("Image loaded successfully");
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            System.out.println("Image failed to load, error: " + e.getMessage());
+                        }
+                    });
+        }
+    }
+
 }

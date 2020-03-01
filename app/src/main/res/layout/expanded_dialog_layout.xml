@@ -13,11 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/expanded_imageview"
+<!--        <ImageView-->
+<!--            android:id="@+id/expanded_imageview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            bind:srcImage2="@{viewmodel.urlExpandedImage}"/>-->
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/expanded_photoview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:srcImage2="@{viewmodel.urlExpandedImage}"/>
+            android:scaleType="centerCrop"
+            bind:srcPhotoView="@{viewmodel.urlExpandedImage}"/>
 
     </LinearLayout>
 </layout>
