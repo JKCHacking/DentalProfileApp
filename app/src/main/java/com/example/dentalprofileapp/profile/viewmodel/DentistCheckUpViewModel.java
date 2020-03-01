@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.dentalprofileapp.auth.entity.User;
 import com.example.dentalprofileapp.auth.repository.AuthRepository;
@@ -90,14 +89,14 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
     private MutableLiveData<String> tooth36 = new MutableLiveData<>();
     private MutableLiveData<String> tooth37 = new MutableLiveData<>();
     private MutableLiveData<String> tooth38 = new MutableLiveData<>();
-    private String plaqueScore;
+    private String calculusScore;
     private String urgencyOfTreatment;
 
-    //plaqueScore
-    public final ObservableBoolean plaqueScore0 = new ObservableBoolean();
-    public final ObservableBoolean plaqueScore1 = new ObservableBoolean();
-    public final ObservableBoolean plaqueScore2 = new ObservableBoolean();
-    public final ObservableBoolean plaqueScore3 = new ObservableBoolean();
+    //calculusScore
+    public final ObservableBoolean calculusScore0 = new ObservableBoolean();
+    public final ObservableBoolean calculusScore1 = new ObservableBoolean();
+    public final ObservableBoolean calculusScore2 = new ObservableBoolean();
+    public final ObservableBoolean calculusScore3 = new ObservableBoolean();
 
     //urgency of treatment
     public final ObservableBoolean urgency0 = new ObservableBoolean();
@@ -108,6 +107,8 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
 
     public DentistFindingsRepository dentistFindingsRepository;
     public MutableLiveData<DentistFinding> dentistFindingLiveData;
+
+    public MutableLiveData<Integer> saveStatus = new MutableLiveData<>();
 
     public DentistCheckUpViewModel(@NonNull Application application) {
         super(application);
@@ -405,12 +406,12 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
         this.tooth38 = tooth38;
     }
 
-    public String getPlaqueScore() {
-        return plaqueScore;
+    public String getCalculusScore() {
+        return calculusScore;
     }
 
-    public void setPlaqueScore(String plaqueScore) {
-        this.plaqueScore = plaqueScore;
+    public void setCalculusScore(String calculusScore) {
+        this.calculusScore = calculusScore;
     }
 
     public String getUrgencyOfTreatment() {
@@ -518,32 +519,32 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
         dentitionStatusMap.put("tooth37", tooth37.getValue());
         dentitionStatusMap.put("tooth38", tooth38.getValue());
 
-        setPlaqueScoreEntry();
+        setCalculusScoreEntry();
         setUrgencyEntry();
 
         dentistFinding.setDentistName(user.getName());
         dentistFinding.setPatientName(patientName.getValue());
         dentistFinding.setDentitionStatus(dentitionStatusMap);
-        dentistFinding.setPlaqueScore(plaqueScore);
+        dentistFinding.setCalculusScore(calculusScore);
         dentistFinding.setUrgencyOfTreatment(urgencyOfTreatment);
 
         dentistFindingLiveData.setValue(dentistFinding);
     }
 
-    private void setPlaqueScoreEntry() {
-        if (plaqueScore0.get()) {
-            plaqueScore = "0";
+    private void setCalculusScoreEntry() {
+        if (calculusScore0.get()) {
+            calculusScore = "0";
         }
-        else if (plaqueScore1.get()) {
-            plaqueScore = "1";
+        else if (calculusScore1.get()) {
+            calculusScore = "1";
         }
-        else if (plaqueScore2.get()) {
-            plaqueScore = "2";
+        else if (calculusScore2.get()) {
+            calculusScore = "2";
         }
-        else if (plaqueScore3.get()) {
-            plaqueScore = "3";
+        else if (calculusScore3.get()) {
+            calculusScore = "3";
         } else {
-            plaqueScore = "0";
+            calculusScore = "0";
         }
     }
 
@@ -570,6 +571,7 @@ public class DentistCheckUpViewModel extends AndroidViewModel {
     public void saveDentistFindingsData(DentistFinding dentistFinding) {
         dentistFindingsRepository.saveDentistFindings(dentistFinding,
                 patientName.getValue(), patientId.getValue());
+        saveStatus.setValue(1);
     }
 
 }

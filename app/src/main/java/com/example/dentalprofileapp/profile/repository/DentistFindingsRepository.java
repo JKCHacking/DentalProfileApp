@@ -1,9 +1,11 @@
 package com.example.dentalprofileapp.profile.repository;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dentalprofileapp.profile.entities.DentistFinding;
+import com.example.dentalprofileapp.utils.ToastUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +55,7 @@ public class DentistFindingsRepository {
                                     dentistFinding.setPatientName(document.getString("patientName"));
                                     dentistFinding.setDentistName(document.getString("dentistName"));
                                     dentistFinding.setDentitionStatus((HashMap<String, String>)document.get("dentitionStatus"));
-                                    dentistFinding.setPlaqueScore(document.getString("plaqueScore"));
+                                    dentistFinding.setCalculusScore(document.getString("calculusScore"));
                                     dentistFinding.setUrgencyOfTreatment(document.getString("urgencyOfTreatment"));
 
                                     dentistFindingsList.add(dentistFinding);
@@ -80,7 +82,7 @@ public class DentistFindingsRepository {
                             dentistFinding.setPatientName(document.getString("patientName"));
                             dentistFinding.setDentistName(document.getString("dentistName"));
                             dentistFinding.setDentitionStatus((HashMap<String, String>) document.get("dentitionStatus"));
-                            dentistFinding.setPlaqueScore(document.getString("plaqueScore"));
+                            dentistFinding.setCalculusScore(document.getString("calculusScore"));
                             dentistFinding.setUrgencyOfTreatment(document.getString("urgencyOfTreatment"));
                         }
 

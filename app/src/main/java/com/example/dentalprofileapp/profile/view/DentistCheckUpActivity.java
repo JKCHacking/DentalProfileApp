@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Window;
@@ -88,6 +89,19 @@ public class DentistCheckUpActivity extends AppCompatActivity {
                 dentistCheckUpViewModel.saveDentistFindingsData(dentistFinding);
             }
         });
+
+        dentistCheckUpViewModel.saveStatus.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                displayPatientListActivity();
+            }
+        });
+    }
+
+    private void displayPatientListActivity() {
+        Intent intent = new Intent(this, PatientListActivity.class);
+        this.startActivity(intent);
+        finish();
     }
 
     public void displayDialog(Context context) {

@@ -2,14 +2,14 @@
 <resources>
 
     <array name="barangay_list">
-        <item>Pasonanca</item>
-        <item>Sta. Maria</item>
-        <item>Divisoria</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
     </array>
 
     <array name="purok_list">
-        <item>Purok I</item>
-        <item>Purok II</item>
+        <item>A</item>
+        <item>B</item>
     </array>
 
     <array name="sort_by_list">

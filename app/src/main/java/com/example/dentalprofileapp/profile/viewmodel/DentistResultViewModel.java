@@ -47,7 +47,7 @@ public class DentistResultViewModel extends AndroidViewModel {
     private MutableLiveData<String> tooth36 = new MutableLiveData<>();
     private MutableLiveData<String> tooth37 = new MutableLiveData<>();
     private MutableLiveData<String> tooth38 = new MutableLiveData<>();
-    private MutableLiveData<String> plaqueScore = new MutableLiveData<>();
+    private MutableLiveData<String> calculusScore = new MutableLiveData<>();
     private MutableLiveData<String> urgencyOfTreatment = new MutableLiveData<>();
 
     public DentistResultViewModel(@NonNull Application application) {
@@ -314,12 +314,12 @@ public class DentistResultViewModel extends AndroidViewModel {
         this.tooth38 = tooth38;
     }
 
-    public MutableLiveData<String> getPlaqueScore() {
-        return plaqueScore;
+    public MutableLiveData<String> getCalculusScore() {
+        return calculusScore;
     }
 
-    public void setPlaqueScore(MutableLiveData<String> plaqueScore) {
-        this.plaqueScore = plaqueScore;
+    public void setCalculusScore(MutableLiveData<String> calculusScore) {
+        this.calculusScore = calculusScore;
     }
 
     public MutableLiveData<String> getUrgencyOfTreatment() {
@@ -336,7 +336,7 @@ public class DentistResultViewModel extends AndroidViewModel {
     }
 
     public void populateDentistResultToView(DentistFinding dentistFinding) {
-        plaqueScore.setValue(dentistFinding.getPlaqueScore());
+        calculusScore.setValue(dentistFinding.getCalculusScore());
         urgencyOfTreatment.setValue(dentistFinding.getUrgencyOfTreatment());
 
         HashMap<String, String> dentitionStatusMap;

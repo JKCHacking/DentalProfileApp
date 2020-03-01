@@ -6,7 +6,7 @@ public class DentistFinding {
     private String dentistName;
     private String patientName;
     private HashMap<String, String> dentitionStatus;
-    private String plaqueScore;
+    private String calculusScore;
     private String urgencyOfTreatment;
 
     public String getPatientName() {
@@ -33,12 +33,12 @@ public class DentistFinding {
         this.dentitionStatus = dentitionStatus;
     }
 
-    public String getPlaqueScore() {
-        return plaqueScore;
+    public String getCalculusScore() {
+        return calculusScore;
     }
 
-    public void setPlaqueScore(String plaqueScore) {
-        this.plaqueScore = plaqueScore;
+    public void setCalculusScore(String calculusScore) {
+        this.calculusScore = calculusScore;
     }
 
     public String getUrgencyOfTreatment() {

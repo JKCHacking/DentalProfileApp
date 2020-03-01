@@ -388,7 +388,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/plaque_score_layout2"
+            android:id="@+id/calculus_score_layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -398,22 +398,22 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/plaque_score_label2"
+                android:id="@+id/calculus_score_label2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Plaque Score:"
+                android:text="Calculus Score:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/plaque_score_display"
+                android:id="@+id/calculus_score_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@={viewmodel.plaqueScore}"
-                app:layout_constraintTop_toTopOf="@id/plaque_score_label2"
-                app:layout_constraintStart_toEndOf="@+id/plaque_score_label2"/>
+                android:text="@={viewmodel.calculusScore}"
+                app:layout_constraintTop_toTopOf="@id/calculus_score_label2"
+                app:layout_constraintStart_toEndOf="@+id/calculus_score_label2"/>
 
             <TextView
                 android:id="@+id/urgency_treatment_label2"
@@ -423,7 +423,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Urgency Of Treatment:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plaque_score_label2"/>
+                app:layout_constraintTop_toBottomOf="@+id/calculus_score_label2"/>
 
             <TextView
                 android:id="@+id/urgency_treatment_display"
