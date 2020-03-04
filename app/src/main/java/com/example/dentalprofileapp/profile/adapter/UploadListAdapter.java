@@ -41,17 +41,17 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Up
         holder.textViewPatientName.setText(patientName);
         holder.textViewPatientId.setText(patientId);
 
-        holder.setOnclickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.checkBox.setChecked(!holder.checkBox.isChecked());
-                if(holder.checkBox.isChecked()) {
-                    itemCheckListener.onItemCheck(patientId);
-                } else {
-                    itemCheckListener.onItemUncheck(patientId);
-                }
-            }
-        });
+//        holder.setOnclickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                holder.checkBox.setChecked(!holder.checkBox.isChecked());
+//                if(holder.checkBox.isChecked()) {
+//                    itemCheckListener.onItemCheck(patientId);
+//                } else {
+//                    itemCheckListener.onItemUncheck(patientId);
+//                }
+//            }
+//        });
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override

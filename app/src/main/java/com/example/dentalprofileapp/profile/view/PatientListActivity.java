@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 
 import com.example.dentalprofileapp.R;
@@ -78,6 +79,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
                 if (patients != null) {
                     adapter.setPatients(patients);
                     toastUtil.createToastMessage("Patients retrieved");
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 } else {
                     System.out.println("No Patients retrieved");
                     toastUtil.createToastMessage("Please wait for patients to be retrieved");
@@ -146,6 +148,13 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             @Override
             public void onChanged(ArrayList<String> strings) {
                 patientListViewModel.composeAndUpload(strings);
+            }
+        });
+
+        patientListViewModel.errorUpload.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                toastUtil.createToastMessage("An error occured during upload of images: " + s);
             }
         });
     }
@@ -266,6 +275,8 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 System.out.println("Upload button pressed!");
+                toastUtil.createToastMessage("Uploading All Selected Patients");
+                findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
                 patientListViewModel.uploadDentalImages();
             }
         });

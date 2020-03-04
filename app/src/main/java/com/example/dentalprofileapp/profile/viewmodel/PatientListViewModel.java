@@ -45,6 +45,7 @@ public class PatientListViewModel extends AndroidViewModel {
     public MutableLiveData<User> userMutableData = new MutableLiveData<>();
     public MutableLiveData<List<Patient>> localPatients = new MutableLiveData<>();
     private ArrayList<String> checkedUploadPatientList = new ArrayList<>();
+    public MutableLiveData<String> errorUpload = new MutableLiveData<>();
 
     public MutableLiveData<ArrayList<String>> urlListLiveData = new MutableLiveData<>();
     private ArrayList<String> urlList = new ArrayList<>();
@@ -169,6 +170,7 @@ public class PatientListViewModel extends AndroidViewModel {
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
                 System.out.println("Failed to upload image");
+                errorUpload.setValue(exception.getMessage());
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
