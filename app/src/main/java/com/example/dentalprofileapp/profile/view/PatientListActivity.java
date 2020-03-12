@@ -78,7 +78,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             public void onChanged(List<Patient> patients) {
                 if (patients != null) {
                     adapter.setPatients(patients);
-                    toastUtil.createToastMessage("Patients retrieved");
+//                    toastUtil.createToastMessage("Patients retrieved");
 //                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 } else {
                     System.out.println("No Patients retrieved");
