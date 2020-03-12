@@ -181,7 +181,7 @@ public class PatientListViewModel extends AndroidViewModel {
                         // Got the download URL for 'users/me/profile.png'
                         String patientName = getPatientNameInUrl(uri.toString());
                         urlList.add(uri.toString());
-                        ArrayList<String>() singlePatientUrlList = getSinglePatientDentalImages(patientName);
+                        ArrayList<String> singlePatientUrlList = getSinglePatientDentalImages(patientName);
 
                         if(singlePatientUrlList.size() == 6) {
                             composePatientOnlineModel(singlePatientUrlList);
@@ -217,7 +217,7 @@ public class PatientListViewModel extends AndroidViewModel {
             }
         }
 
-        return singlePatientUrlList
+        return singlePatientUrlList;
     }
 
     public String getPatientNameInUrl(String url) {
@@ -241,7 +241,7 @@ public class PatientListViewModel extends AndroidViewModel {
             HashMap<String, String> dentalImages = new HashMap<>();
 
             Patient patient = patientRepository.getLocalPatientByPatientId(patientIdInt);
-            if (urlList[0].contains(patient.getPatientName())) {
+            if (urlList.get(0).contains(patient.getPatientName())) {
                 ArrayList<Comorbidity> comorbidities = comorbidityRepository.getLocalComorbiditiesByPatientId(patientIdInt);
 
                 for(Comorbidity comorbidity : comorbidities ) {
