@@ -46,6 +46,7 @@ public class PatientListViewModel extends AndroidViewModel {
     public MutableLiveData<List<Patient>> localPatients = new MutableLiveData<>();
     private ArrayList<String> checkedUploadPatientList = new ArrayList<>();
     public MutableLiveData<String> errorUpload = new MutableLiveData<>();
+    public MutableLiveData<Integer> successUpload = new MutableLiveData<>();
 
     public MutableLiveData<ArrayList<String>> urlListLiveData = new MutableLiveData<>();
     private ArrayList<String> urlList = new ArrayList<>();
@@ -186,6 +187,7 @@ public class PatientListViewModel extends AndroidViewModel {
                         if(singlePatientUrlList.size() == 6) {
                             composePatientOnlineModel(singlePatientUrlList);
                         }
+                        successUpload.postValue(successUpload.getValue() + 1)
                         // urlListLiveData.setValue(urlList);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
