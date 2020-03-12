@@ -79,7 +79,6 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
                 if (patients != null) {
                     adapter.setPatients(patients);
                     toastUtil.createToastMessage("Patients retrieved");
-                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 } else {
                     System.out.println("No Patients retrieved");
                     toastUtil.createToastMessage("Please wait for patients to be retrieved");
@@ -156,6 +155,18 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             public void onChanged(String s) {
                 toastUtil.createToastMessage("An error occured during upload of images: " + s);
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            }
+        });
+
+        patientListViewModel.successUpload.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                toastUtil.createToastMessage("Patient Uploaded "
+                        + integer + "/" + patientListViewModel.checkedUploadPatientList.size());
+                if (patientListViewModel.checkedUploadPatientList.size() == integer) {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                    toastUtil.createToastMessage("Upload Complete!");
+                }
             }
         });
     }

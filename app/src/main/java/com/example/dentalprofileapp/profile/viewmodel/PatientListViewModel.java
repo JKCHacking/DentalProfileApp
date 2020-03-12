@@ -44,7 +44,7 @@ public class PatientListViewModel extends AndroidViewModel {
     private FirebaseAuth firebaseAuth;
     public MutableLiveData<User> userMutableData = new MutableLiveData<>();
     public MutableLiveData<List<Patient>> localPatients = new MutableLiveData<>();
-    private ArrayList<String> checkedUploadPatientList = new ArrayList<>();
+    public ArrayList<String> checkedUploadPatientList = new ArrayList<>();
     public MutableLiveData<String> errorUpload = new MutableLiveData<>();
     public MutableLiveData<Integer> successUpload = new MutableLiveData<>();
 
@@ -68,6 +68,7 @@ public class PatientListViewModel extends AndroidViewModel {
 
         sortBy.setValue("Patient Name");
         searchBy.setValue("Patient Name");
+        successUpload.setValue(0);
         allPatientsMutableData.postValue(patientRepository.getAllPatientsOrderPatientName());
     }
 
@@ -180,14 +181,14 @@ public class PatientListViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(Uri uri) {
                         // Got the download URL for 'users/me/profile.png'
-                        String patientName = getPatientNameInUrl(uri.toString());
                         urlList.add(uri.toString());
+                        String patientName = getPatientNameInUrl(uri.toString());
                         ArrayList<String> singlePatientUrlList = getSinglePatientDentalImages(patientName);
 
                         if(singlePatientUrlList.size() == 6) {
                             composePatientOnlineModel(singlePatientUrlList);
+                            successUpload.postValue(successUpload.getValue() + 1);
                         }
-                        successUpload.postValue(successUpload.getValue() + 1)
                         // urlListLiveData.setValue(urlList);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -218,7 +219,6 @@ public class PatientListViewModel extends AndroidViewModel {
                 singlePatientUrlList.add(url);
             }
         }
-
         return singlePatientUrlList;
     }
 
@@ -226,8 +226,7 @@ public class PatientListViewModel extends AndroidViewModel {
 		String[] strUrlArray = url.split("/");
 		String imageInfo = strUrlArray[strUrlArray.length - 1];
 		String[] imageInfoSplit = imageInfo.split("%");
-		String patientName = imageInfoSplit[0];
-        return patientName;
+        return imageInfoSplit[0];
     }
 
     public void getLocalPatientData() {
@@ -243,7 +242,8 @@ public class PatientListViewModel extends AndroidViewModel {
             HashMap<String, String> dentalImages = new HashMap<>();
 
             Patient patient = patientRepository.getLocalPatientByPatientId(patientIdInt);
-            if (urlList.get(0).contains(patient.getPatientName())) {
+            String patientName = patient.getPatientName();
+            if (urlList.get(0).contains(patientName.replaceAll(" ", "_"))) {
                 ArrayList<Comorbidity> comorbidities = comorbidityRepository.getLocalComorbiditiesByPatientId(patientIdInt);
 
                 for(Comorbidity comorbidity : comorbidities ) {
@@ -285,7 +285,7 @@ public class PatientListViewModel extends AndroidViewModel {
             }
             
         }
-        checkedUploadPatientList.clear();
+//        `checkedUploadPatientList.clear();`
     }
     public void setCheckedUploadPatientList(String checkedPatientID) {
         checkedUploadPatientList.add(checkedPatientID);
