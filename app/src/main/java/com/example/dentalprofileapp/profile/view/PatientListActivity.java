@@ -147,7 +147,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         patientListViewModel.urlListLiveData.observe(this, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
-                patientListViewModel.composeAndUpload(strings);
+                // patientListViewModel.composeAndUpload(strings);
             }
         });
 

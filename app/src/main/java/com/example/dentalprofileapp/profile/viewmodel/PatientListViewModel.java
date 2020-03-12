@@ -179,8 +179,14 @@ public class PatientListViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(Uri uri) {
                         // Got the download URL for 'users/me/profile.png'
+                        String patientName = getPatientNameInUrl(uri.toString());
                         urlList.add(uri.toString());
-                        urlListLiveData.setValue(urlList);
+                        ArrayList<String>() singlePatientUrlList = getSinglePatientDentalImages(patientName);
+
+                        if(singlePatientUrlList.size() == 6) {
+                            composePatientOnlineModel(singlePatientUrlList);
+                        }
+                        // urlListLiveData.setValue(urlList);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -193,56 +199,89 @@ public class PatientListViewModel extends AndroidViewModel {
         });
     }
 
+    public ArrayList<String> getSinglePatientDentalImages(String patientName) {
+        ArrayList<String> singlePatientUrlList = new ArrayList<>();
+        for(String url : this.urlList) {
+            if (url.contains(patientName.replaceAll(" ", "_")) && url.contains("front_face.jpeg")) {
+                singlePatientUrlList.add(url);
+            } else if (url.contains(patientName.replaceAll(" ", "_")) && url.contains("front.jpeg")) {
+                singlePatientUrlList.add(url);
+            } else if (url.contains(patientName.replaceAll(" ", "_")) && url.contains("left_buccal.jpeg")) {
+                singlePatientUrlList.add(url);
+            } else if (url.contains(patientName.replaceAll(" ", "_")) && url.contains("right_buccal.jpeg")) {
+                singlePatientUrlList.add(url);
+            } else if (url.contains(patientName.replaceAll(" ", "_")) && url.contains("lower_occlusal.jpeg")) {
+                singlePatientUrlList.add(url);
+            } else if (url.contains(patientName.replaceAll(" ", "_")) && url.contains("upper_occlusal.jpeg")) {
+                singlePatientUrlList.add(url);
+            }
+        }
+
+        return singlePatientUrlList
+    }
+
+    public String getPatientNameInUrl(String url) {
+		String[] strUrlArray = url.split("/");
+		String imageInfo = strUrlArray[strUrlArray.length - 1];
+		String[] imageInfoSplit = imageInfo.split("%");
+		String patientName = imageInfoSplit[0];
+        return patientName;
+    }
+
     public void getLocalPatientData() {
         localPatients.setValue(patientRepository.getAllLocalPatients());
     }
 
     private void composePatientOnlineModel(ArrayList<String> urlList) {
         System.out.println(urlList);
+
         for(String patientId : checkedUploadPatientList) {
             int patientIdInt = Integer.parseInt(patientId);
             ArrayList<String> comorbidityNames = new ArrayList<>();
             HashMap<String, String> dentalImages = new HashMap<>();
 
             Patient patient = patientRepository.getLocalPatientByPatientId(patientIdInt);
-            ArrayList<Comorbidity> comorbidities = comorbidityRepository.getLocalComorbiditiesByPatientId(patientIdInt);
+            if (urlList[0].contains(patient.getPatientName())) {
+                ArrayList<Comorbidity> comorbidities = comorbidityRepository.getLocalComorbiditiesByPatientId(patientIdInt);
 
-            for(Comorbidity comorbidity : comorbidities ) {
-                comorbidityNames.add(comorbidity.getComorbidityName());
-            }
+                for(Comorbidity comorbidity : comorbidities ) {
+                    comorbidityNames.add(comorbidity.getComorbidityName());
+                }
 
-            PatientOnlineModel patientOnlineModel = new PatientOnlineModel();
-            patientOnlineModel.setAge(patient.getAge());
-            patientOnlineModel.setAllergies(patient.getAllergies());
-            patientOnlineModel.setBarangay(patient.getBarangay());
-            patientOnlineModel.setOccupation(patient.getOccupation());
-            patientOnlineModel.setPatientId(patient.getPatientId());
-            patientOnlineModel.setPatientName(patient.getPatientName());
-            patientOnlineModel.setPregnant(patient.getPregnant());
-            patientOnlineModel.setPurok(patient.getPurok());
-            patientOnlineModel.setRegisteredDate(patient.getDate());
-            patientOnlineModel.setSex(patient.getSex());
-            patientOnlineModel.setComorbidities(comorbidityNames);
+                PatientOnlineModel patientOnlineModel = new PatientOnlineModel();
+                patientOnlineModel.setAge(patient.getAge());
+                patientOnlineModel.setAllergies(patient.getAllergies());
+                patientOnlineModel.setBarangay(patient.getBarangay());
+                patientOnlineModel.setOccupation(patient.getOccupation());
+                patientOnlineModel.setPatientId(patient.getPatientId());
+                patientOnlineModel.setPatientName(patient.getPatientName());
+                patientOnlineModel.setPregnant(patient.getPregnant());
+                patientOnlineModel.setPurok(patient.getPurok());
+                patientOnlineModel.setRegisteredDate(patient.getDate());
+                patientOnlineModel.setSex(patient.getSex());
+                patientOnlineModel.setComorbidities(comorbidityNames);
 
-            for(String url : urlList) {
-                if(url.contains(patient.getPatientName().replaceAll(" ", "_"))) {
-                    if(url.contains("face")) {
-                        dentalImages.put("frontFace", url);
-                    } else if(url.contains("right")) {
-                        dentalImages.put("rightBuccal", url);
-                    } else if(url.contains("left")) {
-                        dentalImages.put("leftBuccal", url);
-                    }else if(url.contains("upper")) {
-                        dentalImages.put("upperOcclusal", url);
-                    }else if(url.contains("lower")) {
-                        dentalImages.put("lowerOcclusal", url);
-                    }else {
-                        dentalImages.put("front", url);
+                for(String url : urlList) {
+                    if(url.contains(patient.getPatientName().replaceAll(" ", "_"))) {
+                        if(url.contains("face")) {
+                            dentalImages.put("frontFace", url);
+                        } else if(url.contains("right")) {
+                            dentalImages.put("rightBuccal", url);
+                        } else if(url.contains("left")) {
+                            dentalImages.put("leftBuccal", url);
+                        }else if(url.contains("upper")) {
+                            dentalImages.put("upperOcclusal", url);
+                        }else if(url.contains("lower")) {
+                            dentalImages.put("lowerOcclusal", url);
+                        }else {
+                            dentalImages.put("front", url);
+                        }
                     }
                 }
+                patientOnlineModel.setDentalImages(dentalImages);
+                patientRepository.uploadPatientOnlineModel(patientOnlineModel, allPatientsMutableData);
             }
-            patientOnlineModel.setDentalImages(dentalImages);
-            patientRepository.uploadPatientOnlineModel(patientOnlineModel, allPatientsMutableData);
+            
         }
         checkedUploadPatientList.clear();
     }
