@@ -189,6 +189,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     protected void onResume() {
         super.onResume();
         patientListViewModel.setAllPatients();
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         System.out.println("onResume");
     }
 
@@ -256,6 +257,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         Intent intent = new Intent(this, DentistCheckUpActivity.class);
         intent.putExtra("patientId", patientId);
         this.startActivity(intent);
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -264,6 +266,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
         intent.putExtra("patientId", patientId);
         intent.putExtra("patientName", patientName);
         this.startActivity(intent);
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
     }
 
     private void setUpSwipeController(String userType){
