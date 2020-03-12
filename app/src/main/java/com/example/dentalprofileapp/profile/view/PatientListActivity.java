@@ -101,7 +101,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             }
         });
 
-        SearchView searchView = (SearchView) findViewById(R.id.search_patient_searchview);
+        SearchView searchView = findViewById(R.id.search_patient_searchview);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -155,6 +155,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
             @Override
             public void onChanged(String s) {
                 toastUtil.createToastMessage("An error occured during upload of images: " + s);
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
         });
     }
@@ -224,7 +225,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
     public void onClick(String data) {
         //call the AddPatientActivity
         //add an intent extras
-
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         Intent intent = new Intent(this, AddPatientActivity.class);
         intent.putExtra("patientId", data);
         this.startActivity(intent);
