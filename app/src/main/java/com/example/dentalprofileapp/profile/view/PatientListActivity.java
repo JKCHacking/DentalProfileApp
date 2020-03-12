@@ -79,6 +79,7 @@ public class PatientListActivity extends AppCompatActivity implements ItemAction
                 if (patients != null) {
                     adapter.setPatients(patients);
                     toastUtil.createToastMessage("Patients retrieved");
+//                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 } else {
                     System.out.println("No Patients retrieved");
                     toastUtil.createToastMessage("Please wait for patients to be retrieved");
